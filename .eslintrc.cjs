@@ -3,15 +3,15 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:prettier/recommended"],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: 'module',
   },
   rules: {
-    "no-unused-vars": "error",
-    "no-console": "off",
-    quotes: ["error", "double", { avoidEscape: true }],
-    "prettier/prettier": "error",
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'no-console': 'off',
+    quotes: ['error', 'single', { avoidEscape: true }],
+    'prettier/prettier': 'error',
   },
 };
