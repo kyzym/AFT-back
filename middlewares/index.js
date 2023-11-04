@@ -1,3 +1,3 @@
-import { ctrlWrapper } from "./ctrlWrapper.js";
+import { ctrlWrapper } from './ctrlWrapper.js';
 
 export default { ctrlWrapper };
