@@ -31,7 +31,7 @@ export const getUsers = {
         properties: {
           id: {
             type: 'string',
-            format: 'uuid or so',
+            format: 'uuid',
           },
           name: {
             type: 'string',
