@@ -1,0 +1,132 @@
+The same routes for users, chefs and delivery
+POST: /auth/register - registration
+POST: /auth/login - enter to account
+GET: /auth/logout - exit from account
+POST: /auth/forgot-password - request to change password
+POST: /auth/reset-password - password reset
+
+/************/
+
+USER ENDPOINTS:
+
+GET: /users/:userId - get user's info
+PATCH: /users/:userId - update user's info
+DELETE: /users/:userId - delete user's account
+
+GET: /dishes - get a list of dishes
+GET: /dishes/:dishId - get dish information
+GET: /dishes/popular - get popular dishes
+GET: /dishes/random - get some random dish
+
+GET: /chefs - get all chefs
+
+GET: /users/:userId/favourites?type=chef(dish) - get user's favourite dishes or chefs
+	or /users/:userId/favourite-dishes and /users/:userId/favourite-chefs
+POST, DELETE:
+/users/:userId/favourites?type=dishes - add/delete the dish to favourites (passing dishId)
+/users//:userId/favourites?type=chefs - add/delete the chef to favourites (passing chefId)
+
+**user's cart will be stored on the server instead of in local storage
+GET: /users/:userId/cart - get the cart info
+POST: /users/:userId/cart - add the dish to the cart (passing dishId)
+PATCH: /users/:userId/cart - update information about the dish in the cart (passing dishId)
+DELETE: /users/:userId/cart  - delete the dish from the cart (passing dishId)
+
+GET: /notifications/:userId - get notifications of this user
+
+POST: /reviews - create a new comment to this dish (pass dishId and userId)
+PATCH: /reviews/:reviewId - update user's comment to this dish
+DELETE: /reviews/:reviewId - delete user's comment to this dish
+
+GET: /orders/:userId - get user's orders list
+GET: /orders/:orderId - get a particular order
+POST: /orders - add a new order to user's orders list
+
+/************/
+
+CHEF ENDPOINTS:
+
+GET: /chefs/:chefId - get chef's info
+PATCH: /chefs/:chefId - update chef's info
+DELETE: /chefs/:chefId - delete chef's account
+
+GET: /dishes/:chefId - get all dishes of this chef
+POST: /dishes - create a new dish of this chef
+GET: /dishes/:dishId - get a particular dish
+PATCH: /dishes/:dishId - update a particular dish of this chef
+DELETE: /dishes/:dishId - delete a particular dish of this chef
+
+GET: /notifications/:chefId - get notifications of this chef
+
+GET: /orders/:chefId?status=(new, completed, canceled) - get chef's all orders
+GET: /orders/:orderId - get a particular order
+PATCH: /orders/:orderId - update status of this order
+
+POST: /reviews - create a new comment to this dish (passing dishId and chefId)
+PATCH: /reviews/:reviewId - update chef's comment to this dish
+DELETE: /reviews/:reviewId - delete chef's comment to this dish
+
+
+/************/
+
+DELIVERY PERSON ENDPOINTS:
+
+GET: /deliveries?status=(active) - get the list of all delivery persons, sorted by distance and availability based on delivery person's current location and other factors
+
+GET: /deliveries/:deliveryId - get delivery person information
+DELETE: /deliveries/:deliveryId - delete delivery person account
+PATCH: /deliveries/:deliveryId - update delivery profile info: toggle 'ready for work' status (active / not active), update 'current location' when active, update personal info
+
+GET: /orders/:deliveryId?status=(new, completed, canceled) - get info about all orders details according to their status
+
+GET: /notifications/:deliveryId - get notifications for delivery person
+
+/************/
+
+ADMIN ENDPOINTS:
+
+GET: /users - get all users' info
+GET: /users/:userId - get user's info
+PATCH: /users/:userId - update user's info
+DELETE: /users/:userId - delete user's account
+
+GET: /chefs - get all chefs' info
+GET: /chefs/:chefId - get chef's info
+PATCH: /chefs/:chefId - update chef's info
+DELETE: /chefs/:chefId - delete chef's account
+
+GET: /deliveries - get all delivery persons' info
+GET: /deliveries/:deliveryId - get a particular delivery person
+PATCH: /deliveries/:deliveryId - update a particular delivery person
+DELETE: /deliveries/:deliveryId - delete a particular delivery person
+
+GET: /dishes - get all dishes info
+GET: /dishes/:dishId - get a particular dish
+PATCH: /dishes/:dishId - update a particular dish
+DELETE: /dishes/:dishId - delete a particular dish
+
+GET: /orders - get all orders info
+GET: /orders/:orderId - get a particular order
+PATCH: /orders/:orderId - update a particular order
+DELETE: /dishes/:orderId - delete a particular order
+
+GET: /reviews?dish=dishId&chef=chefId - get comments of a particular dish
+PATCH: /reviews/:reviewId - update a particular comment
+DELETE: /reviews/:reviewId - delete a particular comment
+
+GET: /notifications/:userId - get notifications of this chef
+POST: /notifications - create new notification
+
+GET: /orders/stats - get statistics about orders
+GET: /chefs/stats - get statistics about chefs
+GET: /deliveries/stats - get statistics about delivery persons
+GET: /users/stats - get statistics about users
+GET: /revenue/stats - calculate how much was purchased through the app
+
+/************/
+
+ПИТАННЯ:
+
+1) Яким способом нам краще здійснити оплату і відображати баланс? Чи буде це просто заповнення полів із фіктивним переказом коштів, чи реальне під'єднання платіжної системи з використанням якихось ось тестових карток, чи якийсь інший варіант?
+
+2) Яка інфа потрібна і може бути збережена на сервері щодо транзакцій, доходу, поточного балансу тощо?
