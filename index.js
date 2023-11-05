@@ -30,7 +30,12 @@ app.use((_req, res) => {
 app.use((err, _req, res, _next) => {
   const { status = 500 } = err;
 
-  res.status(status).json(err.message);
+  console.error(err);
+
+  res.status(status).json({
+    status: 'error',
+    message: 'Something went wrong...',
+  });
 });
 
 app.listen(PORT, () => {
