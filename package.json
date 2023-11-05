@@ -1,7 +1,7 @@
 {
   "name": "aft-back",
   "version": "1.0.0",
-  "description": "",
+  "description": "backend for IDLO project",
   "main": "index.js",
   "type": "module",
   "scripts": {
