@@ -31,12 +31,12 @@ export const getAllOrders = {
         properties: {
           id: {
             type: 'string',
-            format: 'uuid od so',
+            format: 'uuid',
           },
-          items: {
+          dishes: {
             type: 'array',
             items: {
-              $ref: '#/components/schemas/OrderItem',
+              $ref: '#/components/schemas/Dish',
             },
           },
           status: {
@@ -44,20 +44,20 @@ export const getAllOrders = {
             enum: ['placed', 'confirmed', 'delivered', 'cancelled'],
           },
         },
-        required: ['id', 'items', 'status'],
+        required: ['id', 'dishes', 'status'],
       },
-      OrderItem: {
+      Dish: {
         type: 'object',
         properties: {
-          productId: {
+          dishId: {
             type: 'string',
-            format: 'maybe uuid',
+            format: 'uuid',
           },
           quantity: {
             type: 'integer',
           },
         },
-        required: ['productId', 'quantity'],
+        required: ['dishId', 'quantity'],
       },
     },
   },
