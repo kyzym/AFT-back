@@ -1,0 +1,142 @@
+AUTH ENDPOINTS
+
+There are two ways how we think registration can be done:
+1. First - store a person's data in their document. One account - one role. In this case, registration endpoints will look like this:
+POST: /users/register - registration
+POST: /chefs/register - registration
+POST /couriers/register - registration
+POST /admins/register - registration
+
+2. Second - store a person's data and role in a separate collection. Store specific role data in other collections (users, chefs, couriers, admins). One account - several roles. In this case, the registration endpoint will look like this:
+@user, @chef, @courier, @admin
+POST: /auth/register -  registration
+
+@user, @chef, @courier, @admin
+POST: /auth/login - enter to account
+POST: /auth/logout - exit from account
+POST: /auth/forgot-password - request to change password
+POST: /auth/reset-password - password reset
+
+/************/
+
+DISH ENDPOINTS:
+
+@user, @admin
+GET: /dishes - get a list of dishes
+GET: /dishes?chef=chefId - get a list of dishes for a particular chef
+
+@user, @chef, @courier, @admin
+GET: /dishes/:dishId - get dish information
+
+@chef
+GET: /dishes/own - get all dishes of this chef
+POST: /dishes - create a new dish of this chef
+
+@user
+GET: /dishes/popular - get popular dishes
+GET: /dishes/random - get some random dish
+
+@chef, @admin
+PATCH, DELETE: /dishes/:dishId - (update, delete) a particular dish of this chef. For PATCH request admin can approve/reject the dish
+
+
+/************/
+
+REVIEW ENDPOINTS:
+
+@chef, @admin
+GET: /reviews/by-chef/:chefId - get all comments related to a particular chef's dishes
+@user, @courier, @chef, @admin
+GET: /reviews/by-dish/:dishId - get all comments of the dishes
+@user, @chef
+POST: /reviews - create a new comment to this dish
+PATCH: /reviews/:reviewId - update person's comment to this dish
+@user, @chef, @admin
+DELETE: /reviews/:reviewId - delete person's comment to this dish
+
+/************/
+
+USER ENDPOINTS:
+
+@admin
+GET: /users - get all users' info
+@user, @admin
+GET, PATCH, DELETE: /users/:userId - (get, update, delete) user's info. For PATCH request admin can change user's status
+
+@user
+GET: /users/:userId/favourites/:type - get user's favourite dishes or chefs
+POST, DELETE: /users/:userId/favourites/:type - add/delete the dish or the to chefId favourites (passing dishId or chefId)
+
+@user
+GET: /users/:userId/cart - get the cart info
+POST: /users/:userId/cart - add the dish to the cart (passing dishId)
+PATCH: /users/:userId/cart - update information about the dish(es) in the cart.
+DELETE: /users/:userId/cart  - delete the dish from the cart (passing dishId)
+
+@user
+GET: /users/:userId/orders - get user's orders list
+GET, DELETE: users/:userId/orders/:orderId - (get, delete) a particular order
+POST: /orders - add a new order to user's orders list
+PATCH: users/:userId/orders/:orderId - update the particular order UNTIL the chef approves it
+
+/************/
+
+CHEF ENDPOINTS:
+
+@user, @chef, @admin
+GET: /chefs - get all chefs
+
+@user, @chef, @courier, @admin
+GET: /chefs/:chefId - get chef's info
+
+@chef, @admin
+PATCH: /chefs/:chefId - update chef's info. For PATCH request admin can change chef's status
+DELETE: /chefs/:chefId - delete chef's account
+
+@chef, @admin
+GET: /chefs/:chefId/orders - get all chef's orders
+GET: /chefs/:chefId/orders?status=(new, completed, canceled) - get all chef's orders according to their status
+@chef
+PATCH: /chefs/:chefId/orders/:orderId - update status of the order
+
+/************/
+
+COURIER ENDPOINTS:
+
+@admin
+GET: /couriers - get all /couriers' info
+@courier, @admin
+GET: /couriers?status=(active, inactive) - get the list of all delivery persons
+
+@user, @chef, @courier, @admin
+GET: /couriers/:courierId - get courier's information. 
+@courier, @admin
+PATCH: /couriers/:courierId - get courier's information. For PATCH request admin can change courier's status
+DELETE: /couriers/:courierId - delete courier's account
+
+@courier,  @admin
+GET: /couriers/:courierId/orders - get all courier's orders
+GET: /orders?status=new - get all possible orders awaiting delivery
+GET: /couriers/:courierId/orders?status=(new, completed, canceled) - get all courier's orders according to their status
+@courier
+PATCH: /couriers/:courierId/orders/:orderId - update status of the order
+
+/************/
+
+ADMIN ENDPOINTS:
+
+@admin
+GET: /orders - get all orders info
+GET, PATCH, DELETE: orders/:orderId - (get, update, delete) a particular order
+
+@admin
+POST: /notification - create new notification (messages about technical work, policy updates, new features etc.)
+
+@admin 
+GET: /orders/stats - get statistics about orders
+GET: /chefs/stats - get statistics about chefs
+GET: /couriers/stats - get statistics about delivery persons
+GET: /users/stats - get statistics about users
+GET: /revenue/stats - calculate how much was purchased through the app
+
+
