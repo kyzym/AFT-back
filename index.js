@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import swaggerDoc from 'swagger-ui-express';
 import { swaggerControllers } from './controllers/index.js';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -38,6 +39,15 @@ app.use((err, _req, res, _next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(chalk.cyan.italic(`Server is running. Use port: ${PORT}`));
-});
+const start = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+    app.listen(PORT, () => {
+      console.log(chalk.cyan.italic(`Server is running. Use port: ${PORT}`));
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+start();
