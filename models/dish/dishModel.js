@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { CATEGORIES, CUISINES } from '../../public/shared.js';
 
 const dishSchema = new Schema(
   {
@@ -40,31 +41,12 @@ const dishSchema = new Schema(
     cuisine: {
       type: String,
       required: [true, 'Cuisine type is required'],
-      enum: [
-        'Ukrainian',
-        'Italian',
-        'Chinese',
-        'Japanese',
-        'Indian',
-        'French',
-        'American',
-        'Thai',
-        'Mediterranean',
-        'Crimean Tatar',
-      ],
+      enum: CUISINES,
     },
     category: {
       type: String,
       required: [true, 'Dish category is required'],
-      enum: [
-        'Main',
-        'Appetizer',
-        'Dessert',
-        'Salad',
-        'Soup',
-        'Drink',
-        'Breakfast',
-      ],
+      enum: CATEGORIES,
     },
     isAvailable: {
       type: Boolean,
