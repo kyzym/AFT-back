@@ -5,7 +5,6 @@ const dishSchema = new Schema(
     name: {
       type: String,
       required: [true, 'Name of the dish is required'],
-      unique: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -20,11 +19,13 @@ const dishSchema = new Schema(
       type: String,
       required: [true, 'Description of the dish is required'],
     },
-    ingredients: {
-      type: Schema.Types.ObjectId,
-      ref: 'ingredient',
-      required: [true, 'Ingredient ID is required'],
-    },
+    ingredients: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'ingredient',
+        required: [true, 'Ingredient ID is required'],
+      },
+    ],
     price: {
       type: Number,
       required: [true, 'Price of the dish is required'],
@@ -39,10 +40,31 @@ const dishSchema = new Schema(
     cuisine: {
       type: String,
       required: [true, 'Cuisine type is required'],
+      enum: [
+        'Ukrainian',
+        'Italian',
+        'Chinese',
+        'Japanese',
+        'Indian',
+        'French',
+        'American',
+        'Thai',
+        'Mediterranean',
+        'Crimean Tatar',
+      ],
     },
     category: {
       type: String,
       required: [true, 'Dish category is required'],
+      enum: [
+        'Main',
+        'Appetizer',
+        'Dessert',
+        'Salad',
+        'Soup',
+        'Drink',
+        'Breakfast',
+      ],
     },
     isAvailable: {
       type: Boolean,
