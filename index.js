@@ -4,8 +4,10 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import swaggerDoc from 'swagger-ui-express';
-import { swaggerControllers } from './controllers/index.js';
 import mongoose from 'mongoose';
+import { swaggerControllers } from './controllers/index.js';
+import { error } from './middlewares/errors.middleware.js';
+import { RouteNotFoundError } from './helpers/errors.js';
 
 dotenv.config();
 
@@ -21,23 +23,13 @@ app.use(express.json());
 
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));
 
-app.use((_req, res) => {
-  res.status(404).json({
-    status: 'error',
-    message: 'Something went wrong...',
-  });
+// Route not found error
+app.use(() => {
+  throw new RouteNotFoundError();
 });
 
-app.use((err, _req, res, _next) => {
-  const { status = 500 } = err;
-
-  console.error(err);
-
-  res.status(status).json({
-    status: 'error',
-    message: 'Something went wrong...',
-  });
-});
+// Errors handler
+app.use(error);
 
 const start = async () => {
   try {
