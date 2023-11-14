@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
 
 export const coordinateSchema = new Schema({
-  lat: { type: Number, require: true },
-  lng: { type: Number, require: true },
+  lat: { type: Number, min: -90, max: 90, required: true },
+  lng: { type: Number, min: -180, max: 180, required: true },
 });
 
 export const addressSchema = new Schema({

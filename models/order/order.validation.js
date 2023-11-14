@@ -15,8 +15,8 @@ export const addressValidationSchema = Joi.object().keys({
   city: Joi.string().required(),
   street: Joi.string().required(),
   coordinate: Joi.object().keys({
-    lat: Joi.number().required(),
-    lng: Joi.number().required(),
+    lat: Joi.number().min(-90).max(90).required(),
+    lng: Joi.number().min(-180).max(180).required(),
   }),
 });
 
