@@ -1,13 +1,14 @@
 import { HttpError } from '../../../helpers/HttpError.js';
+import { isValidId } from '../../../middlewares/isValidId.js';
 import Review from '../../../models/review/Review.model.js';
 
 export const deleteReviewById = async (app) => {
   app.delete(
-    '/api/reviews/:reviewId',
+    '/reviews/:reviewId',
     // add authenticate middleware
     // authenticate,
 
-    // add Validate Id middleware
+    isValidId,
     async (req, res, next) => {
       try {
         const { reviewId } = req.params;
