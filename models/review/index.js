@@ -1,1 +1,1 @@
-export { default } from './Review.model';
+export { default } from './Review.model.js';
