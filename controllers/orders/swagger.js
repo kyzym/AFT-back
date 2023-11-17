@@ -1,14 +1,14 @@
-import { getAllOrders } from './get-all/index.js';
+import { getAllOrdersSwagger } from './get-all/swagger.js';
 
 export const ordersSwagger = {
   paths: {
     '/orders': {
-      ...getAllOrders.paths['/orders'],
+      ...getAllOrdersSwagger.paths['/orders'],
     },
   },
   components: {
     schemas: {
-      ...getAllOrders.components.schemas,
+      ...getAllOrdersSwagger.components.schemas,
     },
   },
 };

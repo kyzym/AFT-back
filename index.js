@@ -5,9 +5,10 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import swaggerDoc from 'swagger-ui-express';
 import mongoose from 'mongoose';
-import { swaggerControllers } from './controllers/index.js';
+import { swaggerControllers } from './controllers/swagger.js';
 import { error } from './middlewares/errors.middleware.js';
 import { RouteNotFoundError } from './helpers/errors.js';
+import { routes } from './controllers/index.js';
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));
+
+routes(app);
 
 // Route not found error
 app.use(() => {

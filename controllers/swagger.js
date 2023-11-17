@@ -1,5 +1,5 @@
 import { usersSwagger } from './users/index.js';
-import { ordersSwagger } from './orders/index.js';
+import { ordersSwagger } from './orders/swagger.js';
 
 export const swaggerControllers = {
   openapi: '3.1.0',

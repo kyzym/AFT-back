@@ -1,4 +1,4 @@
-export const getAllOrders = {
+export const getAllOrdersSwagger = {
   paths: {
     '/orders': {
       get: {
