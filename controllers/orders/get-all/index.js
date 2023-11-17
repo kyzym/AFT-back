@@ -2,11 +2,6 @@ import { withPagination } from '../../../helpers/withPagination.js';
 import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 import Order from '../../../models/order/index.js';
 
-// DELETE Date on prod
-import Dish from '../../../models/dish/dishModel.js';
-console.log(Dish);
-// ===================
-
 const controller = async (req, res) => {
   // const { id as userId } = req.user;
 

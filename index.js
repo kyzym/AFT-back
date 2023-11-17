@@ -1,7 +1,7 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
 import chalk from 'chalk';
 import swaggerDoc from 'swagger-ui-express';
 import mongoose from 'mongoose';
@@ -9,8 +9,6 @@ import { swaggerControllers } from './controllers/swagger.js';
 import { error } from './middlewares/errors.middleware.js';
 import { RouteNotFoundError } from './helpers/errors.js';
 import { routes } from './controllers/index.js';
-
-dotenv.config();
 
 const app = express();
 

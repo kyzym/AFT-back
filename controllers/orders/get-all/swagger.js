@@ -1,9 +1,12 @@
+import { orderStatus } from '../../../constants/orderStatus.js';
+
 export const getAllOrdersSwagger = {
   paths: {
     '/orders': {
       get: {
         tags: ['Orders'],
         summary: 'Get list of all orders',
+        security: [{ bearerAuth: [] }],
         description: 'Returns a list of all orders',
         operationId: 'getAllOrders',
         responses: {
@@ -20,6 +23,13 @@ export const getAllOrdersSwagger = {
               },
             },
           },
+          401: {
+            description: 'Access token is missing or invalid',
+          },
+          403: {
+            description:
+              ' Forbidden - The client does not have permission to access this resource',
+          },
         },
       },
     },
@@ -31,34 +41,57 @@ export const getAllOrdersSwagger = {
         properties: {
           id: {
             type: 'string',
-            format: 'uuid',
+            format: 'objectId',
           },
-          dishes: {
-            type: 'array',
-            items: {
-              $ref: '#/components/schemas/Dish',
-            },
+          orderNumber: {
+            type: 'number',
+          },
+          userId: {
+            type: 'string',
+            format: 'objectId',
           },
           status: {
             type: 'string',
-            enum: ['placed', 'confirmed', 'delivered', 'cancelled'],
+            enum: Object.values(orderStatus),
           },
         },
-        required: ['id', 'dishes', 'status'],
-      },
-      Dish: {
-        type: 'object',
-        properties: {
-          dishId: {
-            type: 'string',
-            format: 'uuid',
-          },
-          quantity: {
-            type: 'integer',
-          },
-        },
-        required: ['dishId', 'quantity'],
       },
     },
   },
 };
+
+/**
+ "orders": [
+            {
+                "orderNumber": 5,
+                "userId": "65520e1b49c89850ff8556ea",
+                "chefId": null,
+                "courierId": null,
+                "items": [
+                    {
+                        "dishId": {
+                            "_id": "65572415cf191a7f14e8e423",
+                            "name": "Test dish",
+                            "image": "test_image.jpg"
+                        },
+                        "count": 1,
+                        "price": 10,
+                        "id": "655730ef6c0c7fe70922125d"
+                    }
+                ],
+                "totalPrice": 10,
+                "address": {
+                    "country": "Ukraine",
+                    "city": "Kyiv",
+                    "street": "Test street",
+                    "coordinate": null
+                },
+                "status": "pending",
+                "id": "655730ef6c0c7fe70922125c"
+            }
+        ],
+        "limit": 10,
+        "page": 1,
+        "totalPages": 1
+    }
+ */
