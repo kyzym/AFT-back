@@ -1,10 +1,6 @@
 import { HttpError } from '../../../helpers/HttpError.js';
 import { validateBody } from '../../../middlewares/validateBody.js';
-import Review from '../../../models/review/Review.model.js';
-import addReviewSchema from '../../../models/review/review.validation.js';
-
-// import { authenticate } from '../../../;
-// import { validateBody } from '../../../middlewares/validateBody.js';
+import { Review, addReviewSchema } from '../../../models/review/index.js';
 
 export const addReview = (app) => {
   return app.post(

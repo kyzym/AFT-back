@@ -1,6 +1,6 @@
 import { HttpError } from '../../../helpers/HttpError.js';
 import { isValidId } from '../../../middlewares/isValidId.js';
-import Review from '../../../models/review/Review.model.js';
+import { Review } from '../../../models/review/index.js';
 
 export const deleteReviewById = async (app) => {
   app.delete(

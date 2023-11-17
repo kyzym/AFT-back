@@ -1,4 +1,4 @@
-import { Review } from '../../../models/review.js';
+import { Review } from '../../../models/review/index.js';
 
 export const getReviewsByDishId = (app) => {
   app.get('/reviews/by-dish/:dishId', async (req, res, next) => {
