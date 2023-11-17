@@ -1,2 +1,2 @@
-export * from './Ingredient.model.js';
-export * from './ingredient.validation.js';
+export { Ingredient } from './Ingredient.model.js';
+export { addIngredientSchema } from './ingredient.validation.js';
