@@ -4,7 +4,7 @@ import { Review } from '../../../models/review/index.js';
 
 export const deleteReviewById = async (app) => {
   app.delete(
-    '/reviews/:reviewId',
+    '/api/reviews/:reviewId',
     // add authenticate middleware
     // authenticate,
 
