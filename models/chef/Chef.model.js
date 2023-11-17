@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import { accountStatus } from '../../constants/chefEnums';
+import { addressSchema } from '../schemas';
 
 const ChefSchema = new Schema(
   {
@@ -21,7 +22,7 @@ const ChefSchema = new Schema(
       type: String,
       enum: Object.values(accountStatus),
       required: true,
-      default: accountStatus.INACTIVE,
+      default: accountStatus.PENDING,
     },
     isAvailable: {
       type: Boolean,
@@ -32,6 +33,6 @@ const ChefSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Chef = model('chef', ChefSchema);
+const chef = model('chef', ChefSchema);
 
-export default Chef;
+export default chef;

@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { addressValidationSchema } from '../order/order.validation';
 import { accountStatus } from '../../constants/chefEnums';
+import { addressValidationSchema } from '../validations/Adress.validation';
 
 const ChefValidationSchema = Joi.object({
   userId: Joi.required(),
@@ -9,8 +9,9 @@ const ChefValidationSchema = Joi.object({
   certificate: Joi.string().required(),
   accountStatus: Joi.string()
     .valid(...accountStatus)
+    .default(accountStatus.PENDING)
     .required(),
-  isAvailable: Joi.boolean().default(true),
+  isAvailable: Joi.boolean().default(false),
 });
 
 export default ChefValidationSchema;
