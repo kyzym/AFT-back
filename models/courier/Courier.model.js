@@ -2,23 +2,31 @@ import { Schema } from 'mongoose';
 import { accountStatus } from '../../constants/accountStatus';
 import { addressSchema } from '../schemas/address.schema';
 import { vehicleType } from '../../constants/vehicleType';
+import { phoneNumberPattern } from '../../helpers/validation';
 
 const CourierSchema = new Schema(
   {
     userId: { type: ObjectId, ref: 'User', required: true },
-    courierImage: {
+    avatar: {
       type: String,
       required: [true, "Courier's photo is required"],
     },
     phoneNumber: {
       type: String,
+      validate: {
+        validator: (value) => phoneNumberPattern.test(value),
+        message: 'Invalid phone number format',
+      },
       required: [true, "Courier's phone number is required"],
     },
     address: { type: addressSchema, required: true },
     vechicleType: {
       type: String,
       enum: Object.values(vehicleType),
-      required: [true, "Courier's type of vehicle is required, default is none"],
+      required: [
+        true,
+        "Courier's type of vehicle is required, default is none",
+      ],
       default: vehicleType.NONE,
     },
     accountStatus: {

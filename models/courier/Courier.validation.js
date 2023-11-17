@@ -2,10 +2,12 @@ import Joi from 'joi';
 import { accountStatus } from '../../constants/accountStatus';
 import { addressValidationSchema } from '../validations/Adress.validation';
 import { vehicleType } from '../../constants/vehicleType';
+import { phoneNumberPattern } from '../../helpers/validation';
 
 const CourierValidationSchema = Joi.object({
   userId: Joi.required(),
-  courierImage: Joi.string().required(),
+  avatar: Joi.string().required(),
+  phoneNumber: Joi.string().pattern(phoneNumberPattern).required(),
   address: addressValidationSchema.required(),
   vechicleType: Joi.string(0)
     .valid(...vehicleType)
