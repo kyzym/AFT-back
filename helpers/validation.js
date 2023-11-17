@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import { isValidObjectId } from 'mongoose';
 
 export const isObjectId = (value, helpers) => {
@@ -12,8 +13,6 @@ export const isObjectId = (value, helpers) => {
 
 export const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 
-export const phoneNumberPattern = /^\+38\(0[3-9]\d\)\d{7}$/;
-
 export const addressValidationSchema = Joi.object().keys({
   country: Joi.string().required(),
   city: Joi.string().required(),
@@ -23,3 +22,10 @@ export const addressValidationSchema = Joi.object().keys({
     lng: Joi.number().min(-180).max(180).required(),
   }),
 });
+
+export const phoneNumberPattern = /^\+38\(0[3-9]\d\)\d{7}$/;
+
+export const passwordPattern =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$_!%*?&])[A-Za-z\d@$_!%*?&]{8,}$/;
+
+export const emailPattern = /\S+@\S+\.\S+/;
