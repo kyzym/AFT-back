@@ -3,7 +3,6 @@ import { accountStatus } from '../../constants/chefEnums';
 
 const ChefSchema = new Schema(
   {
-    chefId: { type: Number, unique: true, min: 1, required: true },
     userId: { type: ObjectId, ref: 'User', required: true },
     chefImage: {
       type: String,
