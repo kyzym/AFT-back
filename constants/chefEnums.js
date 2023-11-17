@@ -1,6 +1,7 @@
 export const accountStatus = Object.freeze({
+  PENDING: 'pending',
   ACTIVE: 'active',
-  INACTIVE: 'inactive',
+  VERIFIED: 'verified',
+  REJECTED: 'rejected',
   BLOCKED: 'blocked',
-  CLOSED: 'closed',
 });
