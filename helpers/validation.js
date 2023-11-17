@@ -23,9 +23,17 @@ export const addressValidationSchema = Joi.object().keys({
   }),
 });
 
+// Phone number should follow the pattern, for example: +38(050)1234567
 export const phoneNumberPattern = /^\+38\(0[3-9]\d\)\d{7}$/;
 
+// Password should have at least one lowercase letter, one uppercase letter, one digit, and one special character
 export const passwordPattern =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$_!%*?&])[A-Za-z\d@$_!%*?&]{8,}$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$_!%*?&])[A-Za-z\d@$_!%*?&]+$/;
 
+// Email should have
+// - Non-whitespace characters before the '@' symbol
+// - '@' symbol
+// - Non-whitespace characters after the '@' symbol
+// - '.' symbol
+// - Non-whitespace characters after the '.' symbol
 export const emailPattern = /\S+@\S+\.\S+/;
