@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
-import { accountStatus } from '../../constants/accountStatus';
-import { addressSchema } from '../schemas/address.schema';
+import { addressSchema } from '../helpers/validation';
 import { vehicleType } from '../../constants/vehicleType';
 import { phoneNumberPattern } from '../../helpers/validation';
+import { accountStatus } from '../../constants/accountStatus';
 
 const CourierSchema = new Schema(
   {
@@ -44,6 +44,6 @@ const CourierSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const courier = model('courier', ChefSchema);
+const courier = model('courier', CourierSchema);
 
 export default courier;

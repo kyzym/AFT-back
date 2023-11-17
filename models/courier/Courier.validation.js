@@ -1,8 +1,7 @@
 import Joi from 'joi';
-import { accountStatus } from '../../constants/accountStatus';
-import { addressValidationSchema } from '../validations/Adress.validation';
 import { vehicleType } from '../../constants/vehicleType';
-import { phoneNumberPattern } from '../../helpers/validation';
+import { addressValidationSchema, phoneNumberPattern } from '../../helpers/validation';
+import { accountStatus } from '../../constants/accountStatus';
 
 const CourierValidationSchema = Joi.object({
   userId: Joi.required(),
