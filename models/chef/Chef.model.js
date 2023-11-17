@@ -1,19 +1,28 @@
 import { Schema } from 'mongoose';
-import { accountStatus } from '../../constants/chefEnums';
 import { addressSchema } from '../schemas';
+import { accountStatus } from '../../constants/accountStatus';
+import { phoneNumberPattern } from '../../helpers/validation';
 
 const ChefSchema = new Schema(
   {
     userId: { type: ObjectId, ref: 'User', required: true },
-    chefImage: {
+    avatar: {
       type: String,
-      required: [true, "Chef's photo is required"],
+      required: [true, "Courier's photo is required"],
     },
     phoneNumber: {
       type: String,
+      validate: {
+        validator: (value) => phoneNumberPattern.test(value),
+        message: 'Invalid phone number format',
+      },
       required: [true, "Chef's phone number is required"],
     },
-    address: { type: addressSchema, required: true },
+    address: {
+      type: addressSchema,
+      required: [true, "Chef's address is required"],
+    },
+
     certificate: {
       type: String,
       required: [true, "Chef's certificate is required"],
