@@ -12,5 +12,4 @@ ingredientSchema.post('save', (error, data, next) => {
   next();
 });
 
-const Ingredient = model('ingredient', ingredientSchema);
-export default Ingredient;
+export const Ingredient = model('ingredient', ingredientSchema);
