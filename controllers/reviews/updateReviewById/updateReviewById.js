@@ -12,6 +12,7 @@ export const updateReviewById = async (app) => {
         const result = await Review.findByIdAndUpdate(reviewId, req.body, {
           new: true,
         });
+        console.log('result:', result);
         if (!result) {
           throw HttpError(404, 'Not found');
         }
