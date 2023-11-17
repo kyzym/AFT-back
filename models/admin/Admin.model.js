@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId;
 
 const adminSchema = new Schema(
   {
-    userId: { type: ObjectId, ref: 'User', required: true },
+    userId: { type: ObjectId, ref: 'user', required: true },
     accountStatus: {
       type: String,
       enum: Object.values(accountStatus),
@@ -15,6 +15,6 @@ const adminSchema = new Schema(
   { timestamps: true }
 );
 
-const Admin = mongoose.model('Admin', adminSchema);
+const Admin = mongoose.model('admin', adminSchema);
 
 export default Admin;
