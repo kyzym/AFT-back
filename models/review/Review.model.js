@@ -15,5 +15,4 @@ reviewSchema.post('save', (error, data, next) => {
   next();
 });
 
-const Review = model('review', reviewSchema);
-export default Review;
+export const Review = model('review', reviewSchema);
