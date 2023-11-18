@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { CATEGORIES, CUISINES } from '../../public/shared.js';
+import { CATEGORIES, CUISINES } from '../../constants/dishEnums.js';
 
 const dishSchema = new Schema(
   {
