@@ -4,7 +4,7 @@ const reviewSchema = new Schema(
   {
     owner: { type: Schema.Types.ObjectId, ref: 'user', required: true },
     dish: { type: Schema.Types.ObjectId, ref: 'dish', required: true },
-    rating: { type: Number, required: true },
+    rating: { type: Number, required: true, min: 1, max: 5 },
     review: { type: String, required: true },
   },
   { versionKey: false, timestamps: true }

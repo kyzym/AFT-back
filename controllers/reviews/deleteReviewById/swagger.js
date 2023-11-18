@@ -6,7 +6,7 @@ export const deleteReview = {
     },
   ],
   paths: {
-    '/reviews/:reviewId': {
+    '/reviews/{reviewId}': {
       delete: {
         summary: 'Delete a review by ID',
         tags: ['Reviews'],
