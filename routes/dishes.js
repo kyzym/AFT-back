@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { isValidDishId } from '../middlewares/isValidDishId.js';
+import { isValidId } from '../middlewares/isValidId.js';
 import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
 import { dishControllers } from '../controllers/index.js';
 
@@ -16,19 +16,23 @@ router.get('/own', ctrlWrapper(dishControllers.getOwnDishes));
 
 router.get('/', ctrlWrapper(dishControllers.getDishesByChef));
 
-router.get('/:dishId', isValidDishId, ctrlWrapper(dishControllers.getDish));
+router.get(
+  '/:dishId',
+  isValidId('dishId'),
+  ctrlWrapper(dishControllers.getDish)
+);
 
 router.post('/', ctrlWrapper(dishControllers.createDish));
 
 router.patch(
   '/:dishId',
-  isValidDishId,
+  isValidId('dishId'),
   ctrlWrapper(dishControllers.updateDish)
 );
 
 router.delete(
   '/:dishId',
-  isValidDishId,
+  isValidId('dishId'),
   ctrlWrapper(dishControllers.deleteDish)
 );
 
