@@ -12,7 +12,7 @@ export const deleteReview = {
         tags: ['Reviews'],
         security: [
           {
-            BearerAuth: [], // Use the BearerAuth security scheme for authentication
+            BearerAuth: [],
           },
         ],
         parameters: [

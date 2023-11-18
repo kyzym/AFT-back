@@ -72,7 +72,7 @@ export const getReviewById = {
         },
         security: [
           {
-            BearerAuth: [], // Use the BearerAuth security scheme for authentication
+            BearerAuth: [],
           },
         ],
       },
