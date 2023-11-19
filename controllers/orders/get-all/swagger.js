@@ -1,4 +1,5 @@
 import { orderStatus } from '../../../constants/orderStatus.js';
+import { swaggerResponseWithPagination } from '../../../helpers/index.js';
 
 export const getAllOrdersSwagger = {
   paths: {
@@ -15,9 +16,16 @@ export const getAllOrdersSwagger = {
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/Order',
+                  type: 'object',
+                  properties: {
+                    ...swaggerResponseWithPagination({
+                      orders: {
+                        type: 'array',
+                        items: {
+                          $ref: '#/components/schemas/OrderResponse',
+                        },
+                      },
+                    }),
                   },
                 },
               },
@@ -28,7 +36,7 @@ export const getAllOrdersSwagger = {
           },
           403: {
             description:
-              ' Forbidden - The client does not have permission to access this resource',
+              'Forbidden - The client does not have permission to access this resource',
           },
         },
       },
@@ -36,7 +44,7 @@ export const getAllOrdersSwagger = {
   },
   components: {
     schemas: {
-      Order: {
+      OrderResponse: {
         type: 'object',
         properties: {
           id: {
@@ -44,15 +52,39 @@ export const getAllOrdersSwagger = {
             format: 'objectId',
           },
           orderNumber: {
-            type: 'number',
+            type: 'integer',
+            minimum: 1,
+            default: Date.now(),
           },
           userId: {
             type: 'string',
             format: 'objectId',
           },
+          chefId: {
+            type: ['string', 'null'],
+            format: 'objectId',
+            default: null,
+          },
+          courierId: {
+            type: ['string', 'null'],
+            format: 'objectId',
+            default: null,
+          },
+          items: {
+            type: 'array',
+            items: { $ref: '#/components/schemas/OrderItem' },
+          },
+          totalPrice: {
+            type: 'number',
+            minimum: 0.01,
+          },
+          address: {
+            $ref: '#/components/schemas/Address',
+          },
           status: {
             type: 'string',
             enum: Object.values(orderStatus),
+            default: orderStatus.PENDING,
           },
         },
       },

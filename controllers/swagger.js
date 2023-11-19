@@ -33,6 +33,44 @@ export const swaggerControllers = {
     },
 
     schemas: {
+      Coordinate: {
+        type: ['object', 'null'],
+        properties: {
+          lat: { type: 'number', minimum: -90, maximum: 90 },
+          lng: { type: 'number', minimum: -180, maximum: 180 },
+        },
+      },
+      Address: {
+        type: 'object',
+        properties: {
+          city: { type: 'string' },
+          country: { type: 'string' },
+          street: { type: 'string' },
+          coordinates: {
+            $ref: '#/components/schemas/Coordinate',
+            default: null,
+          },
+        },
+      },
+      OrderItem: {
+        type: 'object',
+        properties: {
+          dishId: {
+            type: 'string',
+            format: 'objectId',
+          },
+          count: {
+            type: 'integer',
+            minimum: 1,
+            default: 1,
+          },
+          price: {
+            type: 'number',
+            minimum: 0.01,
+          },
+        },
+        minItems: 1,
+      },
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,
     },
