@@ -13,7 +13,7 @@ const orderSchema = new Schema(
     orderNumber: { type: Number, unique: true, min: 1, required: true },
 
     userId: { type: ObjectId, ref: 'user', required: true },
-    chefId: { type: ObjectId, ref: 'chef', default: null },
+    chefId: { type: ObjectId, ref: 'chef', required: true },
     courierId: { type: ObjectId, ref: 'courier', default: null },
 
     items: {

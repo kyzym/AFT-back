@@ -5,7 +5,7 @@ import { ValidationError } from '../../../helpers/errors.js';
 import {
   concatArraysById,
   findOrderItemsInDb,
-  getOrderPrice,
+  getItemsInfo,
 } from './helpers.js';
 
 const controller = async (req, res) => {
@@ -20,7 +20,7 @@ const controller = async (req, res) => {
   // Concat items list from client and db dishes list
   const concatItems = concatArraysById(dishes, dbDishes);
   // Calculate order price and find invalid dishes (not found or not available)
-  const { orderPrice, errors } = getOrderPrice(concatItems);
+  const { orderPrice, errors, chefId } = getItemsInfo(concatItems);
 
   // Check for invalid dishes
   if (errors.length > 0) {
@@ -30,6 +30,7 @@ const controller = async (req, res) => {
   const order = new Order({
     orderNumber: Date.now(),
     userId,
+    chefId,
     address,
     items: dishes,
     totalPrice: orderPrice,

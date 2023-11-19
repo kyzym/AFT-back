@@ -1,3 +1,4 @@
+import { ValidationError } from '../../../helpers/errors.js';
 import Dish from '../../../models/dish/dishModel.js';
 
 function ceilToDecimalPlaces(number, decimalPlaces = 2) {
@@ -13,7 +14,7 @@ export const findOrderItemsInDb = async (orderItems) => {
     {
       _id: { $in: orderItems.map(({ dishId }) => dishId) },
     },
-    'price isAvailable'
+    'price isAvailable owner'
   ).exec();
 
   return dbDishes;
@@ -30,51 +31,42 @@ export const concatArraysById = (orderDishes, dbDishes) => {
 
     if (!matchingDish) return orderDish;
 
-    const { price, isAvailable } = matchingDish;
+    const { price, isAvailable, owner } = matchingDish;
 
-    return { ...orderDish, price, isAvailable };
+    return { ...orderDish, price, isAvailable, owner };
   });
 };
 
-export const getOrderPrice = (items) => {
-  const { orderPrice, errors } = items.reduce(
-    (acc, item) => {
-      console.log('Acc', acc);
-      if (!item.price) {
-        return {
-          ...acc,
-          errors: [
-            ...acc.errors,
-            { dishId: item.dishId, message: `"${item.name}" not found` },
-          ],
-        };
-      }
+export const getItemsInfo = (items) => {
+  let orderPrice = 0;
+  let errors = [];
+  let chefId = null;
 
-      if (!item.isAvailable) {
-        return {
-          ...acc,
-          errors: [
-            ...acc.errors,
-            {
-              dishId: item.dishId,
-              message: `"${item.name}" is not available now`,
-            },
-          ],
-        };
-      }
-
-      return {
-        ...acc,
-        orderPrice: ceilToDecimalPlaces(
-          acc.orderPrice + item.price * item.count
-        ),
-      };
-    },
-    {
-      orderPrice: 0,
-      errors: [],
+  for (const item of items) {
+    // Checking whether items belong to the same chef
+    if (!chefId) {
+      chefId = item.owner;
+    } else if (item.owner && chefId.toString() !== item.owner.toString()) {
+      throw new ValidationError('You can`t add dishes from different chefs');
     }
-  );
 
-  return { orderPrice, errors };
+    // Checking for dish exist in db
+    if (!item.owner) {
+      errors.push({ dishId: item.dishId, message: `"${item.name}" not found` });
+      continue;
+    }
+
+    // Checking for dish availability
+    if (!item.isAvailable) {
+      errors.push({
+        dishId: item.dishId,
+        message: `"${item.name}" is not available now`,
+      });
+      continue;
+    }
+
+    orderPrice = ceilToDecimalPlaces(orderPrice + item.price * item.count);
+  }
+
+  return { orderPrice, errors, chefId };
 };
