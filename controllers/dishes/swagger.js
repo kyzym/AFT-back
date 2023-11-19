@@ -1,5 +1,6 @@
 import { createDishSwagger } from './createDish/swagger.js';
 import { deleteDishSwagger } from './deleteDish/swagger.js';
+import { DishSchema, ErrorResponseSchema } from './swaggerDishesComponents.js';
 
 export const dishesSwagger = {
   paths: {
@@ -8,7 +9,8 @@ export const dishesSwagger = {
   },
   components: {
     schemas: {
-      //
+      ErrorResponse: ErrorResponseSchema,
+      Dish: DishSchema,
     },
   },
 };
