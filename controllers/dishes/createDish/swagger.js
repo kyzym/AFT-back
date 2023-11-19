@@ -1,12 +1,13 @@
 import {
   DishRequestSchema,
-  DishResponseSchema,
-  ErrorResponseSchema,
+  createSuccessResponse,
+  serverError,
 } from '../swaggerDishesComponents.js';
 
 export const createDishSwagger = {
   '/dishes': {
     post: {
+      tags: ['Dishes'],
       summary: 'Create a new dish',
       description: 'Create a new dish for the IDLO platform.',
       requestBody: {
@@ -18,22 +19,8 @@ export const createDishSwagger = {
         },
       },
       responses: {
-        201: {
-          description: 'Dish created successfully',
-          content: {
-            'application/json': {
-              schema: DishResponseSchema,
-            },
-          },
-        },
-        500: {
-          description: 'Internal Server Error',
-          content: {
-            'application/json': {
-              schema: ErrorResponseSchema('Internal Server Error'),
-            },
-          },
-        },
+        201: createSuccessResponse('Dish created successfully'),
+        500: serverError,
       },
     },
   },

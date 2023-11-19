@@ -78,9 +78,49 @@ const DishSchema = {
   required: DishSchemaRequired,
 };
 
+const createErrorResponse = (description) => {
+  return {
+    description,
+    content: {
+      'application/json': { schema: ErrorResponseSchema(description) },
+    },
+  };
+};
+
+const createSuccessResponse = (description) => {
+  return {
+    description,
+    content: {
+      'application/json': { schema: DishResponseSchema },
+    },
+  };
+};
+
+const createSuccessResponseArray = (description) => {
+  return {
+    description,
+    content: {
+      'application/json': {
+        schema: { type: 'array', items: DishResponseSchema },
+      },
+    },
+  };
+};
+
+const idSchema = {
+  type: 'string',
+  format: 'objectId',
+};
+
+const serverError = createErrorResponse('Internal Server Error');
+
 export {
-  ErrorResponseSchema,
   DishSchema,
   DishRequestSchema,
   DishResponseSchema,
+  createErrorResponse,
+  createSuccessResponse,
+  createSuccessResponseArray,
+  idSchema,
+  serverError,
 };

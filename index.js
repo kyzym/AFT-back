@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));
 
-app.use('/dishes', dishesRoutes);
+app.use('/api/dishes', dishesRoutes);
 
 // Route not found error
 app.use(() => {

@@ -1,8 +1,8 @@
 import express from 'express';
 
-import { isValidId } from '../middlewares/isValidId.js';
-import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
 import { dishControllers } from '../controllers/index.js';
+import { ctrlWrapper, isValidId, joiValidation } from '../middlewares/index.js';
+import { dishValidationSchema } from '../models/index.js';
 
 const router = express.Router();
 
@@ -22,11 +22,16 @@ router.get(
   ctrlWrapper(dishControllers.getDish)
 );
 
-router.post('/', ctrlWrapper(dishControllers.createDish));
+router.post(
+  '/',
+  joiValidation(dishValidationSchema),
+  ctrlWrapper(dishControllers.createDish)
+);
 
 router.patch(
   '/:dishId',
   isValidId('dishId'),
+  joiValidation(dishValidationSchema),
   ctrlWrapper(dishControllers.updateDish)
 );
 

@@ -1,8 +1,13 @@
-import { ErrorResponseSchema } from '../swaggerDishesComponents.js';
+import {
+  createErrorResponse,
+  idSchema,
+  serverError,
+} from '../swaggerDishesComponents.js';
 
 export const deleteDishSwagger = {
   '/dishes/{dishId}': {
     delete: {
+      tags: ['Dishes'],
       summary: 'Delete a dish',
       description: 'Deletes a dish with the specified ID.',
       parameters: [
@@ -11,10 +16,7 @@ export const deleteDishSwagger = {
           in: 'path',
           required: true,
           description: 'ID of the dish to delete',
-          schema: {
-            type: 'string',
-            format: 'objectId',
-          },
+          schema: idSchema,
         },
       ],
       responses: {
@@ -34,32 +36,9 @@ export const deleteDishSwagger = {
             },
           },
         },
-        400: {
-          description: 'ID error',
-          content: {
-            'application/json': {
-              schema: ErrorResponseSchema(
-                'Format of this ID:  is not correct"'
-              ),
-            },
-          },
-        },
-        404: {
-          description: 'Dish not found',
-          content: {
-            'application/json': {
-              schema: ErrorResponseSchema('Dish not found'),
-            },
-          },
-        },
-        500: {
-          description: 'Internal Server Error',
-          content: {
-            'application/json': {
-              schema: ErrorResponseSchema('Internal Server Error'),
-            },
-          },
-        },
+        400: createErrorResponse('Format of this ID is not correct'),
+        404: createErrorResponse('Dish not found'),
+        500: serverError,
       },
     },
   },
