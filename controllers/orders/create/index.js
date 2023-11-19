@@ -1,5 +1,4 @@
-import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
-import { validate } from '../../../middlewares/validation.middleware.js';
+import { validate, ctrlWrapper } from '../../../middlewares/index.js';
 import Order from '../../../models/order/index.js';
 import { orderValidationSchema } from '../../../models/order/order.validation.js';
 import { ValidationError } from '../../../helpers/errors.js';
@@ -14,7 +13,7 @@ const controller = async (req, res) => {
   const { address, items: dishes } = req.body;
 
   // mock id
-  const userId = '65520e1b49c89850ff8556ea';
+  const userId = '655a051fb7cc813b6007220b';
 
   // Check order items
   const dbDishes = await findOrderItemsInDb(dishes);
@@ -41,5 +40,6 @@ const controller = async (req, res) => {
 };
 
 export const createOrder = (router) => {
+  // TODO: add auth validation (access: user)
   router.post('/', validate(orderValidationSchema), ctrlWrapper(controller));
 };

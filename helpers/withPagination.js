@@ -21,7 +21,7 @@ export const withPagination = async (findQuery, reqQuery) => {
     result,
     {
       limit: pageLimit,
-      page,
+      page: parseInt(page),
       totalPages: Math.ceil(totalDocuments / pageLimit),
     },
   ];
