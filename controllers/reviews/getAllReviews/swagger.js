@@ -3,6 +3,22 @@ export const getAllReviews = {
     '/reviews': {
       get: {
         tags: ['Reviews'],
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            in: 'header',
+            name: 'Authorization',
+            required: true,
+            schema: {
+              type: 'string',
+            },
+            description: 'Bearer token for authentication',
+          },
+        ],
         summary: 'Returns the list of all reviews',
         description: 'Returns the list of all reviews',
         operationId: 'getAllReviews',
@@ -33,6 +49,12 @@ export const getAllReviews = {
   },
   components: {
     schemas: {
+      BearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Bearer token for authentication',
+      },
       Review: {
         type: 'object',
         properties: {

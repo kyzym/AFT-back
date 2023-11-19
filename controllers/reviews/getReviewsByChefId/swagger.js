@@ -8,6 +8,7 @@ export const getReviewsByChefId = {
           _id: {
             type: 'string',
             description: 'The auto-generated id of the review',
+            format: 'uuid',
           },
           owner: { type: 'string', description: 'The id of the review owner' },
           dish: {
@@ -20,13 +21,13 @@ export const getReviewsByChefId = {
               chef: {
                 type: 'string',
                 description: 'The id of the chef of the reviewed dish',
+                format: 'uuid',
               },
             },
             description: 'The reviewed dish details',
           },
           rating: {
             type: 'integer',
-            format: 'int32',
             description: 'The rating given to the dish (integer value)',
           },
           review: { type: 'string', description: 'The review text' },

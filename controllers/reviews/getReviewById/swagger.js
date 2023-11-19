@@ -14,7 +14,7 @@ export const getReviewById = {
             type: 'string',
           },
           rating: {
-            type: 'number',
+            type: 'integer',
           },
           review: {
             type: 'string',
@@ -43,6 +43,15 @@ export const getReviewById = {
             },
             required: true,
             description: 'ID of the review to retrieve',
+          },
+          {
+            in: 'header',
+            name: 'Authorization',
+            required: true,
+            schema: {
+              type: 'string',
+            },
+            description: 'Bearer token for authentication',
           },
         ],
         responses: {

@@ -1,14 +1,10 @@
 export const deleteReview = {
-  tags: [
-    {
-      name: 'Reviews',
-      description: 'The reviews managing API',
-    },
-  ],
   paths: {
     '/reviews/{reviewId}': {
       delete: {
         summary: 'Delete a review by ID',
+        description: 'Delete a review by ID',
+        operationId: 'deleteReview',
         tags: ['Reviews'],
         security: [
           {
@@ -56,22 +52,11 @@ export const deleteReview = {
       },
     },
   },
-  components: {
-    schemas: {
-      BearerAuth: {
-        type: 'http',
-        scheme: 'bearer',
-        description: 'Bearer token for authentication',
-      },
+
+  tags: [
+    {
+      name: 'Reviews',
+      description: 'The reviews managing API',
     },
-  },
-  securityDefinitions: {
-    BearerAuth: {
-      type: 'apiKey',
-      name: 'Authorization',
-      in: 'header',
-      description:
-        'Use Bearer authentication. Provide your JWT token in the format "Bearer {token}"',
-    },
-  },
+  ],
 };

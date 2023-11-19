@@ -1,28 +1,4 @@
 export const updateReviewById = {
-  components: {
-    schemas: {
-      ReviewUpdate: {
-        type: 'object',
-        properties: {
-          rating: {
-            type: 'integer',
-            format: 'int32',
-            description: 'The updated rating for the dish',
-          },
-          review: { type: 'string', description: 'The updated review text' },
-        },
-        required: ['rating', 'review'],
-      },
-      ReviewResponse: {
-        type: 'object',
-        properties: {
-          status: { type: 'string', description: 'The status of the response' },
-          code: { type: 'integer', description: 'The HTTP status code' },
-          data: { $ref: '#/components/schemas/Review' },
-        },
-      },
-    },
-  },
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
     '/reviews/{reviewId}': {
@@ -51,7 +27,7 @@ export const updateReviewById = {
           content: {
             'application/json': {
               schema: {
-                $ref: '#/components/schemas/ReviewUpdate',
+                $ref: '#/components/schemas/AddReview',
               },
             },
           },
@@ -62,7 +38,7 @@ export const updateReviewById = {
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/ReviewResponse',
+                  $ref: '#/components/schemas/Review',
                 },
               },
             },

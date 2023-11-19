@@ -21,7 +21,7 @@ export const addReview = (app) => {
         if (!review) {
           throw HttpError(404, 'Not found');
         }
-        res.status(201).json(review);
+        res.status(201).json({ message: 'Review created successfully' });
       } catch (error) {
         next(error);
       }

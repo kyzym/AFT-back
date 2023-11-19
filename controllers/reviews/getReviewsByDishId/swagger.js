@@ -1,39 +1,4 @@
 export const getReviewsByDishId = {
-  components: {
-    schemas: {
-      Review: {
-        type: 'object',
-        required: ['_id', 'owner', 'dish', 'rating', 'review'],
-        properties: {
-          _id: {
-            type: 'string',
-            description: 'The auto-generated id of the review',
-          },
-          owner: { type: 'string', description: 'The id of the review owner' },
-          dish: {
-            type: 'object',
-            properties: {
-              name: {
-                type: 'string',
-                description: 'The name of the reviewed dish',
-              },
-              chef: {
-                type: 'string',
-                description: 'The id of the chef of the reviewed dish',
-              },
-            },
-            description: 'The reviewed dish details',
-          },
-          rating: {
-            type: 'integer',
-            format: 'int32',
-            description: 'The rating given to the dish (integer value)',
-          },
-          review: { type: 'string', description: 'The review text' },
-        },
-      },
-    },
-  },
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
     '/reviews/by-dish/{dishId}': {
