@@ -5,11 +5,13 @@ import {
   idValidationSchema,
   passwordPattern,
 } from '../../helpers/index.js';
-import { roles, accountStatuses } from '../../constants/index.js';
+import { accountStatuses } from '../../constants/index.js';
 import { orderItemValidationSchema } from '../order/order.validation.js';
+import { roleValidationSchema } from './roleSchema.js';
 
 export const userValidationSchema = Joi.object({
-  fullName: Joi.string().min(3).required(),
+  firstName: Joi.string().min(3).required(),
+  lastName: Joi.string().min(3).required(),
   password: Joi.string().min(8).pattern(passwordPattern).required(),
   email: Joi.string().email().required(),
   avatar: Joi.string().allow(''),
@@ -17,10 +19,10 @@ export const userValidationSchema = Joi.object({
   phoneNumber: Joi.string().pattern(phoneNumberPattern).allow(''),
   favoriteDishes: Joi.array().items(idValidationSchema),
   favoriteChefs: Joi.array().items(idValidationSchema),
-  cart: Joi.array().items(orderItemValidationSchema, 'Invalid order data'),
-  roles: Joi.array()
-    .items(Joi.string().valid(...Object.values(roles)))
-    .required(),
+  cart: Joi.array()
+    .items(orderItemValidationSchema)
+    .label('Invalid order data'),
+  roles: Joi.array().items(roleValidationSchema).required(),
   accountStatus: Joi.string()
     .valid(...Object.values(accountStatuses))
     .required(),

@@ -1,20 +1,26 @@
 import mongoose, { Schema } from 'mongoose';
 import { addressSchema, orderItemSchema } from '../schemas/index.js';
-import { accountStatuses, roles } from '../../constants/index.js';
+import { accountStatuses } from '../../constants/index.js';
 import {
   emailPattern,
   passwordPattern,
   phoneNumberPattern,
 } from '../../helpers/index.js';
+import { roleSchema, getDefaultRoles } from './roleSchema.js';
 
 const ObjectId = Schema.Types.ObjectId;
 
 const userSchema = new Schema(
   {
-    fullName: {
+    firstName: {
       type: String,
-      required: [true, 'Full name is required'],
-      minlength: [3, 'Full name must be at least 3 characters long'],
+      required: [true, 'First name is required'],
+      minlength: [3, 'First name must be at least 3 characters long'],
+    },
+    lastName: {
+      type: String,
+      required: [true, 'Last name is required'],
+      minlength: [3, 'Last name must be at least 3 characters long'],
     },
     password: {
       type: String,
@@ -47,13 +53,8 @@ const userSchema = new Schema(
     favoriteChefs: [{ type: ObjectId, ref: 'chef' }],
     cart: [orderItemSchema],
     roles: {
-      type: [String],
-      enum: {
-        values: Object.values(roles),
-        message: 'Invalid role type',
-      },
-      required: [true, 'User must have at least one role'],
-      default: [roles.USER],
+      type: [roleSchema],
+      default: getDefaultRoles,
     },
     accountStatus: {
       type: String,
@@ -65,7 +66,17 @@ const userSchema = new Schema(
       default: accountStatuses.PENDING,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    versionKey: false,
+    id: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
 const User = mongoose.model('user', userSchema);
