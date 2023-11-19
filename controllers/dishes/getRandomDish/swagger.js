@@ -5,7 +5,7 @@ import {
 } from '../swaggerDishesComponents.js';
 
 export const getRandomDishSwagger = {
-  '/dishes/random': {
+  '/api/dishes/random': {
     get: {
       tags: ['Dishes'],
       summary: 'Get a random dish',

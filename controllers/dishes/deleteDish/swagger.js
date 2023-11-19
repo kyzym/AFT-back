@@ -5,7 +5,7 @@ import {
 } from '../swaggerDishesComponents.js';
 
 export const deleteDishSwagger = {
-  '/dishes/{dishId}': {
+  '/api/dishes/{dishId}': {
     delete: {
       tags: ['Dishes'],
       summary: 'Delete a dish',

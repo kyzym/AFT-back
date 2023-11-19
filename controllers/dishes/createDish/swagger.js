@@ -5,7 +5,7 @@ import {
 } from '../swaggerDishesComponents.js';
 
 export const createDishSwagger = {
-  '/dishes': {
+  '/api/dishes': {
     post: {
       tags: ['Dishes'],
       summary: 'Create a new dish',

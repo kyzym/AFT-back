@@ -4,7 +4,7 @@ import {
 } from '../swaggerDishesComponents.js';
 
 export const getPopularDishesSwagger = {
-  '/dishes/popular': {
+  '/api/dishes/popular': {
     get: {
       tags: ['Dishes'],
       summary: 'Get popular dishes',

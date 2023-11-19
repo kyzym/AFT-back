@@ -7,7 +7,7 @@ import {
 } from '../swaggerDishesComponents.js';
 
 export const updateDishSwagger = {
-  '/dishes/{dishId}': {
+  '/api/dishes/{dishId}': {
     patch: {
       tags: ['Dishes'],
       summary: 'Update a dish',
