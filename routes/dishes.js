@@ -31,7 +31,6 @@ router.post(
 router.patch(
   '/:dishId',
   isValidId('dishId'),
-  joiValidation(dishValidationSchema),
   ctrlWrapper(dishControllers.updateDish)
 );
 

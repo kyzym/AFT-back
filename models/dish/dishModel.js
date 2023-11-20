@@ -86,7 +86,7 @@ const dishSchema = new Schema(
     id: true,
     toJSON: {
       virtual: true,
-      transform: function (doc, ret) {
+      transform: function (_doc, ret) {
         ret.id = ret._id;
         delete ret._id;
       },
