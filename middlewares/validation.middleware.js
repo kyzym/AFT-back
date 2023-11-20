@@ -1,7 +1,6 @@
 import { ValidationError } from '../helpers/errors.js';
 
-export const validate = (schema) => (req, res, next) => {
-  //try {
+export const validate = (schema) => (req, _res, next) => {
   const { error } = schema.validate(req.body, { abortEarly: false });
 
   if (error) {
@@ -13,8 +12,4 @@ export const validate = (schema) => (req, res, next) => {
   }
 
   next();
-  //} catch (error) {
-  // console.log('Error', error);
-  //next(error);
-  //}
 };

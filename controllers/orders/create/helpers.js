@@ -1,3 +1,4 @@
+import { compareObjectIds } from '../../../helpers/compareObjectIds.js';
 import { ValidationError } from '../../../helpers/errors.js';
 import Dish from '../../../models/dish/dishModel.js';
 
@@ -25,7 +26,7 @@ export const concatArraysById = (orderDishes, dbDishes) => {
     const matchingDish = dbDishes.find(
       // TODO: Change _id to id without underline
       (dbDish) => {
-        return orderDish.dishId === dbDish._id.toString();
+        return compareObjectIds(orderDish.dishId, dbDish._id);
       }
     );
 
@@ -46,7 +47,7 @@ export const getItemsInfo = (items) => {
     // Checking whether items belong to the same chef
     if (!chefId) {
       chefId = item.owner;
-    } else if (item.owner && chefId.toString() !== item.owner.toString()) {
+    } else if (item.owner && !compareObjectIds(chefId, item.owner)) {
       throw new ValidationError('You can`t add dishes from different chefs');
     }
 

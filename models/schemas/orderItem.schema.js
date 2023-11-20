@@ -8,5 +8,14 @@ export const orderItemSchema = new Schema(
     name: { type: String, minlength: 1, maxlength: 100, required: true },
     count: { type: Number, min: 1, required: true },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    id: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
