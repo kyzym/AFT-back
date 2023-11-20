@@ -62,7 +62,7 @@ const dishSchema = new Schema(
       type: Number,
       required: [true, 'Weight of the dish is required'],
     },
-    cookTime: {
+    cookTimeInMinutes: {
       type: Number,
       required: [true, 'Time of cooking is required'],
       min: 1,

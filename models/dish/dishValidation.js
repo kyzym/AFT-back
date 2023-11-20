@@ -26,7 +26,7 @@ const dishValidationSchema = Joi.object({
 
   weight: Joi.number().positive().required(),
 
-  cookTime: Joi.number().greater(0).required(),
+  cookTimeInMinutes: Joi.number().greater(0).required(),
 
   nutrition: Joi.object({
     calories: Joi.number().min(0),
