@@ -1,6 +1,6 @@
 export const addIngredient = {
   paths: {
-    '/ingredients': {
+    '/api/ingredients': {
       post: {
         summary: 'Create a new ingredient',
         description: 'Create a new ingredient',
@@ -34,23 +34,26 @@ export const addIngredient = {
         },
         responses: {
           201: {
-            type: 'object',
-            properties: {
-              message: {
-                type: 'string',
-                description: 'Review created successfully',
+            description: 'Successfully created a new ingredient',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    message: {
+                      type: 'string',
+                      description: 'Ingredient created successfully',
+                    },
+                  },
+                },
               },
             },
           },
           401: {
             description: 'Unauthorized - Missing or invalid token',
           },
-          403: {
-            description:
-              "Forbidden - User doesn't have permission to delete this review",
-          },
           404: {
-            description: 'Review not found',
+            description: 'Not found',
           },
           500: {
             description: 'Internal Server Error',
@@ -58,31 +61,13 @@ export const addIngredient = {
         },
       },
     },
-  },
-  components: {
-    schemas: {
-      Ingredient: {
-        type: 'object',
-        required: ['name'],
-        properties: {
-          name: {
-            type: 'string',
-            description: 'The name of ingredient',
-          },
+    components: {
+      tags: [
+        {
+          name: 'Ingredients',
+          description: 'The ingredients managing API',
         },
-      },
-      BearerAuth: {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        description: 'Bearer token for authentication',
-      },
+      ],
     },
   },
-  tags: [
-    {
-      name: 'Ingredients',
-      description: 'The ingredients managing API',
-    },
-  ],
 };
