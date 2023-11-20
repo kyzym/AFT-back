@@ -65,11 +65,6 @@ export const addReview = {
         type: 'object',
         required: ['id', 'owner', 'dish', 'rating', 'review'],
         properties: {
-          //   id: {
-          //     type: 'string',
-          //     description: 'The auto-generated id of the review',
-          //     format: 'uuid',
-          //   },
           owner: {
             type: 'string',
             description: 'The id of the review owner',
