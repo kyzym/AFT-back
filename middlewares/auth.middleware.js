@@ -4,7 +4,6 @@ import {
   NotFoundError,
   ForbiddenError,
 } from '../helpers/errors.js';
-import { roles } from '../constants/index.js';
 import User from '../models/user/index.js';
 
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -13,22 +12,33 @@ const SECRET_KEY = process.env.SECRET_KEY;
  * Middleware for role-based JWT token verification.
  *
  * @param {Object} options - Middleware options.
- * @param {string} options.role - Required user role ('user', 'chef', 'courier', 'admin').
+ * @param {string[]} options.requiredRoles - Array of required user roles (['chef', 'courier', 'admin']).
  *
  * @example
- * // Protect a route requiring 'chef' role
- * router.get('/protectedRoute', verifyToken({ role: 'chef' }), async (req, res) => {
- *   // Your protected route logic here
- * });
+ * // Protect a route requiring 'chef', 'admin' roles
+ * router.get('/api/orders/by-chef/:chefId', verifyToken(['chef', 'admin']), async (req, res) => {}
  *
- * @returns {string} - Required roleId ('userId', 'chefId', etc.) if the token is valid.
+ * @returns {Object} - Objects req.userId and object req.roles {'chef': chefId, ...} based on requiredRoles.
  */
 
-const verifyToken = ({ role }) => {
+const verifyToken = (requiredRoles) => {
   const getTokenFromHeaders = (req) => req.headers.authorization?.split(' ')[1];
 
-  const getRoleId = (userRoles) =>
-    userRoles.find((userRole) => userRole.name === role)?.id;
+  const getRoleIds = (userRoles, userId) => {
+    return requiredRoles.reduce((roleIds, requiredRole) => {
+      const roleId = userRoles.find(
+        (userRole) => userRole.name === requiredRole
+      )?.id;
+
+      if (!roleId) {
+        throw new ForbiddenError(
+          `User with id ${userId} doesn't have a '${requiredRole}' account`
+        );
+      }
+
+      return { ...roleIds, [requiredRole]: roleId };
+    }, {});
+  };
 
   return async (req, res, next) => {
     try {
@@ -37,27 +47,18 @@ const verifyToken = ({ role }) => {
 
       const { id } = jwt.verify(token, SECRET_KEY);
 
-      const user = await User.findById(id);
+      const user = await User.findById(id).exec();
       if (!user) throw new NotFoundError(`User with id ${id} not found`);
 
-      if (role === roles.USER) {
-        req.userId = user.id;
-        return next();
-      }
+      const roleIds = getRoleIds(user.roles, user.id);
+      req.userId = user.id;
+      req.roles = roleIds;
 
-      const roleId = getRoleId(user.roles);
-      if (!roleId)
-        throw new ForbiddenError(
-          `User with id ${id} doesn't have a '${role}' account`
-        );
-
-      req[`${role}Id`] = roleId; // Generates "req.chefId", "req.courierId", "req.adminId"
       next();
     } catch (error) {
-      console.error(`Token verification error: ${error.message}`);
       return res
         .status(error.code || 401)
-        .send({ message: error.message || 'Invalid token' });
+        .send({ message: error.message || 'Authentication failed' });
     }
   };
 };
