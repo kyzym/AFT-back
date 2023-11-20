@@ -10,6 +10,8 @@ import { changeOrderStatusToCooking } from './status-start-cooking/index.js';
 import { changeOrderStatusToReady } from './status-ready-to-deliver/index.js';
 import { changeOrderStatusToDelivering } from './status-delivering/index.js';
 import { changeOrderStatusToCompleted } from './status-complete/index.js';
+import { cancelOrderByChef } from './status-cancel-by-chef/index.js';
+import { cancelOrderByCourier } from './status-cancel-by-courier/index.js';
 
 const ordersRouter = Router();
 
@@ -27,5 +29,7 @@ changeOrderStatusToCooking(ordersRouter);
 changeOrderStatusToReady(ordersRouter);
 changeOrderStatusToDelivering(ordersRouter);
 changeOrderStatusToCompleted(ordersRouter);
+cancelOrderByChef(ordersRouter);
+cancelOrderByCourier(ordersRouter);
 
 export default ordersRouter;

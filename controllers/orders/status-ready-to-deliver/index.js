@@ -1,5 +1,5 @@
 import { orderStatus } from '../../../constants/orderStatus.js';
-import { ctrlWrapper } from '../../../middlewares/index.js';
+import { ctrlWrapper, isValidParameterId } from '../../../middlewares/index.js';
 import Order from '../../../models/order/index.js';
 import { changeOrderStatus } from '../helpers.js';
 
@@ -13,7 +13,7 @@ const controller = async (req, res) => {
 
   // Change order status
   order.status = changeOrderStatus(order, {
-    currentStatus: orderStatus.COOKING,
+    currentStatuses: [orderStatus.COOKING],
     nextStatus: orderStatus.READY_TO_DELIVERY,
     accessKey: 'chefId',
     id: chefId,
@@ -25,5 +25,9 @@ const controller = async (req, res) => {
 
 export const changeOrderStatusToReady = (router) => {
   // TODO: add auth validation (access: chef)
-  router.patch('/:orderId/status/ready-to-delivery', ctrlWrapper(controller));
+  router.patch(
+    '/:orderId/status/ready-to-delivery',
+    isValidParameterId,
+    ctrlWrapper(controller)
+  );
 };
