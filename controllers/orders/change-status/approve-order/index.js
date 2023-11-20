@@ -1,7 +1,7 @@
-import { orderStatus } from '../../../constants/orderStatus.js';
-import { ctrlWrapper, isValidParameterId } from '../../../middlewares/index.js';
-import Order from '../../../models/order/index.js';
-import { changeOrderStatus } from '../helpers.js';
+import Order from '#models/order/index.js';
+import { orderStatus } from '#constants/orderStatus.js';
+import { changeOrderStatus } from '#controllers/orders/helpers.js';
+import { ctrlWrapper, isValidParameterId } from '#middlewares/index.js';
 
 const controller = async (req, res) => {
   const { orderId } = req.params;

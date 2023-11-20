@@ -5,13 +5,7 @@ import { getAllOrdersByUserId } from './get-by-user-id/index.js';
 import { getAllOrdersByChefId } from './get-by-chef-id/index.js';
 import { getAllOrdersByCourierId } from './get-by-courier-id/index.js';
 import { getOrderById } from './get-by-id/index.js';
-import { changeOrderStatusToApproved } from './status-approve-order/index.js';
-import { changeOrderStatusToCooking } from './status-start-cooking/index.js';
-import { changeOrderStatusToReady } from './status-ready-to-deliver/index.js';
-import { changeOrderStatusToDelivering } from './status-delivering/index.js';
-import { changeOrderStatusToCompleted } from './status-complete/index.js';
-import { cancelOrderByChef } from './status-cancel-by-chef/index.js';
-import { cancelOrderByCourier } from './status-cancel-by-courier/index.js';
+import * as changeStatus from './change-status/index.js';
 
 const ordersRouter = Router();
 
@@ -24,12 +18,12 @@ getAllOrdersByCourierId(ordersRouter);
 
 createOrder(ordersRouter);
 
-changeOrderStatusToApproved(ordersRouter);
-changeOrderStatusToCooking(ordersRouter);
-changeOrderStatusToReady(ordersRouter);
-changeOrderStatusToDelivering(ordersRouter);
-changeOrderStatusToCompleted(ordersRouter);
-cancelOrderByChef(ordersRouter);
-cancelOrderByCourier(ordersRouter);
+changeStatus.changeOrderStatusToApproved(ordersRouter);
+changeStatus.changeOrderStatusToCooking(ordersRouter);
+changeStatus.changeOrderStatusToReady(ordersRouter);
+changeStatus.changeOrderStatusToDelivering(ordersRouter);
+changeStatus.changeOrderStatusToCompleted(ordersRouter);
+changeStatus.cancelOrderByChef(ordersRouter);
+changeStatus.cancelOrderByCourier(ordersRouter);
 
 export default ordersRouter;

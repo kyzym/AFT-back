@@ -32,5 +32,13 @@
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "swagger-ui-express": "^5.0.0"
+  },
+  "imports": {
+    "#constants/*": "./constants/*",
+    "#routes/*": "./routes/*",
+    "#controllers/*": "./controllers/*",
+    "#helpers/*": "./helpers/*",
+    "#middlewares/*": "./middlewares/*",
+    "#models/*": "./models/*"
   }
 }
