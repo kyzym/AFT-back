@@ -7,9 +7,9 @@ const ingredientSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-ingredientSchema.post('save', (error, data, next) => {
-  error.status = 400;
-  next();
-});
+// ingredientSchema.post('save', (error, data, next) => {
+//   error.status = 400;
+//   next();
+// });
 
 export const Ingredient = model('ingredient', ingredientSchema);
