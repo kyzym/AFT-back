@@ -1,8 +1,4 @@
-import {
-  DishRequestSchema,
-  createSuccessResponse,
-  serverError,
-} from '../swaggerDishesComponents.js';
+import { DishRequestSchema, serverError } from '../swaggerDishesComponents.js';
 
 export const createDishSwagger = {
   '/api/dishes': {
@@ -19,7 +15,22 @@ export const createDishSwagger = {
         },
       },
       responses: {
-        201: createSuccessResponse('Dish created successfully'),
+        201: {
+          description: 'Dish created successfully',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  message: {
+                    type: 'string',
+                    example: 'Dish created successfully',
+                  },
+                },
+              },
+            },
+          },
+        },
         500: serverError,
       },
     },

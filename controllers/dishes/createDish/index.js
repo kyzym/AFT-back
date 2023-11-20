@@ -12,5 +12,5 @@ export const createDish = async (req, res) => {
   const newDish = new Dish(newDishData);
   await newDish.save();
 
-  res.status(201);
+  res.status(201).json({ message: 'Dish created successfully' });
 };

@@ -21,7 +21,7 @@ export const deleteDishSwagger = {
       ],
       responses: {
         200: {
-          description: 'Dish deleted successfully',
+          description: 'Dish processed for deletion',
           content: {
             'application/json': {
               schema: {
@@ -29,7 +29,7 @@ export const deleteDishSwagger = {
                 properties: {
                   message: {
                     type: 'string',
-                    example: 'Dish deleted successfully',
+                    example: 'Dish processed for deletion',
                   },
                 },
               },
@@ -37,7 +37,6 @@ export const deleteDishSwagger = {
           },
         },
         400: createErrorResponse('Format of this ID is not correct'),
-        404: createErrorResponse('Dish not found'),
         500: serverError,
       },
     },
