@@ -7,23 +7,22 @@ const controller = async (req, res) => {
   const { orderId } = req.params;
 
   // mock
-  const chefId = '6557219bccbbbbc3695bc8b2';
+  const courierId = '6557219bccbbbbc3695bc8b2';
 
   const order = await Order.findOne({ _id: orderId }).exec();
 
-  // Change order status
   order.status = changeOrderStatus(order, {
-    currentStatus: orderStatus.PENDING,
-    nextStatus: orderStatus.ACCEPTED,
-    accessKey: 'chefId',
-    id: chefId,
+    currentStatus: orderStatus.DELIVERING,
+    nextStatus: orderStatus.COMPLETED,
+    accessKey: 'courierId',
+    id: courierId,
   });
   await order.save();
 
-  return res.send({ success: true, data: 'Order approved' });
+  return res.send({ success: true, data: 'Order delivered and close' });
 };
 
-export const changeOrderStatusToApproved = (router) => {
-  // TODO: add auth validation (access: chef)
-  router.patch('/:orderId/status/approve-order', ctrlWrapper(controller));
+export const changeOrderStatusToCompleted = (router) => {
+  // TODO: add auth validation (access: courier)
+  router.patch('/:orderId/status/complete', ctrlWrapper(controller));
 };

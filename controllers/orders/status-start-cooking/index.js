@@ -1,8 +1,7 @@
 import { orderStatus } from '../../../constants/orderStatus.js';
-import { compareObjectIds } from '../../../helpers/compareObjectIds.js';
-import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
 import { ctrlWrapper } from '../../../middlewares/index.js';
 import Order from '../../../models/order/index.js';
+import { changeOrderStatus } from '../helpers.js';
 
 const controller = async (req, res) => {
   const { orderId } = req.params;
@@ -12,17 +11,12 @@ const controller = async (req, res) => {
 
   const order = await Order.findOne({ _id: orderId }).exec();
 
-  // Check order
-  if (!order) throw new NotFoundError();
-
-  if (!compareObjectIds(order.chefId, chefId))
-    throw new ForbiddenError("You don't have access to this order");
-
-  if (order.status !== orderStatus.ACCEPTED)
-    throw new ForbiddenError("Can't change status on this order");
-
-  // Change order status
-  order.status = orderStatus.COOKING;
+  order.status = changeOrderStatus(order, {
+    currentStatus: orderStatus.ACCEPTED,
+    nextStatus: orderStatus.COOKING,
+    accessKey: 'chefId',
+    id: chefId,
+  });
   await order.save();
 
   return res.send({ success: true, data: 'Order start cooking' });
@@ -30,5 +24,5 @@ const controller = async (req, res) => {
 
 export const changeOrderStatusToCooking = (router) => {
   // TODO: add auth validation (access: chef)
-  router.patch('/:orderId/start-cooking', ctrlWrapper(controller));
+  router.patch('/:orderId/status/start-cooking', ctrlWrapper(controller));
 };

@@ -5,20 +5,27 @@ import { getAllOrdersByUserId } from './get-by-user-id/index.js';
 import { getAllOrdersByChefId } from './get-by-chef-id/index.js';
 import { getAllOrdersByCourierId } from './get-by-courier-id/index.js';
 import { getOrderById } from './get-by-id/index.js';
-import { approveOrder } from './status-approve-order/index.js';
+import { changeOrderStatusToApproved } from './status-approve-order/index.js';
 import { changeOrderStatusToCooking } from './status-start-cooking/index.js';
 import { changeOrderStatusToReady } from './status-ready-to-deliver/index.js';
+import { changeOrderStatusToDelivering } from './status-delivering/index.js';
+import { changeOrderStatusToCompleted } from './status-complete/index.js';
 
 const ordersRouter = Router();
 
 getAllOrders(ordersRouter);
 getOrderById(ordersRouter);
-approveOrder(ordersRouter);
-changeOrderStatusToCooking(ordersRouter);
-changeOrderStatusToReady(ordersRouter);
-createOrder(ordersRouter);
+
 getAllOrdersByUserId(ordersRouter);
 getAllOrdersByChefId(ordersRouter);
 getAllOrdersByCourierId(ordersRouter);
+
+createOrder(ordersRouter);
+
+changeOrderStatusToApproved(ordersRouter);
+changeOrderStatusToCooking(ordersRouter);
+changeOrderStatusToReady(ordersRouter);
+changeOrderStatusToDelivering(ordersRouter);
+changeOrderStatusToCompleted(ordersRouter);
 
 export default ordersRouter;
