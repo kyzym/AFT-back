@@ -33,6 +33,7 @@ const BaseDishSchema = {
     isAvailable: { type: 'boolean' },
     weight: { type: 'number' },
     spiceLevel: { type: 'number' },
+    isBlocked: { type: 'boolean' },
     nutrition: {
       type: 'object',
       properties: {
@@ -53,6 +54,7 @@ const DishSchemaRequired = [
   'category',
   'isAvailable',
   'weight',
+  'isBlocked',
 ];
 
 const DishRequestSchema = {
@@ -123,4 +125,5 @@ export {
   createSuccessResponseArray,
   idSchema,
   serverError,
+  BaseDishSchema,
 };

@@ -1,14 +1,23 @@
-import { NotFoundError } from '../../../helpers/errors.js';
+import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
 import { Dish } from '../../../models/index.js';
 
 export const updateDish = async (req, res) => {
-  const dish = await Dish.findByIdAndUpdate(req.params.dishId, req.body, {
+  const { dishId } = req.params;
+  const updateData = req.body;
+
+  if ('isBlocked' in updateData) {
+    throw new ForbiddenError(
+      "You are not allowed to change the 'isBlocked' field"
+    );
+  }
+
+  const updatedDish = await Dish.findByIdAndUpdate(dishId, updateData, {
     new: true,
   });
 
-  if (!dish) {
+  if (!updatedDish) {
     throw new NotFoundError('Dish not found');
   }
 
-  res.status(200).json(dish);
+  res.status(200).json(updatedDish);
 };

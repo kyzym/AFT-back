@@ -23,13 +23,6 @@ router.get(
 );
 
 router.get(
-  '/:dishId',
-  isValidId('dishId'),
-  // isAuthenticated,
-  ctrlWrapper(dishControllers.getDish)
-);
-
-router.get(
   '/own',
   // isAuthenticated,
   // hasRole(['chef']),
@@ -39,6 +32,13 @@ router.get(
 router.get('/random', ctrlWrapper(dishControllers.getRandomDish));
 
 router.get('/popular', ctrlWrapper(dishControllers.getPopularDishes));
+
+router.get(
+  '/:dishId',
+  isValidId('dishId'),
+  // isAuthenticated,
+  ctrlWrapper(dishControllers.getDish)
+);
 
 router.post(
   '/',
@@ -54,6 +54,14 @@ router.patch(
   // isAuthenticated,
   // hasRole(['chef']),
   ctrlWrapper(dishControllers.updateDish)
+);
+
+router.patch(
+  '/:dishId',
+  isValidId('dishId'),
+  // isAuthenticated,
+  // hasRole(['admin']),
+  ctrlWrapper(dishControllers.updateDishBlockedStatus)
 );
 
 router.delete(

@@ -1,5 +1,5 @@
 import {
-  DishResponseSchema,
+  BaseDishSchema,
   createErrorResponse,
   createSuccessResponse,
   idSchema,
@@ -11,7 +11,8 @@ export const updateDishSwagger = {
     patch: {
       tags: ['Dishes'],
       summary: 'Update a dish',
-      description: 'Updates the details of an existing dish by its ID.',
+      description:
+        'Updates the details of an existing dish by its ID. Chefs can update most fields of the dish. Admins can update the blocked status of the dish.',
       parameters: [
         {
           name: 'dishId',
@@ -22,11 +23,12 @@ export const updateDishSwagger = {
         },
       ],
       requestBody: {
-        description: 'Updated details of the dish',
+        description:
+          'Data for updating the dish. Depending on the user role, different fields can be updated.',
         required: true,
         content: {
           'application/json': {
-            schema: DishResponseSchema,
+            schema: BaseDishSchema,
           },
         },
       },

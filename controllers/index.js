@@ -8,6 +8,7 @@ import { getOwnDishes } from './dishes/getOwnDishes/index.js';
 import { getPopularDishes } from './dishes/getPopularDishes/index.js';
 import { getRandomDish } from './dishes/getRandomDish/index.js';
 import { updateDish } from './dishes/updateDish/index.js';
+import { updateDishBlockedStatus } from './dishes/updateDishBlockedStatus/index.js';
 
 export const dishControllers = {
   createDish,
@@ -19,4 +20,5 @@ export const dishControllers = {
   getPopularDishes,
   getRandomDish,
   updateDish,
+  updateDishBlockedStatus,
 };

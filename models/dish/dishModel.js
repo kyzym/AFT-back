@@ -67,6 +67,11 @@ const dishSchema = new Schema(
       required: [true, 'Time of cooking is required'],
       min: 1,
     },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
     nutrition: {
       calories: Number,
       protein: Number,
