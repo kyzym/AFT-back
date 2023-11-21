@@ -9,10 +9,12 @@ import { getPopularDishes } from './dishes/getPopularDishes/index.js';
 import { getRandomDish } from './dishes/getRandomDish/index.js';
 import { updateDish } from './dishes/updateDish/index.js';
 import { updateDishBlockedStatus } from './dishes/updateDishBlockedStatus/index.js';
-import { addIngredient } from './ingredients/addIngredient/addIngredient.js';
-import { deleteIngredientById } from './ingredients/deleteIngredientById/deleteIngredientById.js';
-import { getAllIngredients } from './ingredients/getAllIngredients/getAllIngredients.js';
-import { updateIngredient } from './ingredients/updateIngredient/updateIngredient.js';
+import {
+  addIngredient,
+  updateIngredient,
+  deleteIngredientById,
+  getAllIngredients,
+} from './ingredients/index.js';
 
 export const dishControllers = {
   createDish,
