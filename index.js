@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import { swaggerControllers } from './controllers/swagger.js';
 import { error } from './middlewares/errors.middleware.js';
 import { RouteNotFoundError } from './helpers/errors.js';
+import dishesRoutes from './routes/dishes.js';
 import { routes } from './controllers/index.js';
 
 const app = express();
@@ -22,6 +23,8 @@ app.use(express.json());
 
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));
 
+app.use('/api/dishes', dishesRoutes);
+
 routes(app);
 
 // Route not found error
@@ -35,8 +38,12 @@ app.use(error);
 const start = async () => {
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-    app.listen(PORT, () => {
-      console.log(chalk.cyan.italic(`Server is running. Use port: ${PORT}`));
+    const server = app.listen(PORT, () => {
+      console.log(
+        chalk.cyan.italic(
+          `Server is running. Use port: ${server.address().port}`
+        )
+      );
     });
   } catch (e) {
     console.log(e.message);

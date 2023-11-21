@@ -1,5 +1,6 @@
 import { usersSwagger } from './users/index.js';
 import { ordersSwagger } from './orders/swagger.js';
+import { dishesSwagger } from './dishes/index.js';
 
 const { SERVER_URL } = process.env;
 
@@ -19,6 +20,7 @@ export const swaggerControllers = {
   paths: {
     ...usersSwagger.paths,
     ...ordersSwagger.paths,
+    ...dishesSwagger.paths,
   },
   components: {
     securitySchemes: {
@@ -35,6 +37,7 @@ export const swaggerControllers = {
     schemas: {
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,
+      ...dishesSwagger.components.schemas,
     },
   },
 };

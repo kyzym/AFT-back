@@ -6,6 +6,8 @@ const dishSchema = new Schema(
     name: {
       type: String,
       required: [true, 'Name of the dish is required'],
+      minlength: 1,
+      maxlength: 100,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -19,6 +21,8 @@ const dishSchema = new Schema(
     description: {
       type: String,
       required: [true, 'Description of the dish is required'],
+      minlength: 10,
+      maxlength: 400,
     },
     ingredients: [
       {
@@ -30,6 +34,7 @@ const dishSchema = new Schema(
     price: {
       type: Number,
       required: [true, 'Price of the dish is required'],
+      min: 0.01,
     },
     isVegan: {
       type: Boolean,
@@ -57,8 +62,15 @@ const dishSchema = new Schema(
       type: Number,
       required: [true, 'Weight of the dish is required'],
     },
-    cookTime: {
+    cookTimeInMinutes: {
       type: Number,
+      required: [true, 'Time of cooking is required'],
+      min: 1,
+    },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+      required: true,
     },
     nutrition: {
       calories: Number,
@@ -73,7 +85,18 @@ const dishSchema = new Schema(
       default: 0,
     },
   },
-  { versionKey: false, timestamps: true }
+  {
+    versionKey: false,
+    timestamps: true,
+    id: true,
+    toJSON: {
+      virtual: true,
+      transform: function (_doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
 const Dish = model('dish', dishSchema);
