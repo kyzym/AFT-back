@@ -12,7 +12,7 @@ export const roleSchema = new Schema(
     },
     id: {
       type: Schema.Types.ObjectId,
-      default: null,
+      required: true,
     },
   },
   { _id: false }
@@ -21,16 +21,15 @@ export const roleSchema = new Schema(
 export const roleValidationSchema = Joi.object({
   name: Joi.string()
     .valid(...Object.values(roles))
-    .not(roles.USER)
     .required(),
-  id: Joi.alternatives().try(Joi.allow(null), idValidationSchema).required(),
+  id: idValidationSchema.required(),
 });
 
-export const getDefaultRoles = () => {
-  const { USER, ...otherRoles } = roles; // eslint-disable-line no-unused-vars
-
-  return Object.values(otherRoles).map((role) => ({
-    name: role,
-    id: null,
-  }));
+export const getDefaultRoles = function () {
+  return [
+    {
+      name: roles.USER,
+      id: this._id,
+    },
+  ];
 };

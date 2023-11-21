@@ -1,12 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import { addressSchema, orderItemSchema } from '../schemas/index.js';
 import { accountStatuses } from '../../constants/index.js';
-import {
-  emailPattern,
-  passwordPattern,
-  phoneNumberPattern,
-} from '../../helpers/index.js';
-import { roleSchema, getDefaultRoles } from './roleSchema.js';
+import { emailPattern, phoneNumberPattern } from '../../helpers/index.js';
+import { getDefaultRoles, roleSchema } from './roleSchema.js';
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -25,11 +21,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Password is required'],
-      validate: {
-        validator: (value) => passwordPattern.test(value),
-        message: 'Invalid password format',
-      },
-      minlength: [8, 'Password must be at least 8 characters long'],
     },
     email: {
       type: String,
@@ -62,8 +53,7 @@ const userSchema = new Schema(
         values: Object.values(accountStatuses),
         message: 'Invalid account status',
       },
-      required: [true, 'Account status is required'],
-      default: accountStatuses.PENDING,
+      default: accountStatuses.ACTIVE,
     },
   },
   {

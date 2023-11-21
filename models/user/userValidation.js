@@ -22,8 +22,8 @@ export const userValidationSchema = Joi.object({
   cart: Joi.array()
     .items(orderItemValidationSchema)
     .label('Invalid order data'),
-  roles: Joi.array().items(roleValidationSchema).required(),
+  roles: Joi.array().items(roleValidationSchema),
   accountStatus: Joi.string()
     .valid(...Object.values(accountStatuses))
-    .required(),
+    .default(accountStatuses.ACTIVE),
 });
