@@ -2,8 +2,8 @@ import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
 
 const getAllIngredientsController = async (req, res) => {
-  const reviews = await Ingredient.find().exec();
-  res.status(200).json(reviews);
+  const ingredients = await Ingredient.find().exec();
+  res.status(200).json(ingredients);
 };
 
 export const getAllIngredients = (router) => {
