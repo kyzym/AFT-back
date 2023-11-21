@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { addressSchema, orderItemSchema } from '../schemas/index.js';
-import { accountStatuses } from '../../constants/index.js';
+import { accountStatus } from '../../constants/index.js';
 import { emailPattern, phoneNumberPattern } from '../../helpers/index.js';
 import { getDefaultRoles, roleSchema } from './roleSchema.js';
 
@@ -50,10 +50,10 @@ const userSchema = new Schema(
     accountStatus: {
       type: String,
       enum: {
-        values: Object.values(accountStatuses),
+        values: Object.values(accountStatus),
         message: 'Invalid account status',
       },
-      default: accountStatuses.ACTIVE,
+      default: accountStatus.ACTIVE,
     },
   },
   {

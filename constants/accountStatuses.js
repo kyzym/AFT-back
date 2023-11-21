@@ -1,4 +1,4 @@
-export const accountStatuses = Object.freeze({
+export const accountStatus = Object.freeze({
   PENDING: 'pending',
   ACTIVE: 'active',
   VERIFIED: 'verified',

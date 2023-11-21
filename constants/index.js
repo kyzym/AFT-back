@@ -1,3 +1,3 @@
 export * from './orderStatus.js';
-export * from './accountStatuses.js';
+export * from './accountStatus.js';
 export * from './roles.js';

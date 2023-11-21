@@ -5,7 +5,7 @@ import {
   idValidationSchema,
   passwordPattern,
 } from '../../helpers/index.js';
-import { accountStatuses } from '../../constants/index.js';
+import { accountStatus } from '../../constants/index.js';
 import { orderItemValidationSchema } from '../order/order.validation.js';
 import { roleValidationSchema } from './roleSchema.js';
 
@@ -24,6 +24,6 @@ export const userValidationSchema = Joi.object({
     .label('Invalid order data'),
   roles: Joi.array().items(roleValidationSchema),
   accountStatus: Joi.string()
-    .valid(...Object.values(accountStatuses))
-    .default(accountStatuses.ACTIVE),
+    .valid(...Object.values(accountStatus))
+    .default(accountStatus.ACTIVE),
 });
