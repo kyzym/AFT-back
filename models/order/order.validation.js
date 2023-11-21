@@ -4,7 +4,7 @@ import { isObjectId } from '../../helpers/index.js';
 const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 
 export const orderItemValidationSchema = Joi.object().keys({
-  dishId: idValidationSchema.required(),
+  dish: idValidationSchema.required(),
   count: Joi.number().min(1).required(),
   name: Joi.string().min(1).max(100).required(),
 });

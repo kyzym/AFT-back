@@ -5,8 +5,8 @@ import Order from '../../../models/order/index.js';
 const controller = async (req, res) => {
   const [orders, pagination] = await withPagination(
     Order.find({}, { createdAt: false, updatedAt: false, __v: false }).populate(
-      'items.dishId',
-      'name image'
+      'items.dish',
+      'image'
     ),
     req.query
   );

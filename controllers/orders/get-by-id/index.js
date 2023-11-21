@@ -19,7 +19,7 @@ const controller = async (req, res) => {
     updatedAt: false,
     __v: false,
   })
-    .populate('items.dishId', 'name image')
+    .populate('items.dish', 'image')
     .exec();
 
   if (!order) throw new NotFoundError('Order not found');

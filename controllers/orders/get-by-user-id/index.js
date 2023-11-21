@@ -9,7 +9,7 @@ const controller = async (req, res) => {
     Order.find(
       { userId },
       { createdAt: false, updatedAt: false, __v: false }
-    ).populate('items.dishId', 'name image'),
+    ).populate('items.dish', 'image'),
     req.query
   );
 

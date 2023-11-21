@@ -13,7 +13,7 @@ export const findOrderItemsInDb = async (orderItems) => {
   // TODO: Change _id to id without underline
   const dbDishes = await Dish.find(
     {
-      _id: { $in: orderItems.map(({ dishId }) => dishId) },
+      _id: { $in: orderItems.map(({ dish }) => dish) },
     },
     'price isAvailable owner'
   ).exec();
@@ -26,7 +26,7 @@ export const concatArraysById = (orderDishes, dbDishes) => {
     const matchingDish = dbDishes.find(
       // TODO: Change _id to id without underline
       (dbDish) => {
-        return compareObjectIds(orderDish.dishId, dbDish._id);
+        return compareObjectIds(orderDish.dish, dbDish._id);
       }
     );
 
@@ -53,14 +53,14 @@ export const getItemsInfo = (items) => {
 
     // Checking for dish exist in db
     if (!item.owner) {
-      errors.push({ dishId: item.dishId, message: `"${item.name}" not found` });
+      errors.push({ dish: item.dish, message: `"${item.name}" not found` });
       continue;
     }
 
     // Checking for dish availability
     if (!item.isAvailable) {
       errors.push({
-        dishId: item.dishId,
+        dish: item.dish,
         message: `"${item.name}" is not available now`,
       });
       continue;
