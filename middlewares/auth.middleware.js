@@ -5,6 +5,7 @@ import {
   ForbiddenError,
 } from '../helpers/errors.js';
 import User from '../models/user/index.js';
+import { roles } from '../constants/index.js';
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -12,20 +13,24 @@ const SECRET_KEY = process.env.SECRET_KEY;
  * Middleware for role-based JWT token verification.
  *
  * @param {Object} options - Middleware options.
- * @param {string[]} options.requiredRoles - Array of required user roles (['chef', 'courier', 'admin']).
+ * @param {string[]} options.requiredRoles - Array of required user roles (e.g., ['chef', 'courier', 'admin']).
  *
  * @example
- * // Protect a route requiring 'chef', 'admin' roles
- * router.get('/api/orders/by-chef/:chefId', verifyToken(['chef', 'admin']), async (req, res) => {}
+ * // Protect a route by specifying required roles, for instance, ['chef', 'admin']
+ * router.get('/orders/by-chef/:chefId', verifyToken(['chef', 'admin']), async (req, res) => {}
  *
- * @returns {Object} - Objects req.userId and object req.roles {'chef': chefId, ...} based on requiredRoles.
+ * @returns {Object} - Object containing role IDs associated with the requiredRoles for the current user.
+ * Example: { 'user': 'userId', 'chef': 'chefId', 'admin': 'adminId' }
  */
 
-const verifyToken = (requiredRoles) => {
+const verifyToken = (requiredRoles = []) => {
   const getTokenFromHeaders = (req) => req.headers.authorization?.split(' ')[1];
 
   const getRoleIds = (userRoles, userId) => {
-    return requiredRoles.reduce((roleIds, requiredRole) => {
+    const defaultRole = [roles.USER];
+    const allRoles = [...requiredRoles, ...defaultRole];
+
+    return allRoles.reduce((roleIds, requiredRole) => {
       const roleId = userRoles.find(
         (userRole) => userRole.name === requiredRole
       )?.id;
@@ -51,8 +56,8 @@ const verifyToken = (requiredRoles) => {
       if (!user) throw new NotFoundError(`User with id ${id} not found`);
 
       const roleIds = getRoleIds(user.roles, user.id);
-      req.userId = user.id;
-      req.roles = roleIds;
+
+      req.roleIds = roleIds;
 
       next();
     } catch (error) {
