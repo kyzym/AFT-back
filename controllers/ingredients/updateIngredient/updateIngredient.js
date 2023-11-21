@@ -1,10 +1,9 @@
 import { NotFoundError } from '../../../helpers/errors.js';
-import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
 // import { validate } from '../../../middlewares/validation.middleware.js';
 // import { addIngredientSchema } from '../../../models/ingredient/ingredient.validation.js';
 
-export const updateIngredientController = async (req, res) => {
+export const updateIngredient = async (req, res) => {
   const { ingredientId } = req.params;
   const result = await Ingredient.findByIdAndUpdate(ingredientId, req.body, {
     new: true,
@@ -15,19 +14,3 @@ export const updateIngredientController = async (req, res) => {
   }
   res.status(200).json({ message: 'The ingredient was successfully updated.' });
 };
-
-export const updateIngredient = (router) => {
-  router.put(
-    '/:ingredientId',
-    // add authenticate middleware
-    // authenticate,
-    // isValidId('ingredientId'),
-    // validate(addIngredientSchema),
-    ctrlWrapper(updateIngredientController)
-  );
-};
-
-// We need to check!!!!
-//   authenticate,
-//   isValidId,
-//   validateBody(schemas.addSchema),

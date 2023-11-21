@@ -9,6 +9,7 @@ import { swaggerControllers } from './controllers/index.js';
 import { error } from './middlewares/errors.middleware.js';
 import { RouteNotFoundError } from './helpers/errors.js';
 import dishesRoutes from './routes/dishes.js';
+import ingredientsRoutes from './routes/ingredients.js';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));
 
 app.use('/api/dishes', dishesRoutes);
+app.use('/api/ingredients', ingredientsRoutes);
 
 // Route not found error
 app.use(() => {
