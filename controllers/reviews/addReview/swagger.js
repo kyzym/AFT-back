@@ -1,6 +1,6 @@
 export const addReview = {
   paths: {
-    '/reviews': {
+    '/api/reviews': {
       post: {
         summary: 'Create a new review',
         description: 'Create a new review',
@@ -68,6 +68,7 @@ export const addReview = {
           owner: {
             type: 'string',
             description: 'The id of the review owner',
+            format: 'uuid',
           },
           dish: {
             type: 'string',
@@ -95,10 +96,4 @@ export const addReview = {
       },
     },
   },
-  tags: [
-    {
-      name: 'Reviews',
-      description: 'The reviews managing API',
-    },
-  ],
 };
