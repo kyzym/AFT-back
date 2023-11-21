@@ -1,21 +1,16 @@
+import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 import { Review } from '../../../models/review/index.js';
 
-export const getAllReviews = async (app) => {
-  app.get(
-    '/reviews',
+export const getAllReviewsCOntroller = async (req, res) => {
+  const reviews = await Review.find({}, '-createdAt -updatedAt').exec();
+  res.status(200).json(reviews);
+};
 
+export const getAgetAllReviewsllIngredients = (router) => {
+  router.get(
+    '/',
     // add authenticate middleware
-    // authenticate,
-
-    async (req, res, next) => {
-      try {
-        const reviews = await Review.find()
-          .populate('owner', 'name _id')
-          .exec();
-        res.status(200).json(reviews);
-      } catch (error) {
-        next(error);
-      }
-    }
+    // authenticate,);
+    ctrlWrapper(getAllReviewsCOntroller)
   );
 };

@@ -2,6 +2,9 @@ export const getAllReviews = {
   paths: {
     '/api/reviews': {
       get: {
+        summary: 'Returns the list of all reviews',
+        description: 'Returns the list of all reviews',
+        operationId: 'getAllReviews',
         tags: ['Reviews'],
         security: [
           {
@@ -19,9 +22,6 @@ export const getAllReviews = {
             description: 'Bearer token for authentication',
           },
         ],
-        summary: 'Returns the list of all reviews',
-        description: 'Returns the list of all reviews',
-        operationId: 'getAllReviews',
         responses: {
           200: {
             description: 'The list of reviews',
@@ -61,17 +61,8 @@ export const getAllReviews = {
             format: 'uuid',
           },
           dish: {
-            type: 'object',
-            properties: {
-              name: {
-                type: 'string',
-              },
-              chef: {
-                type: 'string',
-                format: 'uuid',
-              },
-            },
-            required: ['name', 'chef'],
+            type: 'string',
+            format: 'uuid',
           },
           rating: {
             type: 'integer',

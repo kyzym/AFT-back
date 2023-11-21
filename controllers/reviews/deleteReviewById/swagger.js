@@ -13,15 +13,6 @@ export const deleteReview = {
         ],
         parameters: [
           {
-            in: 'path',
-            name: 'reviewId',
-            schema: {
-              type: 'string',
-            },
-            required: true,
-            description: 'ID of the review to delete',
-          },
-          {
             in: 'header',
             name: 'Authorization',
             required: true,
@@ -29,6 +20,16 @@ export const deleteReview = {
               type: 'string',
             },
             description: 'Bearer token for authentication',
+          },
+          {
+            in: 'path',
+            name: 'reviewId',
+            schema: {
+              type: 'string',
+              format: 'uuid',
+            },
+            required: true,
+            description: 'ID of the review to delete',
           },
         ],
         responses: {
