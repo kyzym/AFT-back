@@ -1,6 +1,6 @@
-import { validate } from '../../../middlewares/index.js';
+// import { validate } from '../../../middlewares/index.js';
 
-import { addIngredientSchema } from '../../../models/ingredient/ingredient.validation.js';
+// import { addIngredientSchema } from '../../../models/ingredient/ingredient.validation.js';
 
 import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
 import { NotFoundError } from '../../../helpers/errors.js';
@@ -20,7 +20,7 @@ export const addIngredient = (router) => {
     '/',
     // add authenticate middleware
     // authenticate,
-    validate(addIngredientSchema),
+    // validate(addIngredientSchema),
     ctrlWrapper(addIngredientController)
   );
 };

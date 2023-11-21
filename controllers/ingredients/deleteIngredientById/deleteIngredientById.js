@@ -4,9 +4,8 @@ import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
 
 export const deleteIngredientByIdController = async (req, res) => {
   const { ingredientId } = req.params;
-  console.log('ingredientId:', ingredientId);
+
   const result = await Ingredient.findByIdAndDelete(ingredientId).exec();
-  console.log('result:', result);
 
   if (!result) {
     throw new NotFoundError('NotFound');
