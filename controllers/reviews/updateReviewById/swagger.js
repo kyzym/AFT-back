@@ -1,9 +1,11 @@
 export const updateReviewById = {
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
-    '/reviews/{reviewId}': {
+    '/api/reviews/{reviewId}': {
       put: {
         summary: 'Update a review by review ID',
+        description: 'Update a review by review ID',
+        operationId: 'updateReviewById',
         tags: ['Reviews'],
         security: [{ BearerAuth: [] }],
         parameters: [
@@ -34,11 +36,17 @@ export const updateReviewById = {
         },
         responses: {
           200: {
-            description: 'The updated review',
+            description: 'Review updated successfully',
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/Review',
+                  type: 'object',
+                  properties: {
+                    message: {
+                      type: 'string',
+                      description: 'Review updated successfully',
+                    },
+                  },
                 },
               },
             },
@@ -50,7 +58,7 @@ export const updateReviewById = {
             description: 'Unauthorized - Missing or invalid token',
           },
           404: {
-            description: 'Not Found - Review or dish not found',
+            description: 'Review not found',
           },
           500: {
             description: 'Internal Server Error',

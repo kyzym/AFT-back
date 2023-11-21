@@ -7,14 +7,14 @@ import { updateReviewById } from './updateReviewById/swagger.js';
 
 export const reviewsSwagger = {
   paths: {
-    '/reviews': {
-      ...getAllReviews.paths['/reviews'],
-      ...addReview.paths['/reviews'],
+    '/api/reviews': {
+      ...getAllReviews.paths['/api/reviews'],
+      ...addReview.paths['/api/reviews'],
     },
 
-    '/reviews/{reviewId}': {
-      ...deleteReview.paths['/reviews/{reviewId}'],
-      ...updateReviewById.paths['/reviews/{reviewId}'],
+    '/api/reviews/{reviewId}': {
+      ...deleteReview.paths['/api/reviews/{reviewId}'],
+      ...updateReviewById.paths['/api/reviews/{reviewId}'],
     },
     '/reviews/by-chef/{chefId}': {
       ...getReviewsByChefId.paths['/reviews/by-chef/{chefId}'],
@@ -26,7 +26,39 @@ export const reviewsSwagger = {
 
   components: {
     schemas: {
-      ...addReview.components.schemas,
+      BearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Bearer token for authentication',
+      },
+      AddReview: {
+        type: 'object',
+        required: ['owner', 'dish', 'rating', 'review'],
+        properties: {
+          owner: {
+            type: 'string',
+            description: 'The id of the review owner',
+            format: 'uuid',
+          },
+          dish: {
+            type: 'string',
+            description: 'The id of the reviewed dish',
+            format: 'uuid',
+          },
+          rating: {
+            type: 'integer',
+            description: 'The rating given to the dish (integer value)',
+            minimum: 1,
+            maximum: 5,
+          },
+          review: {
+            type: 'string',
+            description: 'The review text',
+            maxLength: 400,
+          },
+        },
+      },
       ...getReviewsByChefId.components.schemas,
       ...getAllReviews.components.schemas,
     },

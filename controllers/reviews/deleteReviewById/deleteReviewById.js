@@ -1,28 +1,25 @@
-import { HttpError } from '../../../helpers/HttpError.js';
-import { isValidReviewId } from '../../../middlewares/isValidIReview.js';
+import { NotFoundError } from '../../../helpers/errors.js';
+import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
+import { isValidId } from '../../../middlewares/isValidId_test_Naumenko.js';
 
 import { Review } from '../../../models/review/index.js';
 
-export const deleteReviewById = async (app) => {
-  app.delete(
-    '/reviews/:reviewId',
+const deleteReviewByIdController = async (req, res) => {
+  const { reviewId } = req.params;
+  const result = await Review.findByIdAndDelete(reviewId).exec();
+
+  if (!result) {
+    throw new NotFoundError('NotFound');
+  }
+  res.status(204).send();
+};
+
+export const deleteReviewById = (router) => {
+  router.post(
+    '/:reviewId',
     // add authenticate middleware
     // authenticate,
-
-    isValidReviewId,
-    async (req, res, next) => {
-      try {
-        const { reviewId } = req.params;
-        const result = await Review.findByIdAndDelete(reviewId).exec();
-        console.log('result:', result);
-
-        if (!result) {
-          throw HttpError(404, 'NotFound');
-        }
-        res.status(204);
-      } catch (error) {
-        next(error);
-      }
-    }
+    isValidId('reviewId'),
+    ctrlWrapper(deleteReviewByIdController)
   );
 };
