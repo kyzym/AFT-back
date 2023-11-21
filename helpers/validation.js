@@ -23,6 +23,7 @@ export const addressValidationSchema = Joi.object().keys({
   }),
 });
 
+
 // Phone number should follow the pattern, for example: +38(050)1234567
 export const phoneNumberPattern = /^\+38\(0[3-9]\d\)\d{7}$/;
 
