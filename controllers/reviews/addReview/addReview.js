@@ -2,7 +2,7 @@ import { NotFoundError } from '../../../helpers/errors.js';
 import { Review /*addReviewSchema*/ } from '../../../models/review/index.js';
 import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 
-export const addReviewController = async (req, res) => {
+const addReviewController = async (req, res) => {
   const { id: owner } = req.user;
 
   const data = {

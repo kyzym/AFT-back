@@ -12,9 +12,9 @@ export const reviewsSwagger = {
       ...addReview.paths['/api/reviews'],
     },
 
-    '/reviews/{reviewId}': {
-      ...deleteReview.paths['/reviews/{reviewId}'],
-      ...updateReviewById.paths['/reviews/{reviewId}'],
+    '/api/reviews/{reviewId}': {
+      ...deleteReview.paths['/api/reviews/{reviewId}'],
+      ...updateReviewById.paths['/api/reviews/{reviewId}'],
     },
     '/reviews/by-chef/{chefId}': {
       ...getReviewsByChefId.paths['/reviews/by-chef/{chefId}'],

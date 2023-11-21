@@ -1,7 +1,7 @@
 export const updateReviewById = {
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
-    '/reviews/{reviewId}': {
+    '/api/reviews/{reviewId}': {
       put: {
         summary: 'Update a review by review ID',
         tags: ['Reviews'],
