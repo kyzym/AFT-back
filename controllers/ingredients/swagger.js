@@ -1,6 +1,6 @@
 import { addIngredient } from './addIngredient/swagger.js';
 import { deleteIngredientById } from './deleteIngredientById/swagger.js';
-import { getAllIngredients } from './getAllIngredients/getAllIngredients.js';
+import { getAllIngredients } from './getAllIngredients/swagger.js';
 import { updateIngredient } from './updateIngredient/swagger.js';
 
 export const ingredientsSwagger = {
