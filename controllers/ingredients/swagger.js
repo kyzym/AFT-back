@@ -1,5 +1,6 @@
 import { addIngredient } from './addIngredient/swagger.js';
 import { deleteIngredientById } from './deleteIngredientById/swagger.js';
+import { updateIngredient } from './updateIngredient/swagger.js';
 
 export const ingredientsSwagger = {
   paths: {
@@ -8,6 +9,7 @@ export const ingredientsSwagger = {
     },
     '/api/ingredients/{ingredientId}': {
       ...deleteIngredientById.paths['/api/ingredients/{ingredientId}'],
+      ...updateIngredient.paths['/api/ingredients/{ingredientId}'],
     },
   },
 
