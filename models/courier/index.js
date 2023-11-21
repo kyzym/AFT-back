@@ -1,4 +1,4 @@
-import courier from "./Courier.model";
-import CourierValidationSchema from "./Courier.validation";
+import Courier from './Courier.model';
+import CourierValidationSchema from './Courier.validation';
 
-export { courier, CourierValidationSchema };
+export { Courier, CourierValidationSchema };
