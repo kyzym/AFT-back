@@ -1,7 +1,7 @@
 import { NotFoundError } from '../../../helpers/errors.js';
 import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
-// import { validate } from '../../../middlewares/validation.middleware.js';
 import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
+// import { validate } from '../../../middlewares/validation.middleware.js';
 // import { addIngredientSchema } from '../../../models/ingredient/ingredient.validation.js';
 
 export const updateIngredientController = async (req, res) => {
