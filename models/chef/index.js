@@ -1,4 +1,4 @@
-import chef from './Chef.model';
 import ChefValidationSchema from './Chef.validation';
+import Chef from './Chef.model';
 
-export { chef, ChefValidationSchema };
+export { Chef, ChefValidationSchema };
