@@ -61,13 +61,5 @@ export const addIngredient = {
         },
       },
     },
-    components: {
-      tags: [
-        {
-          name: 'Ingredients',
-          description: 'The ingredients managing API',
-        },
-      ],
-    },
   },
 };
