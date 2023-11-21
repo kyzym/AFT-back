@@ -1,29 +1,26 @@
+import { roles } from '#constants/roles.js';
 import {
-  AddressSchema,
-  CoordinateSchema,
   errorMessage,
   errorResponse,
+  idParameter,
   pagePaginationParameters,
 } from '#controllers/swagger.common.js';
-import {
-  GetAllOrdersResponse,
-  OrderItemSchema,
-  OrderSchema,
-  ShortDishSchema,
-} from '../swagger.common.js';
 
-export const getAllOrdersSwagger = {
+export const getOrderByCourierIdSwagger = {
   paths: {
-    '/orders': {
+    '/orders/by-courier/{courierId}': {
       get: {
         tags: ['Orders'],
-        summary: 'Get list of all orders',
-        security: [{ bearerAuth: [] }],
-        description: 'Returns a list of all orders',
-        parameters: [...pagePaginationParameters],
+        summary: 'Get orders by courier id',
+        security: [{ bearerAuth: [roles.COURIER] }],
+        description: 'Returns a list of all courier orders',
+        parameters: [
+          ...pagePaginationParameters,
+          idParameter('courierId', 'Courier id'),
+        ],
         responses: {
           200: {
-            description: 'A list of orders',
+            description: 'A list of courier orders',
             content: {
               'application/json': {
                 schema: { $ref: '#/components/schemas/GetAllOrdersResponse' },
@@ -41,16 +38,6 @@ export const getAllOrdersSwagger = {
           },
         },
       },
-    },
-  },
-  components: {
-    schemas: {
-      ShortDishSchema,
-      OrderItemSchema,
-      OrderSchema,
-      CoordinateSchema,
-      AddressSchema,
-      GetAllOrdersResponse,
     },
   },
 };
