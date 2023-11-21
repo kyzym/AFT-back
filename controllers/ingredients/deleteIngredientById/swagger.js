@@ -1,4 +1,4 @@
-export const deleteReview = {
+export const deleteIngredientById = {
   paths: {
     '/api/ingredients/{ingredientId}': {
       delete: {

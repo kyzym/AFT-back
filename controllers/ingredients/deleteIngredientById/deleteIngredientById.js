@@ -2,7 +2,7 @@ import { NotFoundError } from '../../../helpers/errors.js';
 import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
 
-export const deleteIngredientById = async (req, res) => {
+export const deleteIngredientByIdController = async (req, res) => {
   const { ingredientId } = req.params;
   const result = await Ingredient.findByIdAndRemove(ingredientId).exec();
 
@@ -12,12 +12,12 @@ export const deleteIngredientById = async (req, res) => {
   res.status(204);
 };
 
-export const deleteIngredient = (router) => {
+export const deleteIngredientById = (router) => {
   router.delete(
     '/:ingredientId',
     // add authenticate middleware
     // authenticate,
     // isValidId('ingredientId'),
-    ctrlWrapper(deleteIngredientById)
+    ctrlWrapper(deleteIngredientByIdController)
   );
 };

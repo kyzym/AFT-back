@@ -1,9 +1,13 @@
 import { addIngredient } from './addIngredient/swagger.js';
+import { deleteIngredientById } from './deleteIngredientById/swagger.js';
 
 export const ingredientsSwagger = {
   paths: {
     '/api/ingredients': {
       ...addIngredient.paths['/api/ingredients'],
+    },
+    '/api/ingredients/{ingredientId}': {
+      ...deleteIngredientById.paths['/api/ingredients/{ingredientId}'],
     },
   },
 
