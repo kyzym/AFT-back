@@ -1,6 +1,7 @@
 import { usersSwagger } from './users/index.js';
 import { ordersSwagger } from './orders/index.js';
 import { ingredientsSwagger } from './ingredients/swagger.js';
+import { dishesSwagger } from './dishes/index.js';
 
 export const swaggerControllers = {
   openapi: '3.1.0',
@@ -19,12 +20,14 @@ export const swaggerControllers = {
     ...usersSwagger.paths,
     ...ordersSwagger.paths,
     ...ingredientsSwagger.paths,
+    ...dishesSwagger.paths,
   },
   components: {
     schemas: {
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,
       ...ingredientsSwagger.components.schemas,
+      ...dishesSwagger.components.schemas,
     },
   },
 };

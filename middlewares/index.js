@@ -1,5 +1,3 @@
-import { ctrlWrapper } from './ctrlWrapper.js';
-
-export default { ctrlWrapper };
-
-export * from './validation.middleware.js';
+export * from './ctrlWrapper.js';
+export * from './joiValidation.js';
+export * from './isValidId.js';
