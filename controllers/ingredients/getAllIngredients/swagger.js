@@ -40,7 +40,7 @@ export const getAllIngredients = {
             description: 'Unauthorized - Missing or invalid token',
           },
           404: {
-            description: 'Review not found',
+            description: 'Ingredient not found',
           },
           500: {
             description: 'Internal Server Error',
