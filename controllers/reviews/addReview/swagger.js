@@ -45,10 +45,6 @@ export const addReview = {
           401: {
             description: 'Unauthorized - Missing or invalid token',
           },
-          403: {
-            description:
-              "Forbidden - User doesn't have permission to delete this review",
-          },
           404: {
             description: 'Review not found',
           },
@@ -63,7 +59,7 @@ export const addReview = {
     schemas: {
       AddReview: {
         type: 'object',
-        required: ['id', 'owner', 'dish', 'rating', 'review'],
+        required: ['owner', 'dish', 'rating', 'review'],
         properties: {
           owner: {
             type: 'string',
@@ -87,12 +83,6 @@ export const addReview = {
             maxLength: 400,
           },
         },
-      },
-      BearerAuth: {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        description: 'Bearer token for authentication',
       },
     },
   },

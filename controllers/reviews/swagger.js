@@ -7,9 +7,9 @@ import { updateReviewById } from './updateReviewById/swagger.js';
 
 export const reviewsSwagger = {
   paths: {
-    '/reviews': {
-      ...getAllReviews.paths['/reviews'],
-      ...addReview.paths['/reviews'],
+    '/api/reviews': {
+      ...getAllReviews.paths['/api/reviews'],
+      ...addReview.paths['/api/reviews'],
     },
 
     '/reviews/{reviewId}': {
@@ -26,6 +26,12 @@ export const reviewsSwagger = {
 
   components: {
     schemas: {
+      BearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Bearer token for authentication',
+      },
       ...addReview.components.schemas,
       ...getReviewsByChefId.components.schemas,
       ...getAllReviews.components.schemas,

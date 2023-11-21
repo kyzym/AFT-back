@@ -1,6 +1,6 @@
 export const getAllReviews = {
   paths: {
-    '/reviews': {
+    '/api/reviews': {
       get: {
         tags: ['Reviews'],
         security: [
@@ -49,12 +49,6 @@ export const getAllReviews = {
   },
   components: {
     schemas: {
-      BearerAuth: {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        description: 'Bearer token for authentication',
-      },
       Review: {
         type: 'object',
         properties: {

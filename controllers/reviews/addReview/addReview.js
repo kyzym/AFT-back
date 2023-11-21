@@ -1,30 +1,28 @@
-import { HttpError } from '../../../helpers/HttpError.js';
-import { validateBody } from '../../../middlewares/validateBody.js';
-import { Review, addReviewSchema } from '../../../models/review/index.js';
+import { NotFoundError } from '../../../helpers/errors.js';
+import { Review /*addReviewSchema*/ } from '../../../models/review/index.js';
+import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 
-export const addReview = (app) => {
-  return app.post(
-    '/reviews',
+export const addReviewController = async (req, res) => {
+  const { id: owner } = req.user;
+
+  const data = {
+    ...req.body,
+    owner,
+  };
+
+  const review = await Review.create(data);
+  if (!review) {
+    throw new NotFoundError('Not found');
+  }
+  res.status(201).json({ message: 'Review created successfully' });
+};
+
+export const addReview = (router) => {
+  router.post(
+    '/',
     // add authenticate middleware
     // authenticate,
-    validateBody(addReviewSchema),
-    async (req, res, next) => {
-      try {
-        const { _id: owner } = req.user;
-
-        const data = {
-          ...req.body,
-          owner,
-        };
-
-        const review = await Review.create(data);
-        if (!review) {
-          throw HttpError(404, 'Not found');
-        }
-        res.status(201).json({ message: 'Review created successfully' });
-      } catch (error) {
-        next(error);
-      }
-    }
+    // validate(addReviewSchema),
+    ctrlWrapper(addReviewController)
   );
 };
