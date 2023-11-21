@@ -1,5 +1,6 @@
 import { usersSwagger } from './users/index.js';
 import { ordersSwagger } from './orders/index.js';
+import { dishesSwagger } from './dishes/index.js';
 import { reviewsSwagger } from './reviews/swagger.js';
 
 export const swaggerControllers = {
@@ -18,6 +19,7 @@ export const swaggerControllers = {
   paths: {
     ...usersSwagger.paths,
     ...ordersSwagger.paths,
+    ...dishesSwagger.paths,
     ...ordersSwagger.path,
     ...reviewsSwagger.paths,
   },
@@ -25,6 +27,7 @@ export const swaggerControllers = {
     schemas: {
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,
+      ...dishesSwagger.components.schemas,
       ...reviewsSwagger.components.schemas,
     },
   },
