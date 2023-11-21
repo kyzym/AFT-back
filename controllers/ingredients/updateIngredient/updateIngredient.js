@@ -11,7 +11,7 @@ export const updateIngredientController = async (req, res) => {
   });
 
   if (!result) {
-    throw NotFoundError(404, 'Not found');
+    throw new NotFoundError('Not found');
   }
   res.status(200).json({ message: 'The ingredient was successfully updated.' });
 };

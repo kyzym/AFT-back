@@ -1,15 +1,16 @@
-import { ctrlWrapper } from '../../../middlewares/index.js';
-import validate from '../../../middlewares/index.js';
+import { validate } from '../../../middlewares/index.js';
 
 import { addIngredientSchema } from '../../../models/ingredient/ingredient.validation.js';
 
-import { Ingredient } from '../../../models/ingredient/Ingredient.model';
+import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
 import { NotFoundError } from '../../../helpers/errors.js';
+import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
 
-export const addIngredientController = async (req, res) => {
+const addIngredientController = async (req, res) => {
+  console.log('req:', req.body);
   const ingredient = await Ingredient.create(req.body);
   if (!ingredient) {
-    throw new NotFoundError(404, 'Not found');
+    throw new NotFoundError('Not found');
   }
   res.status(201).json({ message: 'Ingredient created successfully' });
 };
