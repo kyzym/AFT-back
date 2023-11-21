@@ -38,6 +38,14 @@ export const updateIngredient = {
               schema: {
                 $ref: '#/components/schemas/Ingredient',
               },
+              examples: {
+                example1: {
+                  value: {
+                    name: 'Example Ingredient',
+                  },
+                  summary: 'Example of adding an ingredient',
+                },
+              },
             },
           },
         },

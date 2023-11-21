@@ -21,6 +21,10 @@ export const ingredientsSwagger = {
         type: 'object',
         required: ['name'],
         properties: {
+          id: {
+            type: 'string',
+            description: 'Generated unique identifier',
+          },
           name: {
             type: 'string',
             description: 'The name of ingredient',
