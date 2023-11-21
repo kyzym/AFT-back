@@ -32,7 +32,33 @@ export const reviewsSwagger = {
         bearerFormat: 'JWT',
         description: 'Bearer token for authentication',
       },
-      ...addReview.components.schemas,
+      AddReview: {
+        type: 'object',
+        required: ['owner', 'dish', 'rating', 'review'],
+        properties: {
+          owner: {
+            type: 'string',
+            description: 'The id of the review owner',
+            format: 'uuid',
+          },
+          dish: {
+            type: 'string',
+            description: 'The id of the reviewed dish',
+            format: 'uuid',
+          },
+          rating: {
+            type: 'integer',
+            description: 'The rating given to the dish (integer value)',
+            minimum: 1,
+            maximum: 5,
+          },
+          review: {
+            type: 'string',
+            description: 'The review text',
+            maxLength: 400,
+          },
+        },
+      },
       ...getReviewsByChefId.components.schemas,
       ...getAllReviews.components.schemas,
     },
