@@ -131,16 +131,24 @@ const GetAllOrdersResponse = {
 const errorMessage = {
   401: 'Access token is missing or invalid',
   403: 'Forbidden - The client does not have permission to access this resource',
+  500: 'Internal server error',
 };
 
 const errorResponse = (description) => {
   return {
-    type: 'object',
-    properties: {
-      success: { type: 'boolean', default: false },
-      message: {
-        type: 'string',
-        description: description,
+    description,
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            success: { type: 'boolean', default: false },
+            message: {
+              type: 'string',
+              default: description,
+            },
+          },
+        },
       },
     },
   };
@@ -168,8 +176,10 @@ export const getAllOrdersSwagger = {
             ...errorResponse(errorMessage[401]),
           },
           403: {
-            description:
-              'Forbidden - The client does not have permission to access this resource',
+            ...errorResponse(errorMessage[403]),
+          },
+          500: {
+            ...errorResponse(errorMessage[500]),
           },
         },
       },
