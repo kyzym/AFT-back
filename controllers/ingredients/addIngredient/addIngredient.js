@@ -15,7 +15,6 @@ export const addIngredientController = async (req, res) => {
 };
 
 export const addIngredient = (router) => {
-  // TODO: add auth validation (access: user)
   router.post(
     '/',
     // add authenticate middleware
