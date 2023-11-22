@@ -12,9 +12,9 @@ const orderSchema = new Schema(
   {
     orderNumber: { type: Number, unique: true, min: 1, required: true },
 
-    userId: { type: ObjectId, ref: 'User', required: true },
-    chefId: { type: ObjectId, ref: 'Chef', default: null },
-    courierId: { type: ObjectId, ref: 'Courier', default: null },
+    userId: { type: ObjectId, ref: 'user', required: true },
+    chefId: { type: ObjectId, ref: 'chef', required: true },
+    courierId: { type: ObjectId, ref: 'courier', default: null },
 
     items: {
       type: [orderItemSchema],
@@ -33,9 +33,18 @@ const orderSchema = new Schema(
       default: orderStatus.PENDING,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    id: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model('order', orderSchema);
 
 export default Order;

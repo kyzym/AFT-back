@@ -1,63 +1,38 @@
-export const getAllOrders = {
+import { roles } from '#constants/roles.js';
+import {
+  errorMessage,
+  errorResponse,
+  pagePaginationParameters,
+} from '#controllers/swagger.common.js';
+
+export const getAllOrdersSwagger = {
   paths: {
     '/orders': {
       get: {
         tags: ['Orders'],
         summary: 'Get list of all orders',
+        security: [{ bearerAuth: [roles.ADMIN] }],
         description: 'Returns a list of all orders',
-        operationId: 'getAllOrders',
+        parameters: [...pagePaginationParameters],
         responses: {
           200: {
             description: 'A list of orders',
             content: {
               'application/json': {
-                schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/Order',
-                  },
-                },
+                schema: { $ref: '#/components/schemas/GetAllOrdersResponse' },
               },
             },
           },
-        },
-      },
-    },
-  },
-  components: {
-    schemas: {
-      Order: {
-        type: 'object',
-        properties: {
-          id: {
-            type: 'string',
-            format: 'uuid',
+          401: {
+            ...errorResponse(errorMessage[401]),
           },
-          dishes: {
-            type: 'array',
-            items: {
-              $ref: '#/components/schemas/Dish',
-            },
+          403: {
+            ...errorResponse(errorMessage[403]),
           },
-          status: {
-            type: 'string',
-            enum: ['placed', 'confirmed', 'delivered', 'cancelled'],
+          500: {
+            ...errorResponse(errorMessage[500]),
           },
         },
-        required: ['id', 'dishes', 'status'],
-      },
-      Dish: {
-        type: 'object',
-        properties: {
-          dishId: {
-            type: 'string',
-            format: 'uuid',
-          },
-          quantity: {
-            type: 'integer',
-          },
-        },
-        required: ['dishId', 'quantity'],
       },
     },
   },

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "ES6",
+    "paths": {
+      "#constants/*": ["constants/*"],
+      "#helpers/*": ["helpers/*"],
+      "#controllers/*": ["controllers/*"],
+      "#routes/*": ["routes/*"],
+      "#middlewares/*": ["middlewares/*"],
+      "#models/*": ["models/*"]
+    }
+  }
+}

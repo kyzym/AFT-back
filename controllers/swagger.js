@@ -1,7 +1,10 @@
 import { usersSwagger } from './users/index.js';
-import { ordersSwagger } from './orders/index.js';
+import { ordersSwagger } from './orders/swagger.js';
+
 import { ingredientsSwagger } from './ingredients/swagger.js';
 import { dishesSwagger } from './dishes/index.js';
+
+const { SWAGGER_URL } = process.env;
 
 export const swaggerControllers = {
   openapi: '3.1.0',
@@ -12,7 +15,7 @@ export const swaggerControllers = {
   },
   servers: [
     {
-      url: 'http://localhost:PORT',
+      url: `${SWAGGER_URL}`,
       description: 'Development server',
     },
   ],
@@ -23,6 +26,17 @@ export const swaggerControllers = {
     ...dishesSwagger.paths,
   },
   components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'Authorization',
+        description:
+          'Use the "Bearer" keyword followed by a space and then your JWT token.',
+        bearerFormat: 'JWT',
+      },
+    },
+
     schemas: {
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,
