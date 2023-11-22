@@ -1,13 +1,18 @@
 export const swaggerResponse = (data) => {
   const response = {
     success: { type: 'boolean', default: true },
-    data: {
+  };
+
+  if (typeof data === 'string') {
+    response.data = { type: 'string', default: data, example: 'sadasdadad' };
+  } else {
+    response.data = {
       type: 'object',
       properties: {
         ...data,
       },
-    },
-  };
+    };
+  }
 
   return response;
 };

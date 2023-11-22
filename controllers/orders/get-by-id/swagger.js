@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import {
   errorMessage,
   errorResponse,
@@ -10,7 +11,7 @@ export const getOrderByIdSwagger = {
       get: {
         tags: ['Orders'],
         summary: 'Get order info by id',
-        security: [{ bearerAuth: [] }],
+        security: [{ bearerAuth: [roles.USER, roles.ADMIN] }],
         description: 'Returns a order information',
         parameters: [pageIdParameter('orderId', 'Order id')],
         responses: {

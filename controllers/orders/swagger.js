@@ -5,6 +5,7 @@ import { getOrdersByChefIdSwagger } from './get-by-chef-id/swagger.js';
 import { getOrdersByCourierIdSwagger } from './get-by-courier-id/swagger.js';
 import { getOrderByIdSwagger } from './get-by-id/swagger.js';
 import { getOrdersByUserIdSwagger } from './get-by-user-id/swagger.js';
+import changeOrderStatus from './change-status/swagger.js';
 import {
   CreateOrderResponse,
   GetAllOrdersResponse,
@@ -24,6 +25,7 @@ export const ordersSwagger = {
     ...getOrdersByCourierIdSwagger.paths,
     ...getOrdersByUserIdSwagger.paths,
     ...getOrderByIdSwagger.paths,
+    ...changeOrderStatus.paths,
   },
   components: {
     schemas: {

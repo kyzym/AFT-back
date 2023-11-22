@@ -14,7 +14,7 @@ export const getOrdersByUserIdSwagger = {
       get: {
         tags: ['Orders'],
         summary: 'Get orders by user id',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ bearerAuth: [roles.USER, roles.ADMIN] }],
         description: 'Returns a list of all user orders',
         parameters: [
           pageIdParameter('userId', 'User id'),

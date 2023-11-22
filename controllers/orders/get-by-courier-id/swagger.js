@@ -14,7 +14,7 @@ export const getOrdersByCourierIdSwagger = {
       get: {
         tags: ['Orders'],
         summary: 'Get orders by courier id',
-        security: [{ bearerAuth: [roles.COURIER] }],
+        security: [{ bearerAuth: [roles.COURIER, roles.ADMIN] }],
         description: 'Returns a list of all courier orders',
         parameters: [
           pageIdParameter('courierId', 'Courier id'),

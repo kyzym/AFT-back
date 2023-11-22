@@ -14,7 +14,7 @@ export const getOrdersByChefIdSwagger = {
       get: {
         tags: ['Orders'],
         summary: 'Get orders by chef id',
-        security: [{ bearerAuth: [roles.CHEF] }],
+        security: [{ bearerAuth: [roles.CHEF, roles.ADMIN] }],
         description: 'Returns a list of all chef orders',
         parameters: [
           pageIdParameter('chefId', 'Chef id'),
