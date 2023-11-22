@@ -13,6 +13,7 @@ export const getAllOrdersByCourierId = (router) => {
   // TODO: add auth validation (access: courier, admin)
   router.get(
     '/by-courier/:courierId',
+
     isValidParameterId,
     ctrlWrapper(controller)
   );

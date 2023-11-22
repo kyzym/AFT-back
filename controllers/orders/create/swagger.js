@@ -1,5 +1,6 @@
 import { roles } from '#constants/roles.js';
 import {
+  AddressSchema,
   errorMessage,
   errorResponse,
   objectId,
@@ -24,9 +25,7 @@ const CreateOrderRequest = {
       type: 'array',
       items: OrderItemRequest,
     },
-    address: {
-      $ref: '#/components/schemas/AddressSchema',
-    },
+    address: AddressSchema,
   },
   required: ['items', 'address'],
   example: {

@@ -1,5 +1,5 @@
 import { orderStatus } from '#constants/orderStatus.js';
-import { objectId } from '#controllers/swagger.common.js';
+import { AddressSchema, objectId } from '#controllers/swagger.common.js';
 import {
   swaggerResponse,
   swaggerResponseWithPagination,
@@ -55,7 +55,7 @@ export const OrderSchema = {
       type: 'number',
       minimum: 0.01,
     },
-    address: { $ref: '#/components/schemas/AddressSchema' },
+    address: AddressSchema,
     status: {
       type: 'string',
       enum: Object.values(orderStatus),

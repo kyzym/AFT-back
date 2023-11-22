@@ -1,7 +1,7 @@
 import {
   errorMessage,
   errorResponse,
-  idParameter,
+  pageIdParameter,
 } from '#controllers/swagger.common.js';
 
 export const getOrderByIdSwagger = {
@@ -12,7 +12,7 @@ export const getOrderByIdSwagger = {
         summary: 'Get order info by id',
         security: [{ bearerAuth: [] }],
         description: 'Returns a order information',
-        parameters: [idParameter('orderId', 'Order id')],
+        parameters: [pageIdParameter('orderId', 'Order id')],
         responses: {
           200: {
             description: 'Order information',

@@ -2,8 +2,10 @@ import { roles } from '#constants/roles.js';
 import {
   errorMessage,
   errorResponse,
-  idParameter,
+  pageFilterParameter,
+  pageIdParameter,
   pagePaginationParameters,
+  pageSortParameter,
 } from '#controllers/swagger.common.js';
 
 export const getOrdersByChefIdSwagger = {
@@ -15,8 +17,10 @@ export const getOrdersByChefIdSwagger = {
         security: [{ bearerAuth: [roles.CHEF] }],
         description: 'Returns a list of all chef orders',
         parameters: [
+          pageIdParameter('chefId', 'Chef id'),
           ...pagePaginationParameters,
-          idParameter('chefId', 'Chef id'),
+          ...pageFilterParameter,
+          ...pageSortParameter,
         ],
         responses: {
           200: {

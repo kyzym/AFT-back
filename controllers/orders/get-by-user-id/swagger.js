@@ -2,10 +2,10 @@ import { roles } from '#constants/roles.js';
 import {
   errorMessage,
   errorResponse,
-  idParameter,
-  pageFilterParameters,
+  pageIdParameter,
+  pageFilterParameter,
   pagePaginationParameters,
-  pageSortParameters,
+  pageSortParameter,
 } from '#controllers/swagger.common.js';
 
 export const getOrdersByUserIdSwagger = {
@@ -17,10 +17,10 @@ export const getOrdersByUserIdSwagger = {
         security: [{ bearerAuth: [roles.USER] }],
         description: 'Returns a list of all user orders',
         parameters: [
+          pageIdParameter('userId', 'User id'),
           ...pagePaginationParameters,
-          ...pageFilterParameters,
-          ...pageSortParameters,
-          idParameter('userId', 'User id'),
+          ...pageFilterParameter,
+          ...pageSortParameter,
         ],
         responses: {
           200: {

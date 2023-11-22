@@ -15,6 +15,7 @@ export const CoordinateSchema = {
     lat: { type: 'number', minimum: -90, maximum: 90 },
     lng: { type: 'number', minimum: -180, maximum: 180 },
   },
+  default: null,
 };
 
 export const AddressSchema = {
@@ -23,10 +24,7 @@ export const AddressSchema = {
     city: { type: 'string' },
     country: { type: 'string' },
     street: { type: 'string' },
-    coordinates: {
-      $ref: '#/components/schemas/CoordinateSchema',
-      default: null,
-    },
+    coordinates: CoordinateSchema,
   },
 };
 
@@ -57,7 +55,7 @@ export const pagePaginationParameters = [
 ];
 
 // Page filtering
-export const pageFilterParameters = [
+export const pageFilterParameter = [
   {
     name: 'filter',
     in: 'query',
@@ -72,7 +70,7 @@ export const pageFilterParameters = [
 ];
 
 // Page sorting
-export const pageSortParameters = [
+export const pageSortParameter = [
   {
     name: 'sortBy',
     in: 'query',
@@ -89,7 +87,7 @@ export const pageSortParameters = [
 ];
 
 // Parameter id
-export const idParameter = (paramId, description) => ({
+export const pageIdParameter = (paramId, description) => ({
   name: paramId,
   in: 'path',
   description,

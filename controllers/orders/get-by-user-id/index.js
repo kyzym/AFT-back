@@ -10,6 +10,10 @@ const controller = async (req, res) => {
 };
 
 export const getAllOrdersByUserId = (router) => {
-  // TODO: add auth validation (access: user, admin)
-  router.get('/by-user/:userId', isValidParameterId, ctrlWrapper(controller));
+  router.get(
+    '/by-user/:userId',
+    // verifyToken([roles.USER, roles.ADMIN]),
+    isValidParameterId,
+    ctrlWrapper(controller)
+  );
 };

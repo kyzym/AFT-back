@@ -1,7 +1,4 @@
-import {
-  AddressSchema,
-  CoordinateSchema,
-} from '#controllers/swagger.common.js';
+import { AddressSchema } from '#controllers/swagger.common.js';
 import { createOrderSwagger } from './create/swagger.js';
 import { getAllOrdersSwagger } from './get-all/swagger.js';
 import { getOrdersByChefIdSwagger } from './get-by-chef-id/swagger.js';
@@ -30,11 +27,10 @@ export const ordersSwagger = {
   },
   components: {
     schemas: {
+      AddressSchema,
       ShortDishSchema,
       OrderItemSchema,
       OrderSchema,
-      CoordinateSchema,
-      AddressSchema,
       GetAllOrdersResponse,
       GetOrderByIdResponse,
       CreateOrderResponse,
