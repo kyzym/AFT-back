@@ -69,6 +69,10 @@ export const updateIngredient = {
           401: {
             description: 'Unauthorized - Missing or invalid token',
           },
+          403: {
+            description:
+              "Forbidden - User doesn't have permission to edit this ingredient",
+          },
           404: {
             description: 'Not found',
           },
