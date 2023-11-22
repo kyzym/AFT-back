@@ -1,11 +1,13 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { addressSchema } from '../schemas';
 import { accountStatus } from '../../constants/accountStatus';
 import { phoneNumberPattern } from '../../helpers/validation';
 
+const ObjectId = Schema.Types.ObjectId;
+
 const ChefSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: ObjectId, ref: 'User', required: true },
     avatar: {
       type: String,
       required: [true, "Courier's photo is required"],
@@ -42,6 +44,6 @@ const ChefSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const chef = mongoose.model('chef', ChefSchema);
+const Chef = model('chef', ChefSchema);
 
-export default chef;
+export default Chef;

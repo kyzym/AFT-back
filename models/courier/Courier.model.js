@@ -1,12 +1,14 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { addressSchema } from '../helpers/validation';
 import { vehicleType } from '../../constants/vehicleType';
 import { phoneNumberPattern } from '../../helpers/validation';
 import { accountStatus } from '../../constants/accountStatus';
 
+const ObjectId = Schema.Types.ObjectId;
+
 const CourierSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: ObjectId, ref: 'User', required: true },
     avatar: {
       type: String,
       required: [true, "Courier's photo is required"],
@@ -41,9 +43,20 @@ const CourierSchema = new Schema(
       default: false,
     },
   },
-  { versionKey: false, timestamps: true }
+  {
+    versionKey: false,
+    timestamps: true,
+    id: true,
+    toJSON: {
+      virtual: true,
+      transform: function (_doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
-const courier = mongoose.model('courier', CourierSchema);
+const Courier = model('courier', CourierSchema);
 
-export default courier;
+export default Courier;
