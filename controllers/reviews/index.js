@@ -1,12 +1,6 @@
-import { Router } from 'express';
-import { addReview } from './addReview/addReview';
-import { deleteReviewById } from './deleteReviewById/deleteReviewById';
-import { getAllReviews } from './getAllReviews/swagger';
-
-const reviewsRouter = Router();
-
-addReview(reviewsRouter);
-deleteReviewById(reviewsRouter);
-getAllReviews(reviewsRouter);
-
-export default reviewsRouter;
+export { getReviewsByChefId } from './getReviewsByChefId/getReviewsByChefId.js';
+export { getReviewsByDishId } from './getReviewsByDishId/getReviewsByDishId.js';
+export { getAllReviews } from './getAllReviews/getAllReviews.js';
+export { updateReviewById } from './updateReviewById/updateReviewById.js';
+export { deleteReviewById } from './deleteReviewById/deleteReviewById.js';
+export { addReview } from './addReview/AddReview.js';

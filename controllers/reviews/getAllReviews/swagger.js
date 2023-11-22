@@ -47,31 +47,4 @@ export const getAllReviews = {
       },
     },
   },
-  components: {
-    schemas: {
-      Review: {
-        type: 'object',
-        properties: {
-          id: {
-            type: 'string',
-            format: 'uuid',
-          },
-          owner: {
-            type: 'string',
-            format: 'uuid',
-          },
-          dish: {
-            type: 'string',
-            format: 'uuid',
-          },
-          rating: {
-            type: 'integer',
-          },
-          review: {
-            type: 'string',
-          },
-        },
-      },
-    },
-  },
 };

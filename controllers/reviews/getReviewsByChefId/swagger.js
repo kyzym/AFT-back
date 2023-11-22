@@ -1,40 +1,4 @@
 export const getReviewsByChefId = {
-  components: {
-    schemas: {
-      Review: {
-        type: 'object',
-        required: ['_id', 'owner', 'dish', 'rating', 'review'],
-        properties: {
-          _id: {
-            type: 'string',
-            description: 'The auto-generated id of the review',
-            format: 'uuid',
-          },
-          owner: { type: 'string', description: 'The id of the review owner' },
-          dish: {
-            type: 'object',
-            properties: {
-              name: {
-                type: 'string',
-                description: 'The name of the reviewed dish',
-              },
-              chef: {
-                type: 'string',
-                description: 'The id of the chef of the reviewed dish',
-                format: 'uuid',
-              },
-            },
-            description: 'The reviewed dish details',
-          },
-          rating: {
-            type: 'integer',
-            description: 'The rating given to the dish (integer value)',
-          },
-          review: { type: 'string', description: 'The review text' },
-        },
-      },
-    },
-  },
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
     '/reviews/by-chef/{chefId}': {
@@ -66,7 +30,7 @@ export const getReviewsByChefId = {
                 schema: {
                   type: 'array',
                   items: {
-                    $ref: '#/components/schemas/Review',
+                    $ref: '#/components/schemas/ReviewByChefId',
                   },
                 },
               },
@@ -84,6 +48,48 @@ export const getReviewsByChefId = {
           },
           500: {
             description: 'Internal Server Error',
+          },
+        },
+      },
+    },
+  },
+  components: {
+    schemas: {
+      ReviewByChefId: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            description: 'The auto-generated id of the review',
+            format: 'uuid',
+          },
+          owner: {
+            type: 'string',
+            description: 'The id of the review owner',
+          },
+          dish: {
+            type: 'object',
+            properties: {
+              id: {
+                type: 'string',
+                description: 'The id of the reviewed dish',
+                format: 'uuid',
+              },
+              owner: {
+                type: 'string',
+                description: 'The id of the chef of the reviewed dish',
+                format: 'uuid',
+              },
+            },
+            description: 'The reviewed dish details',
+          },
+          rating: {
+            type: 'integer',
+            description: 'The rating given to the dish (integer value)',
+          },
+          review: {
+            type: 'string',
+            description: 'The review text',
           },
         },
       },

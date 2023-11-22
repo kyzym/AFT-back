@@ -3,53 +3,47 @@ import { Review } from '../../../models/review/index.js';
 
 const ObjectId = mongoose.Types.ObjectId;
 
-export const getReviewsByChefId = (app) => {
-  app.get(
-    '/reviews/by-chef/:chefId',
+export const getReviewsByChefId = async (req, res) => {
+  const { chefId } = req.params;
 
-    async (req, res, next) => {
-      const { chefId } = req.params;
+  const reviews = await Review.aggregate([
+    {
+      $lookup: {
+        from: 'dishes',
+        localField: 'dish',
+        foreignField: '_id',
+        as: 'dish',
+      },
+    },
 
-      try {
-        const reviews = await Review.aggregate([
-          {
-            $lookup: {
-              from: 'dishes',
-              localField: 'dish',
-              foreignField: '_id',
-              as: 'dish',
-            },
-          },
+    {
+      $project: {
+        rating: 1,
+        review: 1,
+        dish: 1,
+      },
+    },
+    {
+      $unwind: '$dish',
+    },
+    {
+      $match: {
+        'dish.owner': new ObjectId(chefId),
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        id: '$_id',
+        rating: 1,
+        review: 1,
+        dish: {
+          chef: 1,
+          id: '$dish._id',
+        },
+      },
+    },
+  ]).exec();
 
-          {
-            $unwind: '$dish',
-          },
-          {
-            $match: {
-              'dish.chef': new ObjectId(chefId),
-            },
-          },
-          // Можна додати пагінацію
-          // {
-          //   $skip: 0,
-          // },
-          // {
-          //   $limit: 2,
-          // },
-          // {
-          //   $project: {
-          //     rating: 1, // включити поле "rating"
-          //     review: 1, // включити поле "review"
-          //     "dish.name": 1, // включити поле "name" з вкладеного об'єкта "dish"
-          //     "dish.chef": 1, // включити поле "name" з вкладеного об'єкта "dish"
-          //   },
-          // },
-        ]).exec();
-
-        res.status(200).json(reviews);
-      } catch (error) {
-        next(error);
-      }
-    }
-  );
+  res.status(200).json(reviews);
 };

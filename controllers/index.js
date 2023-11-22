@@ -9,6 +9,14 @@ import { getPopularDishes } from './dishes/getPopularDishes/index.js';
 import { getRandomDish } from './dishes/getRandomDish/index.js';
 import { updateDish } from './dishes/updateDish/index.js';
 import { updateDishBlockedStatus } from './dishes/updateDishBlockedStatus/index.js';
+import {
+  addReview,
+  deleteReviewById,
+  getAllReviews,
+  getReviewsByDishId,
+  getReviewsByChefId,
+  updateReviewById,
+} from './reviews/index.js';
 
 export const dishControllers = {
   createDish,
@@ -21,4 +29,12 @@ export const dishControllers = {
   getRandomDish,
   updateDish,
   updateDishBlockedStatus,
+};
+export const reviewControllers = {
+  addReview,
+  deleteReviewById,
+  getAllReviews,
+  getReviewsByDishId,
+  getReviewsByChefId,
+  updateReviewById,
 };

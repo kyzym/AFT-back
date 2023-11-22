@@ -1,8 +1,7 @@
 import { NotFoundError } from '../../../helpers/errors.js';
-import { Review /*addReviewSchema*/ } from '../../../models/review/index.js';
-import { ctrlWrapper } from '../../../middlewares/ctrlWrapper.js';
+import { Review } from '../../../models/review/index.js';
 
-const addReviewController = async (req, res) => {
+export const addReview = async (req, res) => {
   const { id: owner } = req.user;
 
   const data = {
@@ -15,14 +14,4 @@ const addReviewController = async (req, res) => {
     throw new NotFoundError('Not found');
   }
   res.status(201).json({ message: 'Review created successfully' });
-};
-
-export const addReview = (router) => {
-  router.post(
-    '/',
-    // add authenticate middleware
-    // authenticate,
-    // validate(addReviewSchema),
-    ctrlWrapper(addReviewController)
-  );
 };

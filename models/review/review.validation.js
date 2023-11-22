@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { isObjectId } from '../../helpers';
+import { isObjectId } from '../../helpers/index.js';
 
 const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 
