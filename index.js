@@ -1,17 +1,19 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
 import chalk from 'chalk';
 import swaggerDoc from 'swagger-ui-express';
 import mongoose from 'mongoose';
-import { swaggerControllers } from './controllers/index.js';
+import { swaggerControllers } from './controllers/swagger.js';
 import { error } from './middlewares/errors.middleware.js';
 import { RouteNotFoundError } from './helpers/errors.js';
 import dishesRoutes from './routes/dishes.js';
-import reviewsRoures from './routes/reviews.js';
+import reviewsRoutes from './routes/reviews.js';
+import ingredientsRoutes from './routes/ingredients.js';
 
-dotenv.config();
+// dotenv.config();
+import { routes } from './controllers/index.js';
 
 const app = express();
 
@@ -26,8 +28,11 @@ app.use(express.json());
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));
 
 app.use('/api/dishes', dishesRoutes);
+app.use('/api/ingredients', ingredientsRoutes);
 
-app.use('/api/reviews', reviewsRoures);
+routes(app);
+
+app.use('/api/reviews', reviewsRoutes);
 
 // Route not found error
 app.use(() => {

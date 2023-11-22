@@ -5,12 +5,15 @@ export const coordinateSchema = new Schema({
   lng: { type: Number, min: -180, max: 180, required: true },
 });
 
-export const addressSchema = new Schema({
-  country: { type: String, required: true },
-  city: { type: String, required: true },
-  street: { type: String, required: true },
-  coordinate: {
-    type: coordinateSchema,
-    default: null,
+export const addressSchema = new Schema(
+  {
+    country: { type: String, required: true },
+    city: { type: String, required: true },
+    street: { type: String, required: true },
+    coordinate: {
+      type: coordinateSchema,
+      default: null,
+    },
   },
-});
+  { _id: false }
+);
