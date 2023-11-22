@@ -16,6 +16,15 @@ import {
   getAllIngredients,
 } from './ingredients/index.js';
 
+import {
+  addReview,
+  deleteReviewById,
+  getAllReviews,
+  getReviewsByDishId,
+  getReviewsByChefId,
+  updateReviewById,
+} from './reviews/index.js';
+
 export const dishControllers = {
   createDish,
   deleteDish,
@@ -27,6 +36,14 @@ export const dishControllers = {
   getRandomDish,
   updateDish,
   updateDishBlockedStatus,
+};
+export const reviewControllers = {
+  addReview,
+  deleteReviewById,
+  getAllReviews,
+  getReviewsByDishId,
+  getReviewsByChefId,
+  updateReviewById,
 };
 
 export const ingredientControllers = {

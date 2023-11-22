@@ -3,6 +3,7 @@ import { ordersSwagger } from './orders/swagger.js';
 
 import { ingredientsSwagger } from './ingredients/swagger.js';
 import { dishesSwagger } from './dishes/index.js';
+import { reviewsSwagger } from './reviews/swagger.js';
 
 const { SWAGGER_URL } = process.env;
 
@@ -24,6 +25,8 @@ export const swaggerControllers = {
     ...ordersSwagger.paths,
     ...ingredientsSwagger.paths,
     ...dishesSwagger.paths,
+    ...ordersSwagger.path,
+    ...reviewsSwagger.paths,
   },
   components: {
     securitySchemes: {
@@ -42,6 +45,7 @@ export const swaggerControllers = {
       ...ordersSwagger.components.schemas,
       ...ingredientsSwagger.components.schemas,
       ...dishesSwagger.components.schemas,
+      ...reviewsSwagger.components.schemas,
     },
   },
 };
