@@ -1,4 +1,4 @@
-export { swaggerControllers } from './swagger.js';
+import ordersRouter from './orders/index.js';
 import { createDish } from './dishes/createDish/index.js';
 import { deleteDish } from './dishes/deleteDish/index.js';
 import { getDish } from './dishes/getDish/index.js';
@@ -21,4 +21,8 @@ export const dishControllers = {
   getRandomDish,
   updateDish,
   updateDishBlockedStatus,
+};
+
+export const routes = (app) => {
+  app.use('/api/orders', ordersRouter);
 };

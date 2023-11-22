@@ -2,21 +2,29 @@ import { roles } from '#constants/roles.js';
 import {
   errorMessage,
   errorResponse,
+  pageFilterParameter,
+  pageIdParameter,
   pagePaginationParameters,
+  pageSortParameter,
 } from '#controllers/swagger.common.js';
 
-export const getAllOrdersSwagger = {
+export const getOrdersByChefIdSwagger = {
   paths: {
-    '/orders': {
+    '/orders/by-chef/{chefId}': {
       get: {
         tags: ['Orders'],
-        summary: 'Get list of all orders',
-        security: [{ bearerAuth: [roles.ADMIN] }],
-        description: 'Returns a list of all orders',
-        parameters: [...pagePaginationParameters],
+        summary: 'Get orders by chef id',
+        security: [{ bearerAuth: [roles.CHEF, roles.ADMIN] }],
+        description: 'Returns a list of all chef orders',
+        parameters: [
+          pageIdParameter('chefId', 'Chef id'),
+          ...pagePaginationParameters,
+          ...pageFilterParameter,
+          ...pageSortParameter,
+        ],
         responses: {
           200: {
-            description: 'A list of orders',
+            description: 'A list of chef orders',
             content: {
               'application/json': {
                 schema: { $ref: '#/components/schemas/GetAllOrdersResponse' },
