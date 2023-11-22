@@ -9,6 +9,12 @@ import { getPopularDishes } from './dishes/getPopularDishes/index.js';
 import { getRandomDish } from './dishes/getRandomDish/index.js';
 import { updateDish } from './dishes/updateDish/index.js';
 import { updateDishBlockedStatus } from './dishes/updateDishBlockedStatus/index.js';
+import {
+  addIngredient,
+  updateIngredient,
+  deleteIngredientById,
+  getAllIngredients,
+} from './ingredients/index.js';
 
 export const dishControllers = {
   createDish,
@@ -21,6 +27,13 @@ export const dishControllers = {
   getRandomDish,
   updateDish,
   updateDishBlockedStatus,
+};
+
+export const ingredientControllers = {
+  addIngredient,
+  deleteIngredientById,
+  getAllIngredients,
+  updateIngredient,
 };
 
 export const routes = (app) => {

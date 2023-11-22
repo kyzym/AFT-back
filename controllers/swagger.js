@@ -1,5 +1,7 @@
 import { usersSwagger } from './users/index.js';
 import { ordersSwagger } from './orders/swagger.js';
+
+import { ingredientsSwagger } from './ingredients/swagger.js';
 import { dishesSwagger } from './dishes/index.js';
 
 const { SWAGGER_URL } = process.env;
@@ -20,6 +22,7 @@ export const swaggerControllers = {
   paths: {
     ...usersSwagger.paths,
     ...ordersSwagger.paths,
+    ...ingredientsSwagger.paths,
     ...dishesSwagger.paths,
   },
   components: {
@@ -37,6 +40,7 @@ export const swaggerControllers = {
     schemas: {
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,
+      ...ingredientsSwagger.components.schemas,
       ...dishesSwagger.components.schemas,
     },
   },
