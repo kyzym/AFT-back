@@ -1,4 +1,3 @@
-import { NotFoundError } from '../../../helpers/errors.js';
 import { Review } from '../../../models/review/index.js';
 
 export const addReview = async (req, res) => {
@@ -9,9 +8,6 @@ export const addReview = async (req, res) => {
     owner,
   };
 
-  const review = await Review.create(data);
-  if (!review) {
-    throw new NotFoundError('Not found');
-  }
+  await Review.create(data);
   res.status(201).json({ message: 'Review created successfully' });
 };
