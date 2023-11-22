@@ -14,7 +14,7 @@ const controller = async (req, res) => {
   // Add courier id to
   order.courierId = courierId;
   order.status = changeOrderStatus(order, {
-    currentStatuses: [orderStatus.READY_TO_DELIVERY],
+    allowedStatuses: [orderStatus.READY_TO_DELIVERY],
     nextStatus: orderStatus.DELIVERING,
     accessKey: 'courierId',
     id: courierId,

@@ -1,6 +1,9 @@
 import { orderStatus } from '#constants/orderStatus.js';
 import { objectId } from '#controllers/swagger.common.js';
-import { swaggerResponseWithPagination } from '#helpers/swaggerResponse.js';
+import {
+  swaggerResponse,
+  swaggerResponseWithPagination,
+} from '#helpers/swaggerResponse.js';
 
 export const ShortDishSchema = {
   type: 'object',
@@ -72,5 +75,19 @@ export const GetAllOrdersResponse = {
         },
       },
     }),
+  },
+};
+
+export const GetOrderByIdResponse = {
+  type: 'object',
+  properties: {
+    ...swaggerResponse({ order: { $ref: '#/components/schemas/OrderSchema' } }),
+  },
+};
+
+export const CreateOrderResponse = {
+  type: 'object',
+  properties: {
+    ...swaggerResponse({ order: { $ref: '#/components/schemas/OrderSchema' } }),
   },
 };

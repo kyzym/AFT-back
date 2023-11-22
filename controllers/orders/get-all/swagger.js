@@ -1,16 +1,8 @@
 import {
-  AddressSchema,
-  CoordinateSchema,
   errorMessage,
   errorResponse,
   pagePaginationParameters,
 } from '#controllers/swagger.common.js';
-import {
-  GetAllOrdersResponse,
-  OrderItemSchema,
-  OrderSchema,
-  ShortDishSchema,
-} from '../swagger.common.js';
 
 export const getAllOrdersSwagger = {
   paths: {
@@ -41,16 +33,6 @@ export const getAllOrdersSwagger = {
           },
         },
       },
-    },
-  },
-  components: {
-    schemas: {
-      ShortDishSchema,
-      OrderItemSchema,
-      OrderSchema,
-      CoordinateSchema,
-      AddressSchema,
-      GetAllOrdersResponse,
     },
   },
 };

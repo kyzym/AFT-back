@@ -12,7 +12,7 @@ const controller = async (req, res) => {
   const order = await Order.findOne({ _id: orderId }).exec();
 
   order.status = changeOrderStatus(order, {
-    currentStatuses: [orderStatus.ACCEPTED, orderStatus.PENDING],
+    allowedStatuses: [orderStatus.ACCEPTED, orderStatus.PENDING],
     nextStatus: orderStatus.COOKING,
     accessKey: 'chefId',
     id: chefId,

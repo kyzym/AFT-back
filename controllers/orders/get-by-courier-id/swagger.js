@@ -6,7 +6,7 @@ import {
   pagePaginationParameters,
 } from '#controllers/swagger.common.js';
 
-export const getOrderByCourierIdSwagger = {
+export const getOrdersByCourierIdSwagger = {
   paths: {
     '/orders/by-courier/{courierId}': {
       get: {

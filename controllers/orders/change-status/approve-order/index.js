@@ -13,7 +13,7 @@ const controller = async (req, res) => {
 
   // Change order status
   order.status = changeOrderStatus(order, {
-    currentStatuses: [orderStatus.PENDING],
+    allowedStatuses: [orderStatus.PENDING],
     nextStatus: orderStatus.ACCEPTED,
     accessKey: 'chefId',
     id: chefId,

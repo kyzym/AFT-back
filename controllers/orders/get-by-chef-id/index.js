@@ -1,19 +1,10 @@
-import { withPagination } from '../../../helpers/withPagination.js';
 import { isValidParameterId, ctrlWrapper } from '../../../middlewares/index.js';
-import Order from '../../../models/order/index.js';
+import { getOrderByRole } from '../helpers.js';
 
 const controller = async (req, res) => {
   const { chefId } = req.params;
 
-  const [orders, pagination] = await withPagination(
-    Order.find(
-      { chefId },
-      { createdAt: false, updatedAt: false, __v: false }
-    ).populate('items.dish', 'image'),
-    req.query
-  );
-
-  const data = { orders, ...pagination };
+  const data = await getOrderByRole({ chefId }, req.query);
 
   return res.send({ success: true, data });
 };

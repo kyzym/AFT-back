@@ -37,7 +37,7 @@ const controller = async (req, res) => {
   });
   const data = await order.save();
 
-  return res.status(201).send({ success: true, data });
+  return res.status(201).send({ success: true, data: { order: data } });
 };
 
 export const createOrder = (router) => {

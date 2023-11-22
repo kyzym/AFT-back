@@ -10,7 +10,6 @@ function ceilToDecimalPlaces(number, decimalPlaces = 2) {
 }
 
 export const findOrderItemsInDb = async (orderItems) => {
-  // TODO: Change _id to id without underline
   const dbDishes = await Dish.find(
     {
       _id: { $in: orderItems.map(({ dish }) => dish) },
@@ -23,12 +22,9 @@ export const findOrderItemsInDb = async (orderItems) => {
 
 export const concatArraysById = (orderDishes, dbDishes) => {
   return orderDishes.map((orderDish) => {
-    const matchingDish = dbDishes.find(
-      // TODO: Change _id to id without underline
-      (dbDish) => {
-        return compareObjectIds(orderDish.dish, dbDish._id);
-      }
-    );
+    const matchingDish = dbDishes.find((dbDish) => {
+      return compareObjectIds(orderDish.dish, dbDish.id);
+    });
 
     if (!matchingDish) return orderDish;
 

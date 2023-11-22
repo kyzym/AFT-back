@@ -3,12 +3,14 @@ import {
   errorMessage,
   errorResponse,
   idParameter,
+  pageFilterParameters,
   pagePaginationParameters,
+  pageSortParameters,
 } from '#controllers/swagger.common.js';
 
-export const getOrderByUserIdSwagger = {
+export const getOrdersByUserIdSwagger = {
   paths: {
-    '/orders/by-courier/{userId}': {
+    '/orders/by-user/{userId}': {
       get: {
         tags: ['Orders'],
         summary: 'Get orders by user id',
@@ -16,6 +18,8 @@ export const getOrderByUserIdSwagger = {
         description: 'Returns a list of all user orders',
         parameters: [
           ...pagePaginationParameters,
+          ...pageFilterParameters,
+          ...pageSortParameters,
           idParameter('userId', 'User id'),
         ],
         responses: {

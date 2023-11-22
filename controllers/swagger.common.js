@@ -56,6 +56,38 @@ export const pagePaginationParameters = [
   },
 ];
 
+// Page filtering
+export const pageFilterParameters = [
+  {
+    name: 'filter',
+    in: 'query',
+    description: 'Filter parameters',
+    required: false,
+    schema: {
+      type: 'string',
+      format: '<field>:<value>,<field>:<value>...',
+      example: 'status:pending',
+    },
+  },
+];
+
+// Page sorting
+export const pageSortParameters = [
+  {
+    name: 'sortBy',
+    in: 'query',
+    description: 'Sort by field',
+    required: false,
+    schema: {
+      type: 'string',
+      format: '<field>,-<field>,...',
+      description: '"-" sort desc, everything asc sort order',
+      default: '-updatedAt',
+      example: '-status',
+    },
+  },
+];
+
 // Parameter id
 export const idParameter = (paramId, description) => ({
   name: paramId,
@@ -67,6 +99,7 @@ export const idParameter = (paramId, description) => ({
 
 // Error description
 export const errorMessage = {
+  400: 'Validation error',
   401: 'Access token is missing or invalid',
   403: 'Forbidden - The client does not have permission to access this resource',
   500: 'Internal server error',

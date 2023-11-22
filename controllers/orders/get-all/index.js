@@ -1,22 +1,13 @@
-import { withPagination } from '../../../helpers/withPagination.js';
 import { ctrlWrapper } from '../../../middlewares/index.js';
-import Order from '../../../models/order/index.js';
+import { getOrderByRole } from '../helpers.js';
 
 const controller = async (req, res) => {
-  const [orders, pagination] = await withPagination(
-    Order.find({}, { createdAt: false, updatedAt: false, __v: false }).populate(
-      'items.dish',
-      'image'
-    ),
-    req.query
-  );
-
-  const data = { orders, ...pagination };
+  const data = await getOrderByRole({}, req.query);
 
   return res.send({ success: true, data });
 };
 
 export const getAllOrders = (router) => {
-  // TODO: add auth validation (only admin)
+  // TODO: add auth validation (access: admin)
   router.get('/', ctrlWrapper(controller));
 };

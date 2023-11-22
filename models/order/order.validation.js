@@ -54,10 +54,6 @@ export const addressValidationSchema = Joi.object().keys({
 });
 
 export const orderValidationSchema = Joi.object({
-  userId: idValidationSchema.required(),
-  chefId: idValidationSchema,
-  courierId: idValidationSchema,
-
   items: Joi.array().min(1).items(orderItemValidationSchema).required(),
   address: addressValidationSchema.required(),
 });
