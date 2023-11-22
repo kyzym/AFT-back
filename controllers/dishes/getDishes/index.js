@@ -33,6 +33,5 @@ export const getDishes = async (req, res) => {
   }
 
   const dishes = await Dish.find(query).sort(sortOption);
-
   res.status(200).json(dishes);
 };

@@ -1,10 +1,10 @@
 import Joi from 'joi';
-import { accountStatus } from '../../constants/accountStatus';
+import { accountStatus } from '../../constants/accountStatus.js';
 import {
   addressValidationSchema,
   isObjectId,
   phoneNumberPattern,
-} from '../../helpers/validation';
+} from '../../helpers/validation.js';
 
 const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 

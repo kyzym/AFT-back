@@ -11,6 +11,7 @@ import { RouteNotFoundError } from './helpers/errors.js';
 import dishesRoutes from './routes/dishes.js';
 import reviewsRoutes from './routes/reviews.js';
 import ingredientsRoutes from './routes/ingredients.js';
+import chefsRoutes from './routes/chefs.js';
 
 // dotenv.config();
 import { routes } from './controllers/index.js';
@@ -33,6 +34,8 @@ app.use('/api/ingredients', ingredientsRoutes);
 routes(app);
 
 app.use('/api/reviews', reviewsRoutes);
+
+app.use('/api/chefs', chefsRoutes);
 
 // Route not found error
 app.use(() => {

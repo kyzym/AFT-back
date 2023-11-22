@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { addressSchema } from '../schemas';
-import { accountStatus } from '../../constants/accountStatus';
-import { phoneNumberPattern } from '../../helpers/validation';
+import { addressSchema } from '../schemas/address.schema.js';
+import { accountStatus } from '../../constants/accountStatus.js';
+import { phoneNumberPattern } from '../../helpers/validation.js';
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -10,7 +10,7 @@ const ChefSchema = new Schema(
     userId: { type: ObjectId, ref: 'User', required: true },
     avatar: {
       type: String,
-      required: [true, "Courier's photo is required"],
+      required: [true, "Chef's photo is required"],
     },
     phoneNumber: {
       type: String,
@@ -41,7 +41,18 @@ const ChefSchema = new Schema(
       default: false,
     },
   },
-  { versionKey: false, timestamps: true }
+  {
+    versionKey: false,
+    timestamps: true,
+    id: true,
+    toJSON: {
+      virtual: true,
+      transform: function (_doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
 const Chef = model('chef', ChefSchema);
