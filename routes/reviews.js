@@ -14,7 +14,7 @@ router.post(
   ctrlWrapper(reviewControllers.addReview)
 );
 
-router.post(
+router.delete(
   '/:reviewId',
   // add authenticate middleware
   // authenticate,
