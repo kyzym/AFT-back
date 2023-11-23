@@ -1,4 +1,4 @@
-import { ctrlWrapper, isValidParameterId } from '../../../middlewares/index.js';
+import { ctrlWrapper } from '../../../middlewares/index.js';
 import { getOrderByRole } from '../helpers.js';
 
 const controller = async (req, res) => {
@@ -9,11 +9,4 @@ const controller = async (req, res) => {
   return res.send({ success: true, data });
 };
 
-export const getAllOrdersByUserId = (router) => {
-  router.get(
-    '/by-user/:userId',
-    // verifyToken([roles.USER, roles.ADMIN]),
-    isValidParameterId,
-    ctrlWrapper(controller)
-  );
-};
+export const getAllOrdersByUserId = ctrlWrapper(controller);

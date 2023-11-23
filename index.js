@@ -8,31 +8,19 @@ import mongoose from 'mongoose';
 import { swaggerControllers } from './controllers/swagger.js';
 import { error } from './middlewares/errors.middleware.js';
 import { RouteNotFoundError } from './helpers/errors.js';
-import dishesRoutes from './routes/dishes.js';
-import reviewsRoutes from './routes/reviews.js';
-import ingredientsRoutes from './routes/ingredients.js';
-
-// dotenv.config();
-import { routes } from './controllers/index.js';
+import { routes } from '#routes/index.js';
 
 const app = express();
 
 const { PORT = 3000 } = process.env;
 
 app.use(morgan('short'));
-
 app.use(cors());
-
 app.use(express.json());
 
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));
 
-app.use('/api/dishes', dishesRoutes);
-app.use('/api/ingredients', ingredientsRoutes);
-
 routes(app);
-
-app.use('/api/reviews', reviewsRoutes);
 
 // Route not found error
 app.use(() => {
