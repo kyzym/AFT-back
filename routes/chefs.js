@@ -43,8 +43,7 @@ router.patch(
 
 router.patch(
   '/:chefId/orders/:orderId',
-  isValidId('chefId'),
-  isValidId('orderId'),
+  isValidId(['chefId', 'orderId']),
   //role: chef
   ctrlWrapper(chefControllers.updateChefOrderStatus)
 );
