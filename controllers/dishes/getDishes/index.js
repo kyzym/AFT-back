@@ -4,6 +4,10 @@ export const getDishes = async (req, res) => {
   const query = {};
   let sortOption = {};
 
+  if (req.query.chef) {
+    query.owner = req.query.chef;
+  }
+
   if (req.query.cuisine) {
     query.cuisine = req.query.cuisine;
   }

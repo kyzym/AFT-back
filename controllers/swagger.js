@@ -2,7 +2,7 @@ import { usersSwagger } from './users/index.js';
 import { ordersSwagger } from './orders/swagger.js';
 
 import { ingredientsSwagger } from './ingredients/swagger.js';
-import { dishesSwagger } from './dishes/index.js';
+import { dishesSwagger } from './dishes/swagger.js';
 import { reviewsSwagger } from './reviews/swagger.js';
 
 const { SWAGGER_URL } = process.env;
