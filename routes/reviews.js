@@ -11,7 +11,7 @@ router.post(
   // add authenticate middleware
   // authenticate,
   joiValidation(addReviewSchema),
-  ctrlWrapper(reviewControllers.addReviewSchema)
+  ctrlWrapper(reviewControllers.addReview)
 );
 
 router.post(
