@@ -7,7 +7,4 @@ const controller = async (req, res) => {
   return res.send({ success: true, data });
 };
 
-export const getAllOrders = (router) => {
-  // TODO: add auth validation (access: admin)
-  router.get('/', ctrlWrapper(controller));
-};
+export const getAllOrders = ctrlWrapper(controller);

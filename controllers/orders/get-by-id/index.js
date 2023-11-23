@@ -1,7 +1,7 @@
 import { orderStatus } from '../../../constants/orderStatus.js';
 import { compareObjectIds } from '../../../helpers/compareObjectIds.js';
 import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
-import { ctrlWrapper, isValidParameterId } from '../../../middlewares/index.js';
+import { ctrlWrapper } from '../../../middlewares/index.js';
 import Order from '../../../models/order/index.js';
 
 const controller = async (req, res) => {
@@ -40,7 +40,4 @@ const controller = async (req, res) => {
   throw new ForbiddenError("You don't have access to this order");
 };
 
-export const getOrderById = (router) => {
-  // TODO: add auth validation (access: all)
-  router.get('/:orderId', isValidParameterId, ctrlWrapper(controller));
-};
+export const getOrderById = ctrlWrapper(controller);

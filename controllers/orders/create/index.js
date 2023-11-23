@@ -1,6 +1,5 @@
-import { validate, ctrlWrapper } from '../../../middlewares/index.js';
+import { ctrlWrapper } from '../../../middlewares/index.js';
 import Order from '../../../models/order/index.js';
-import { orderValidationSchema } from '../../../models/order/order.validation.js';
 import { ValidationError } from '../../../helpers/errors.js';
 import {
   concatArraysById,
@@ -40,7 +39,4 @@ const controller = async (req, res) => {
   return res.status(201).send({ success: true, data: { order: data } });
 };
 
-export const createOrder = (router) => {
-  // TODO: add auth validation (access: user)
-  router.post('/', validate(orderValidationSchema), ctrlWrapper(controller));
-};
+export const createOrder = ctrlWrapper(controller);
