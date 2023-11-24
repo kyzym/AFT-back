@@ -6,10 +6,12 @@ import { updateChefSwagger } from './updateChef/swagger.js';
 import { deleteChefSwagger } from './deleteChef/swagger.js';
 import { getChefOrdersSwagger } from './getChefOrders/swagger.js';
 import { getChefOrdersByStatusSwagger } from './getChefOrdersByStatus/swagger.js';
+import { createChefSwagger } from './createChef/swagger.js';
 
 const combinedChefsPaths = {
   '/api/chefs': {
     ...getChefsSwagger['/api/chefs'],
+    ...createChefSwagger['/api/chefs'],
   },
   '/api/chefs/{chefId}': {
     ...getChefSwagger['/api/chefs/{chefId}'],
