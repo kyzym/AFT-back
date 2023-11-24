@@ -30,30 +30,31 @@ const verifyToken = (requiredRoles = []) => {
     const defaultRole = [roles.USER];
     const allRoles = [...requiredRoles, ...defaultRole];
 
-    return allRoles.reduce((roleIds, requiredRole) => {
-      const roleId = userRoles.find(
+    return allRoles.reduce((userRolesMap, requiredRole) => {
+      const roleObject = userRoles.find(
         (userRole) => userRole.name === requiredRole
-      )?.id;
+      );
 
-      if (!roleId) {
+      if (!roleObject) {
         throw new ForbiddenError(
-          `User with id ${userId} doesn't have a '${requiredRole}' account`
+          `User ${userId} doesn't have a(an) '${requiredRole}' role`
         );
       }
+      const roleId = roleObject.id.toString();
 
-      return { ...roleIds, [requiredRole]: roleId };
+      return { ...userRolesMap, [requiredRole]: roleId };
     }, {});
   };
 
   return async (req, res, next) => {
     try {
       const token = getTokenFromHeaders(req);
-      if (!token) throw new UnAuthorizedError();
+      if (!token) throw new UnAuthorizedError('Token missing');
 
       const { id } = jwt.verify(token, SECRET_KEY);
 
       const user = await User.findById(id).exec();
-      if (!user) throw new NotFoundError(`User with id ${id} not found`);
+      if (!user) throw new NotFoundError(`User ${id} not found`);
 
       const roleIds = getRoleIds(user.roles, user.id);
 
@@ -61,9 +62,7 @@ const verifyToken = (requiredRoles = []) => {
 
       next();
     } catch (error) {
-      return res
-        .status(error.code || 401)
-        .send({ message: error.message || 'Authentication failed' });
+      next(error);
     }
   };
 };
