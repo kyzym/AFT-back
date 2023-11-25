@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import {
   BaseChefSchema,
   createErrorResponse,
@@ -37,6 +38,7 @@ export const updateChefSwagger = {
           },
         },
       },
+      security: [{ bearerAuth: [roles.CHEF, roles.ADMIN] }],
       responses: {
         200: createSuccessResponse('Status updated successfully'),
         400: createErrorResponse('Format of this ID is not correct'),

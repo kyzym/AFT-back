@@ -1,5 +1,5 @@
 import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
-import { Chef } from '../../../models/chef/index.js';
+import Chef from '../../../models/chef/Chef.model.js';
 
 export const updateChef = async (req, res) => {
   const { chefId } = req.params;

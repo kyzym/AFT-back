@@ -15,20 +15,6 @@ router.get(
   ctrlWrapper(chefControllers.chefControllers.getChef)
 );
 
-router.get(
-  '/:chefId/orders',
-  isValidId('chefId'),
-  // role: chef, admin
-  ctrlWrapper(chefControllers.chefControllers.getChefOrders)
-);
-
-router.get(
-  '/:chefId/orders/:status',
-  isValidId('chefId'),
-  // role: chef, admin
-  ctrlWrapper(chefControllers.chefControllers.getChefOrdersByStatus)
-);
-
 router.patch(
   '/:chefId',
   isValidId('chefID'),
@@ -41,13 +27,6 @@ router.patch(
   isValidId('chefId'),
   //role: admin
   ctrlWrapper(chefControllers.chefControllers.updateChefAvailableStatus)
-);
-
-router.patch(
-  '/:chefId/orders/:orderId',
-  isValidId(['chefId', 'orderId']),
-  //role: chef
-  ctrlWrapper(chefControllers.chefControllers.updateChefOrderStatus)
 );
 
 router.delete(

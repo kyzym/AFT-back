@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import {
   createErrorResponse,
   idSchema,
@@ -19,6 +20,7 @@ export const deleteChefSwagger = {
           schema: idSchema,
         },
       ],
+      security: [{ bearerAuth: [roles.CHEF, roles.ADMIN] }],
       responses: {
         200: {
           description: 'Chef processed for deletion',

@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import { ChefRequestSchema, serverError } from '../swaggerChefsComponents.js';
 
 export const createChefSwagger = {
@@ -14,6 +15,7 @@ export const createChefSwagger = {
           },
         },
       },
+      security: [{ bearerAuth: [roles.CHEF] }],
       responses: {
         201: {
           description: 'Chef created successfully',
