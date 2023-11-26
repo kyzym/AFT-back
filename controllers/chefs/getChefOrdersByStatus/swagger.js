@@ -7,7 +7,7 @@ import {
 } from '../swaggerChefsComponents.js';
 
 export const getChefOrdersByStatusSwagger = {
-  '/api/chefs/{chefId}/orders/{status}': {
+  '/chefs/{chefId}/orders/{status}': {
     get: {
       tags: ['Chefs'],
       summary: "Get chef's orders by status",

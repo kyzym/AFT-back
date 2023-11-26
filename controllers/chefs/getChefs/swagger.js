@@ -4,12 +4,12 @@ import {
 } from '../swaggerChefsComponents.js';
 
 export const getChefsSwagger = {
-  '/api/chefs': {
+  '/chefs': {
     get: {
       tags: ['Chefs'],
       summary: 'Get chefs',
       description:
-        'Get a list of chefs with optional filters of availible state.',
+        'Get a list of chefs with optional filters of available state.',
       parameters: [
         {
           name: 'isAvailable',

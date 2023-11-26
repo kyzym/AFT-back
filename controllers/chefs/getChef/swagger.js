@@ -6,7 +6,7 @@ import {
 } from '../swaggerChefsComponents.js';
 
 export const getChefSwagger = {
-  '/api/chefs/{chefId}': {
+  '/chefs/{chefId}': {
     get: {
       tags: ['Chefs'],
       summary: 'Get a chef',

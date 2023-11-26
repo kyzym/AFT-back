@@ -8,7 +8,7 @@ import {
 } from '../swaggerChefsComponents.js';
 
 export const updateChefSwagger = {
-  '/api/chefs/{chefId}': {
+  '/chefs/{chefId}': {
     patch: {
       tags: ['Chefs'],
       summary: 'Update a chef',

@@ -2,7 +2,7 @@ import { roles } from '#constants/roles.js';
 import { ChefRequestSchema, serverError } from '../swaggerChefsComponents.js';
 
 export const createChefSwagger = {
-  '/api/chefs': {
+  '/chefs': {
     post: {
       tags: ['Chefs'],
       summary: 'Create a new chef',

@@ -6,7 +6,7 @@ import {
 } from '../swaggerChefsComponents.js';
 
 export const deleteChefSwagger = {
-  '/api/chefs/{chefId}': {
+  '/chefs/{chefId}': {
     delete: {
       tags: ['Chefs'],
       summary: 'Chef a dish',
