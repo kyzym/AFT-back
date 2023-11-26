@@ -1,9 +1,5 @@
 import jwt from 'jsonwebtoken';
-import {
-  UnAuthorizedError,
-  NotFoundError,
-  ForbiddenError,
-} from '../helpers/errors.js';
+import { UnAuthorizedError, ForbiddenError } from '../helpers/errors.js';
 import User from '../models/user/index.js';
 import { roles } from '../constants/index.js';
 
@@ -23,49 +19,62 @@ const SECRET_KEY = process.env.SECRET_KEY;
  * Example: { 'user': 'userId', 'chef': 'chefId', 'admin': 'adminId' }
  */
 
-const verifyToken = (requiredRoles = []) => {
+export const verifyToken = (requiredRoles) => {
   const getTokenFromHeaders = (req) => req.headers.authorization?.split(' ')[1];
 
-  const getRoleIds = (userRoles, userId) => {
-    const defaultRole = [roles.USER];
-    const allRoles = [...requiredRoles, ...defaultRole];
+  const decodeJWT = (token) => {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, SECRET_KEY, (err, id) => {
+        if (err) return reject(err);
+        else return resolve(id);
+      });
+    });
+  };
 
-    return allRoles.reduce((roleIds, requiredRole) => {
-      const roleId = userRoles.find(
-        (userRole) => userRole.name === requiredRole
-      )?.id;
+  const checkUserRole = (userRoles, requiredRoles) => {
+    return userRoles.some((userRole) => requiredRoles.includes(userRole.name));
+  };
 
-      if (!roleId) {
-        throw new ForbiddenError(
-          `User with id ${userId} doesn't have a '${requiredRole}' account`
-        );
+  const mapUserRoles = (userRoles, requiredRoles) => {
+    const roleIds = {};
+    userRoles.forEach((userRole) => {
+      if (
+        requiredRoles.includes(userRole.name) ||
+        userRole.name === roles.USER
+      ) {
+        roleIds[userRole.name] = userRole.id.toString();
       }
+    });
 
-      return { ...roleIds, [requiredRole]: roleId };
-    }, {});
+    return roleIds;
   };
 
   return async (req, res, next) => {
     try {
       const token = getTokenFromHeaders(req);
-      if (!token) throw new UnAuthorizedError();
+      if (!token) throw new UnAuthorizedError('Token missing');
 
-      const { id } = jwt.verify(token, SECRET_KEY);
+      const { id } = await decodeJWT(token);
 
       const user = await User.findById(id).exec();
-      if (!user) throw new NotFoundError(`User with id ${id} not found`);
+      if (!user)
+        throw new UnAuthorizedError(
+          'Invalid token: no user found from the token'
+        );
 
-      const roleIds = getRoleIds(user.roles, user.id);
+      const hasRequiredRole = checkUserRole(user.roles, requiredRoles);
 
-      req.roleIds = roleIds;
+      if (!hasRequiredRole) {
+        throw new ForbiddenError(
+          `User ${id} doesn't have the required role(s)`
+        );
+      }
+
+      req.roleIds = mapUserRoles(user.roles, requiredRoles);
 
       next();
     } catch (error) {
-      return res
-        .status(error.code || 401)
-        .send({ message: error.message || 'Authentication failed' });
+      next(error);
     }
   };
 };
-
-export default verifyToken;

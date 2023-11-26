@@ -1,4 +1,4 @@
-import { usersSwagger } from './users/index.js';
+import { usersSwagger } from './users/swagger.js';
 import { ordersSwagger } from './orders/swagger.js';
 import { dishesSwagger } from './dishes/index.js';
 import { chefsSwagger } from './chefs/swagger.js';
