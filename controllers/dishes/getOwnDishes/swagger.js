@@ -5,7 +5,7 @@ import {
 } from '../swaggerDishesComponents.js';
 
 export const getOwnDishesSwagger = {
-  '/api/dishes/own': {
+  '/dishes/own': {
     get: {
       tags: ['Dishes'],
       summary: 'Get own dishes',
