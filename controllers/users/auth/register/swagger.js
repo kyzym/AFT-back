@@ -1,11 +1,15 @@
-import { errorResponse, errorMessage } from '#controllers/swagger.common.js';
+import {
+  errorResponse,
+  errorMessage,
+  errorName,
+} from '#controllers/swagger.common.js';
 
 export const registerUserSwagger = {
   paths: {
     '/users/register': {
       post: {
         tags: ['Users'],
-        summary: 'User Registration',
+        summary: 'Register a user',
         description: 'Register a new user and generate access token',
         operationId: 'registerUser',
         requestBody: {
@@ -43,7 +47,7 @@ export const registerUserSwagger = {
         },
         responses: {
           201: {
-            description: 'User registration successful',
+            description: 'Successful registration response',
             content: {
               'application/json': {
                 schema: {
@@ -53,24 +57,29 @@ export const registerUserSwagger = {
             },
           },
           400: {
-            description: 'Validation error',
+            description: errorMessage[400],
             content: {
               'application/json': {
                 example: {
                   success: false,
-                  message: 'Validation error',
+                  message: errorMessage[400],
                   errors: {
                     email: '"email" must be a valid email',
+                    password:
+                      'Password should have at least one lowercase letter, one uppercase letter, one digit, and one special character',
                   },
                 },
               },
             },
           },
           409: {
-            ...errorResponse('User with this email already exists'),
+            ...errorResponse(
+              errorName[409],
+              'User with this email already exists'
+            ),
           },
           500: {
-            ...errorResponse(errorMessage[500]),
+            ...errorResponse(errorName[500], errorMessage[500]),
           },
         },
       },

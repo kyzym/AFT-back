@@ -23,10 +23,3 @@ export const generateToken = (userId) => {
 export const getSanitizedUser = (user) => {
   return _.omit(user.toJSON(), ['password', 'updatedAt']);
 };
-
-export const checkAllowedFields = (userData, allowedFields) => {
-  const extraFields = Object.keys(userData).filter(
-    (field) => !allowedFields.includes(field)
-  );
-  return extraFields;
-};

@@ -103,8 +103,17 @@ export const errorMessage = {
   500: 'Internal server error',
 };
 
+export const errorName = {
+  400: 'Bad Request',
+  401: 'Unauthorized',
+  403: 'Forbidden',
+  404: 'Not Found',
+  409: 'Conflict',
+  500: 'Internal server error',
+};
+
 // Error response
-export const errorResponse = (description) => {
+export const errorResponse = (description, text = description) => {
   return {
     description,
     content: {
@@ -115,7 +124,7 @@ export const errorResponse = (description) => {
             success: { type: 'boolean', default: false },
             message: {
               type: 'string',
-              default: description,
+              default: text,
             },
           },
         },

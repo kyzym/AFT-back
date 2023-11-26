@@ -1,6 +1,7 @@
 import { accountStatus, roles } from '#constants/index.js';
 import {
   errorMessage,
+  errorName,
   errorResponse,
   pagePaginationParameters,
 } from '#controllers/swagger.common.js';
@@ -10,7 +11,7 @@ export const getAllUsersSwagger = {
     '/users': {
       get: {
         tags: ['Users'],
-        summary: 'Get list of all users',
+        summary: 'Get all users',
         description: 'Returns a list of users',
         security: [{ bearerAuth: [roles.ADMIN] }],
         operationId: 'getAllUsers',
@@ -54,7 +55,7 @@ export const getAllUsersSwagger = {
         ],
         responses: {
           200: {
-            description: 'A list of users',
+            description: 'Successful response with a list of users',
             content: {
               'application/json': {
                 schema: {
@@ -64,16 +65,19 @@ export const getAllUsersSwagger = {
             },
           },
           401: {
-            ...errorResponse(errorMessage[401]),
+            ...errorResponse(errorName[401], errorMessage[401]),
           },
           403: {
-            ...errorResponse(errorMessage[403]),
+            ...errorResponse(errorName[403], errorMessage[403]),
           },
           404: {
-            ...errorResponse('Invalid token: no user found from the token'),
+            ...errorResponse(
+              errorName[404],
+              'Invalid token: no user found from the token'
+            ),
           },
           500: {
-            ...errorResponse(errorMessage[500]),
+            ...errorResponse(errorName[500], errorMessage[500]),
           },
         },
       },

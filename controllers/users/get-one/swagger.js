@@ -1,6 +1,7 @@
 import { roles } from '#constants/index.js';
 import {
   errorMessage,
+  errorName,
   errorResponse,
   pageIdParameter,
 } from '#controllers/swagger.common.js';
@@ -10,14 +11,14 @@ export const getOneUserSwagger = {
     '/users/{userId}': {
       get: {
         tags: ['Users'],
-        summary: 'Get information about a single user',
+        summary: 'Get a user by id',
         description: 'Returns information about a single user',
         security: [{ bearerAuth: [roles.USER, roles.ADMIN] }],
         operationId: 'getOneUser',
         parameters: [pageIdParameter('userId', 'ID of the user')],
         responses: {
           200: {
-            description: 'User information',
+            description: "Successful response with the user's information",
             content: {
               'application/json': {
                 schema: {
@@ -28,20 +29,21 @@ export const getOneUserSwagger = {
           },
           400: {
             ...errorResponse(
+              errorMessage[400],
               'Format of this ID: 655fb29f17fd123 is not correct'
             ),
           },
           401: {
-            ...errorResponse(errorMessage[401]),
+            ...errorResponse(errorName[401], errorMessage[401]),
           },
           403: {
-            ...errorResponse(errorMessage[403]),
+            ...errorResponse(errorName[403], errorMessage[403]),
           },
           404: {
-            ...errorResponse('User not found'),
+            ...errorResponse(errorName[404], 'User not found'),
           },
           500: {
-            ...errorResponse(errorMessage[500]),
+            ...errorResponse(errorName[500], errorMessage[500]),
           },
         },
       },
