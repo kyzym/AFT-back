@@ -7,6 +7,9 @@ import { updateChef } from './updateChef/index.js';
 import { updateChefAvailableStatus } from './updateChefAvailableStatus/index.js';
 import { deleteChef } from './deleteChef/index.js';
 import { createChef } from './createChef/index.js';
+import { getChefOrders } from './getChefOrders/index.js';
+import { getChefOrdersByStatus } from './getChefOrdersByStatus/index.js';
+import { updateChefOrderStatus } from './updateChefOrderStatus/index.js';
 
 export const chefControllers = {
   getChefs,
@@ -15,4 +18,7 @@ export const chefControllers = {
   updateChefAvailableStatus,
   deleteChef,
   createChef,
+  getChefOrders,
+  getChefOrdersByStatus,
+  updateChefOrderStatus,
 };

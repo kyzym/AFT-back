@@ -43,4 +43,24 @@ router.post(
   ctrlWrapper(chefControllers.chefControllers.createChef)
 );
 
+router.patch(
+  '/:chefId/orders/:orderId',
+  isValidId(['chefId', 'orderId']),
+  ctrlWrapper(chefControllers.chefControllers.updateChefOrderStatus)
+);
+
+router.get(
+  '/:chefId/orders/:status',
+  isValidId('chefId'),
+  // role: chef, admin
+  ctrlWrapper(chefControllers.chefControllers.getChefOrdersByStatus)
+);
+
+router.get(
+  '/:chefId/orders',
+  isValidId('chefId'),
+  // role: chef, admin
+  ctrlWrapper(chefControllers.chefControllers.getChefOrders)
+);
+
 export default router;
