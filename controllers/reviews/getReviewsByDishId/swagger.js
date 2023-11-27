@@ -28,14 +28,12 @@ export const getReviewsByDishId = {
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/Review',
-                  },
+                  $ref: '#/components/schemas/ReviewByChefIdOrDishId',
                 },
               },
             },
           },
+
           401: {
             description: 'Unauthorized - Missing or invalid token',
           },

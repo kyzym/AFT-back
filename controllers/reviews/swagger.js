@@ -55,6 +55,58 @@ export const reviewsSwagger = {
           },
         },
       },
+
+      ReviewByChefIdOrDishId: {
+        type: 'object',
+        properties: {
+          reviews: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                id: {
+                  type: 'string',
+                  format: 'uuid',
+                  description: 'Generated unique identifier',
+                },
+                owner: {
+                  type: 'object',
+                  properties: {
+                    id: { type: 'string', format: 'uuid' },
+                    firstName: 'string',
+                    lastName: 'string',
+                    avatar: 'string',
+                  },
+                },
+                dish: {
+                  type: 'object',
+                  properties: {
+                    owner: {
+                      type: 'string',
+                      format: 'uuid',
+                    },
+                    id: {
+                      type: 'string',
+                      id: 'string',
+                      format: 'uuid',
+                    },
+                  },
+                },
+                rating: {
+                  type: 'integer',
+                },
+                review: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+          totalReviews: {
+            type: 'integer',
+          },
+        },
+      },
+
       AddReview: {
         type: 'object',
         required: ['owner', 'dish', 'rating', 'review'],

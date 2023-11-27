@@ -28,10 +28,7 @@ export const getReviewsByChefId = {
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/ReviewByChefId',
-                  },
+                  $ref: '#/components/schemas/ReviewByChefIdOrDishId',
                 },
               },
             },
