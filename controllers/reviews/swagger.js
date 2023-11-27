@@ -16,11 +16,11 @@ export const reviewsSwagger = {
       ...deleteReview.paths['/api/reviews/{reviewId}'],
       ...updateReviewById.paths['/api/reviews/{reviewId}'],
     },
-    '/reviews/by-chef/{chefId}': {
-      ...getReviewsByChefId.paths['/reviews/by-chef/{chefId}'],
+    '/api/reviews/by-chef/{chefId}': {
+      ...getReviewsByChefId.paths['/api/reviews/by-chef/{chefId}'],
     },
-    '/reviews/by-dish/{dishId}': {
-      ...getReviewsByDishId.paths['/reviews/by-dish/{dishId}'],
+    '/api/reviews/by-dish/{dishId}': {
+      ...getReviewsByDishId.paths['/api/reviews/by-dish/{dishId}'],
     },
   },
 
