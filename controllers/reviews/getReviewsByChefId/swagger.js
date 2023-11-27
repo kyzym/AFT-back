@@ -1,7 +1,7 @@
 export const getReviewsByChefId = {
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
-    '/reviews/by-chef/{chefId}': {
+    '/api/reviews/by-chef/{chefId}': {
       get: {
         summary: 'Get reviews by chef ID',
         tags: ['Reviews'],
