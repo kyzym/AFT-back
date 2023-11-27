@@ -5,7 +5,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 export const getReviewsByChefId = async (req, res) => {
   const { chefId } = req.params;
-  const { page = 1, limit = 5 } = req.query;
+  const { page = 1, limit = 10 } = req.query;
 
   const data = await Review.aggregate([
     {
