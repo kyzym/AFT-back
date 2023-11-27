@@ -5,8 +5,9 @@ const ObjectId = mongoose.Types.ObjectId;
 
 export const getReviewsByChefId = async (req, res) => {
   const { chefId } = req.params;
+  const { page = 1, limit = 5 } = req.query;
 
-  const reviews = await Review.aggregate([
+  const data = await Review.aggregate([
     {
       $lookup: {
         from: 'dishes',
@@ -15,16 +16,19 @@ export const getReviewsByChefId = async (req, res) => {
         as: 'dish',
       },
     },
-
     {
-      $project: {
-        rating: 1,
-        review: 1,
-        dish: 1,
+      $unwind: '$dish',
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'owner',
+        foreignField: '_id',
+        as: 'owner',
       },
     },
     {
-      $unwind: '$dish',
+      $unwind: '$owner',
     },
     {
       $match: {
@@ -32,18 +36,67 @@ export const getReviewsByChefId = async (req, res) => {
       },
     },
     {
+      $facet: {
+        reviews: [
+          {
+            $skip: (page - 1) * limit,
+          },
+          {
+            $limit: parseInt(limit),
+          },
+          {
+            $project: {
+              _id: 0,
+              id: '$_id',
+              rating: 1,
+              review: 1,
+              dish: {
+                id: '$dish._id',
+                owner: 1,
+              },
+              owner: {
+                id: '$owner._id',
+                firstName: 1,
+                lastName: 1,
+                avatar: 1,
+              },
+              createdAt: 1,
+            },
+          },
+        ],
+        totalReviews: [
+          {
+            $count: 'count',
+          },
+        ],
+        checkEmptyReviews: [
+          {
+            $match: {
+              reviews: { $exists: true, $not: { $size: 0 } },
+            },
+          },
+        ],
+      },
+    },
+
+    {
+      $unwind: '$totalReviews',
+    },
+    {
       $project: {
-        _id: 0,
-        id: '$_id',
-        rating: 1,
-        review: 1,
-        dish: {
-          chef: 1,
-          id: '$dish._id',
-        },
+        totalReviews: '$totalReviews.count',
+        reviews: 1,
       },
     },
   ]).exec();
 
-  res.status(200).json(reviews);
+  if (data && data[0] && data[0].reviews) {
+    const responseObject = {
+      reviews: data[0].reviews,
+      totalReviews: data[0].totalReviews,
+    };
+    res.status(200).json(responseObject);
+  } else {
+    res.status(200).json({ reviews: [], totalReviews: 0 });
+  }
 };
