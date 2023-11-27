@@ -11,10 +11,10 @@ router.post(
   // add authenticate middleware
   // authenticate,
   joiValidation(addReviewSchema),
-  ctrlWrapper(reviewControllers.addReviewSchema)
+  ctrlWrapper(reviewControllers.addReview)
 );
 
-router.post(
+router.delete(
   '/:reviewId',
   // add authenticate middleware
   // authenticate,

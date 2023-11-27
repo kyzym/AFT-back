@@ -64,8 +64,8 @@ GET: /users - get all users' info
 GET, PATCH, DELETE: /users/:userId - (get, update, delete) user's info. For PATCH request admin can change user's status
 
 @user
-GET: /users/:userId/favourites/:type - get user's favourite dishes or chefs
-POST, DELETE: /users/:userId/favourites/:type - add/delete the dish or the to chefId favourites (passing dishId or chefId)
+GET: /users/:userId/favorites/:type - get user's favorite dishes or chefs
+POST, DELETE: /users/:userId/favorites/:type - add/delete the dish or the to chefId favorites (passing dishId or chefId)
 
 @user
 GET: /users/:userId/cart - get the cart info

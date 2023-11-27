@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { addressSchema } from '../helpers/validation';
-import { vehicleType } from '../../constants/vehicleType';
-import { phoneNumberPattern } from '../../helpers/validation';
-import { accountStatus } from '../../constants/accountStatus';
+import { vehicleType } from '../../constants/vehicleType.js';
+import { phoneNumberPattern } from '../../helpers/validation.js';
+import { accountStatus } from '../../constants/accountStatus.js';
+import { addressSchema } from '#models/schemas/address.schema.js';
 
 const ObjectId = Schema.Types.ObjectId;
 
