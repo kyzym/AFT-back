@@ -1,7 +1,7 @@
 import { DishRequestSchema, serverError } from '../swaggerDishesComponents.js';
 
 export const createDishSwagger = {
-  '/api/dishes': {
+  '/dishes': {
     post: {
       tags: ['Dishes'],
       summary: 'Create a new dish',

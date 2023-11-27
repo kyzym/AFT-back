@@ -1,37 +1,41 @@
 import { Dish } from '../../../models/index.js';
 
 export const getDishes = async (req, res) => {
-  const query = {};
-  let sortOption = {};
+  let query = Dish.find();
 
-  if (req.query.cuisine) {
-    query.cuisine = req.query.cuisine;
+  if (req.query.chef) {
+    query = query.where('owner').equals(req.query.chef);
   }
 
-  if (req.query.isVegan) {
-    query.isVegan = req.query.isVegan === 'true';
+  if (req.query.cuisine) {
+    query = query.where('cuisine').equals(req.query.cuisine);
   }
 
   if (req.query.category) {
-    query.category = req.query.category;
+    query = query.where('category').equals(req.query.category);
   }
 
   if (req.query.spiceLevel) {
-    query.spiceLevel = req.query.spiceLevel;
+    query = query.where('spiceLevel').equals(req.query.spiceLevel);
+  }
+
+  if (req.query.isVegan) {
+    const isVegan = req.query.isVegan === 'true';
+    query = query.where('isVegan').equals(isVegan);
   }
 
   if (req.query.isAvailable) {
-    query.isAvailable = req.query.isAvailable === 'true';
+    const isAvailable = req.query.isAvailable === 'true';
+    query = query.where('isAvailable').equals(isAvailable);
   }
 
-  if (req.query.sortBy === 'newest') {
-    sortOption = { createdAt: -1 };
+  if (req.query.sortBy) {
+    const sortOption =
+      req.query.sortBy === 'newest' ? { createdAt: -1 } : { createdAt: 1 };
+    query = query.sort(sortOption);
   }
 
-  if (req.query.sortBy === 'oldest') {
-    sortOption = { createdAt: 1 };
-  }
+  const dishes = await query.exec();
 
-  const dishes = await Dish.find(query).sort(sortOption);
   res.status(200).json(dishes);
 };
