@@ -1,6 +1,6 @@
 import { usersSwagger } from './users/swagger.js';
 import { ordersSwagger } from './orders/swagger.js';
-import { dishesSwagger } from './dishes/index.js';
+import { dishesSwagger } from './dishes/swagger.js';
 import { chefsSwagger } from './chefs/swagger.js';
 
 export const swaggerControllers = {
