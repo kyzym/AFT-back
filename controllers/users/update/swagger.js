@@ -79,6 +79,12 @@ export const updateUserSwagger = {
           404: {
             ...errorResponse(errorName[404], 'User not found'),
           },
+          409: {
+            ...errorResponse(
+              errorName[409],
+              'User with this email already exists'
+            ),
+          },
           500: {
             ...errorResponse(errorName[500], errorMessage[500]),
           },

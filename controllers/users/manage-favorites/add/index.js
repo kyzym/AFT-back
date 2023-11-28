@@ -3,30 +3,33 @@ import { roles } from '#constants/index.js';
 import { findUserAndCheck } from '#controllers/users/helpers.js';
 import {
   findItemAndCheck,
-  getFavoritesArrayByType,
   getTypeSingular,
+  getFavoritesKeyByType,
 } from '../helpers.js';
-import { ValidationError } from '#helpers/errors.js';
+import User from '#models/user/userModel.js';
 
 const controller = async (req, res) => {
   const { userId, type } = req.params;
   const { favoriteId } = req.body;
   const authUserId = req.roleIds[roles.USER];
-  const typeSingular = getTypeSingular(type);
+  const typeSingular = getTypeSingular(type); // "dish" or "chef"
 
-  const user = await findUserAndCheck(userId, authUserId);
+  const user = await findUserAndCheck(userId, authUserId); // find user in the database
 
-  await findItemAndCheck(type, favoriteId);
+  await findItemAndCheck(type, favoriteId); // find favoriteId in the database
 
-  const userFavoritesArray = getFavoritesArrayByType(type, user);
+  const favoritesArrayName = getFavoritesKeyByType(type); // "favoriteDishes" or "favoriteChefs"
 
-  if (userFavoritesArray.includes(favoriteId))
-    throw new ValidationError(
-      `The ${typeSingular} with ID ${favoriteId} is already in favorites for user ${userId}`
-    );
+  if (user[favoritesArrayName].includes(favoriteId))
+    return res.status(200).json({
+      success: true,
+      message: `The ${typeSingular} with ID ${favoriteId} is already in favorites for user ${userId}`,
+    });
 
-  userFavoritesArray.push(favoriteId);
-  await user.save();
+  await User.updateOne(
+    { _id: userId },
+    { $push: { [favoritesArrayName]: favoriteId } }
+  );
 
   return res.status(200).json({
     success: true,

@@ -1,41 +1,46 @@
 import { ctrlWrapper } from '#middlewares/index.js';
 import { roles } from '#constants/index.js';
-import { getFavoritesArrayByType } from '../helpers.js';
-import { getFavoritesFromDB, getFavoritesKeyByType } from './helpers.js';
+import { getFavoritesFromDB } from './helpers.js';
+import { getFavoritesKeyByType } from '../helpers.js';
 import { findUserAndCheck } from '#controllers/users/helpers.js';
 
 const controller = async (req, res) => {
   const { userId, type } = req.params;
   const authUserId = req.roleIds[roles.USER];
 
-  const user = await findUserAndCheck(userId, authUserId);
+  const user = await findUserAndCheck(userId, authUserId); // find user in the database
 
-  const userFavoritesArray = getFavoritesArrayByType(type, user);
+  const favoritesArrayName = getFavoritesKeyByType(type); // "favoriteDishes" or "favoriteChefs"
 
-  const favoriteArrayName = getFavoritesKeyByType(type);
-
-  if (userFavoritesArray.length === 0) {
+  if (user[favoritesArrayName].length === 0) {
     return res.status(200).json({
       success: true,
       messages: `A list of favorite ${type} is empty`,
-      [favoriteArrayName]: [],
+      [favoritesArrayName]: [],
     });
   }
 
-  const foundFavorites = await getFavoritesFromDB(type, userFavoritesArray);
+  // Check if all favorite items exist in the database
+  const foundFavorites = await getFavoritesFromDB(
+    type,
+    user[favoritesArrayName]
+  );
 
-  if (userFavoritesArray.length !== foundFavorites.length) {
+  // Check if favorites array contains items that don't exist in the database
+  if (user[favoritesArrayName].length !== foundFavorites.length) {
     const updatedUserFavoritesArray = foundFavorites.map(
       (favoriteItem) => favoriteItem._id
     );
-    user[favoriteArrayName] = updatedUserFavoritesArray;
-    await user.save();
+
+    await user.updateOne({
+      $set: { [favoritesArrayName]: updatedUserFavoritesArray },
+    });
   }
 
   return res.status(200).json({
     success: true,
     messages: `Favorite ${type} successfully found`,
-    [favoriteArrayName]: foundFavorites,
+    [favoritesArrayName]: foundFavorites,
   });
 };
 

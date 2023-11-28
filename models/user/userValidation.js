@@ -59,7 +59,7 @@ export const loginValidationSchema = Joi.object({
 });
 
 export const addFavoriteValidationSchema = Joi.object({
-  favoriteId: Joi.string().required(),
+  favoriteId: idValidationSchema.required(),
 });
 
 export const updateUserValidationSchema = Joi.object({

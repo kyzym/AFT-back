@@ -34,7 +34,3 @@ export const getFavoritesFromDB = async (type, userFavoritesArray) => {
     ]);
   }
 };
-
-export const getFavoritesKeyByType = (type) => {
-  return type === 'dishes' ? 'favoriteDishes' : 'favoriteChefs';
-};

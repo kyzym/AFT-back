@@ -15,7 +15,3 @@ export const findUserAndCheck = async (userId, authUserId) => {
 
   return user;
 };
-
-export const getFavoritesKeyByType = (type) => {
-  return type === 'dishes' ? 'favoriteDishes' : 'favoriteChefs';
-};

@@ -6,6 +6,10 @@ export const getTypeSingular = (type) => {
   return type === 'dishes' ? 'dish' : 'chef';
 };
 
+export const getFavoritesKeyByType = (type) => {
+  return type === 'dishes' ? 'favoriteDishes' : 'favoriteChefs';
+};
+
 export const findItemAndCheck = async (type, favoriteId) => {
   let favoriteItem;
   const typeSingular = getTypeSingular(type);
@@ -24,16 +28,5 @@ export const findItemAndCheck = async (type, favoriteId) => {
     throw new NotFoundError(
       `The ${typeSingular} with ID ${favoriteId} not found`
     );
-  }
-};
-
-export const getFavoritesArrayByType = (type, user) => {
-  switch (type) {
-    case 'dishes':
-      return user.favoriteDishes;
-    case 'chefs':
-      return user.favoriteChefs;
-    default:
-      throw new ValidationError(`Invalid favorite type: ${type}`);
   }
 };
