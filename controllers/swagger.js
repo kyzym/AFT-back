@@ -3,6 +3,7 @@ import { ordersSwagger } from './orders/swagger.js';
 import { dishesSwagger } from './dishes/swagger.js';
 import { chefsSwagger } from './chefs/swagger.js';
 import { reviewsSwagger } from './reviews/swagger.js';
+import { ingredientsSwagger } from './ingredients/swagger.js';
 
 export const swaggerControllers = {
   openapi: '3.1.0',
@@ -23,6 +24,7 @@ export const swaggerControllers = {
     ...dishesSwagger.paths,
     ...chefsSwagger.paths,
     ...reviewsSwagger.paths,
+    ...ingredientsSwagger.paths,
   },
   components: {
     schemas: {
@@ -31,6 +33,7 @@ export const swaggerControllers = {
       ...dishesSwagger.components.schemas,
       ...chefsSwagger.components.schemas,
       ...reviewsSwagger.components.schemas,
+      ...ingredientsSwagger.components.schemas,
     },
   },
 };

@@ -14,13 +14,13 @@ export const getReviewsByDishId = {
             schema: { type: 'string' },
             description: 'Dish ID to get reviews for',
           },
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: { type: 'string' },
-            description: 'Bearer token for authentication',
-          },
+          // {
+          //   in: 'header',
+          //   name: 'Authorization',
+          //   required: true,
+          //   schema: { type: 'string' },
+          //   description: 'Bearer token for authentication',
+          // },
         ],
         responses: {
           200: {

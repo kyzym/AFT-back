@@ -1,6 +1,6 @@
 export const updateIngredient = {
   paths: {
-    '/api/ingredients/{ingredientId}': {
+    '/ingredients/{ingredientId}': {
       put: {
         summary: 'Update ingredient',
         description: 'Update ingredient',

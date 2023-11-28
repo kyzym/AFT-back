@@ -1,6 +1,6 @@
 export const addIngredient = {
   paths: {
-    '/api/ingredients': {
+    '/ingredients': {
       post: {
         summary: 'Create a new ingredient',
         description: 'Create a new ingredient',

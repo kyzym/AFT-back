@@ -5,13 +5,13 @@ import { updateIngredient } from './updateIngredient/swagger.js';
 
 export const ingredientsSwagger = {
   paths: {
-    '/api/ingredients': {
-      ...getAllIngredients.paths['/api/ingredients'],
-      ...addIngredient.paths['/api/ingredients'],
+    '/ingredients': {
+      ...getAllIngredients.paths['/ingredients'],
+      ...addIngredient.paths['/ingredients'],
     },
-    '/api/ingredients/{ingredientId}': {
-      ...deleteIngredientById.paths['/api/ingredients/{ingredientId}'],
-      ...updateIngredient.paths['/api/ingredients/{ingredientId}'],
+    '/ingredients/{ingredientId}': {
+      ...deleteIngredientById.paths['/ingredients/{ingredientId}'],
+      ...updateIngredient.paths['/ingredients/{ingredientId}'],
     },
   },
 

@@ -1,6 +1,6 @@
 export const getAllIngredients = {
   paths: {
-    '/api/ingredients': {
+    '/ingredients': {
       get: {
         summary: 'Returns the list of all ingredients',
         description: 'Returns the list of all ingredients',

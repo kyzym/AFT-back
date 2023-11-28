@@ -1,6 +1,6 @@
 export const deleteIngredientById = {
   paths: {
-    '/api/ingredients/{ingredientId}': {
+    '/ingredients/{ingredientId}': {
       delete: {
         summary: 'Delete a ingredient by ID',
         description: 'Delete a ingredient by ID',
