@@ -7,20 +7,20 @@ import { updateReviewById } from './updateReviewById/swagger.js';
 
 export const reviewsSwagger = {
   paths: {
-    '/api/reviews': {
-      ...getAllReviews.paths['/api/reviews'],
-      ...addReview.paths['/api/reviews'],
+    '/reviews': {
+      ...getAllReviews.paths['/reviews'],
+      ...addReview.paths['/reviews'],
     },
 
-    '/api/reviews/{reviewId}': {
-      ...deleteReview.paths['/api/reviews/{reviewId}'],
-      ...updateReviewById.paths['/api/reviews/{reviewId}'],
+    '/reviews/{reviewId}': {
+      ...deleteReview.paths['/reviews/{reviewId}'],
+      ...updateReviewById.paths['/reviews/{reviewId}'],
     },
-    '/api/reviews/by-chef/{chefId}': {
-      ...getReviewsByChefId.paths['/api/reviews/by-chef/{chefId}'],
+    '/reviews/by-chef/{chefId}': {
+      ...getReviewsByChefId.paths['/reviews/by-chef/{chefId}'],
     },
-    '/api/reviews/by-dish/{dishId}': {
-      ...getReviewsByDishId.paths['/api/reviews/by-dish/{dishId}'],
+    '/reviews/by-dish/{dishId}': {
+      ...getReviewsByDishId.paths['/reviews/by-dish/{dishId}'],
     },
   },
 

@@ -1,6 +1,6 @@
 export const addReview = {
   paths: {
-    '/api/reviews': {
+    '/reviews': {
       post: {
         summary: 'Create a new review',
         description: 'Create a new review',

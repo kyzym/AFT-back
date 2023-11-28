@@ -1,6 +1,6 @@
 export const getAllReviews = {
   paths: {
-    '/api/reviews': {
+    '/reviews': {
       get: {
         summary: 'Returns the list of all reviews',
         description: 'Returns the list of all reviews',
