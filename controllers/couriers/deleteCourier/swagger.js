@@ -3,27 +3,27 @@ import {
   createErrorResponse,
   idSchema,
   serverError,
-} from '../swaggerChefsComponents.js';
+} from '../swaggerCouriersComponents.js';
 
-export const deleteChefSwagger = {
-  '/chefs/{chefId}': {
+export const deleteCourierSwagger = {
+  '/couriers/{courierId}': {
     delete: {
-      tags: ['Chefs'],
-      summary: 'Delete chef',
-      description: 'Deletes a chef with the specified ID.',
+      tags: ['Couriers'],
+      summary: 'Delete courier',
+      description: 'Deletes a courier with the specified ID.',
       parameters: [
         {
-          name: 'chefId',
+          name: 'courierId',
           in: 'path',
           required: true,
-          description: 'ID of the chef to delete',
+          description: 'ID of the courier to delete',
           schema: idSchema,
         },
       ],
-      security: [{ bearerAuth: [roles.CHEF, roles.ADMIN] }],
+      security: [{ bearerAuth: [roles.COURIER, roles.ADMIN] }],
       responses: {
         200: {
-          description: 'Chef processed for deletion',
+          description: 'Courier processed for deletion',
           content: {
             'application/json': {
               schema: {
@@ -31,7 +31,7 @@ export const deleteChefSwagger = {
                 properties: {
                   message: {
                     type: 'string',
-                    example: 'Chef processed for deletion',
+                    example: 'Courier processed for deletion',
                   },
                 },
               },
