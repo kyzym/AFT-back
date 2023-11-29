@@ -22,7 +22,7 @@ const CourierSchema = new Schema(
       required: [true, "Courier's phone number is required"],
     },
     address: { type: addressSchema, required: true },
-    vechicleType: {
+    vehicleType: {
       type: String,
       enum: Object.values(vehicleType),
       required: [

@@ -11,22 +11,22 @@ import { updateChefOrderStatusSwagger } from './updateChefOrderStatus/swagger.js
 
 const combinedChefsPaths = {
   '/chefs': {
-    ...getChefsSwagger['/api/chefs'],
-    ...createChefSwagger['/api/chefs'],
+    ...getChefsSwagger['/chefs'],
+    ...createChefSwagger['/chefs'],
   },
   '/chefs/{chefId}': {
-    ...getChefSwagger['/api/chefs/{chefId}'],
-    ...updateChefSwagger['/api/chefs/{chefId}'],
-    ...deleteChefSwagger['/api/chefs/{chefId}'],
+    ...getChefSwagger['/chefs/{chefId}'],
+    ...updateChefSwagger['/chefs/{chefId}'],
+    ...deleteChefSwagger['/chefs/{chefId}'],
   },
   '/chefs/{chefId}/orders': {
-    ...getChefOrdersSwagger['/api/chefs/{chefId}/orders'],
+    ...getChefOrdersSwagger['/chefs/{chefId}/orders'],
   },
   '/chefs/{chefId}/orders/{status}': {
-    ...getChefOrdersByStatusSwagger['/api/chefs/{chefId}/orders/{status}'],
+    ...getChefOrdersByStatusSwagger['/chefs/{chefId}/orders/{status}'],
   },
   '/chefs/{chefId}/orders/{orderId}': {
-    ...updateChefOrderStatusSwagger['/api/chefs/{chefId}/orders/{status}'],
+    ...updateChefOrderStatusSwagger['/chefs/{chefId}/orders/{status}'],
   },
 };
 
