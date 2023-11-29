@@ -20,7 +20,7 @@ const controller = async (req, res) => {
       `You don't have permission to view the user ${userId} account`
     );
 
-  return res.status(200).send({
+  return res.status(200).json({
     success: true,
     message: 'User successfully found',
     user,

@@ -41,7 +41,8 @@ const userValidationFields = {
     .default(accountStatus.ACTIVE),
 };
 
-const { firstName, lastName, password, email } = userValidationFields;
+const { firstName, lastName, password, email, avatar, address, phoneNumber } =
+  userValidationFields;
 
 export const userValidationSchema = Joi.object({ ...userValidationFields });
 
@@ -53,6 +54,20 @@ export const registerValidationSchema = Joi.object({
 });
 
 export const loginValidationSchema = Joi.object({
-  password,
+  password: Joi.string().required(),
   email,
+});
+
+export const addFavoriteValidationSchema = Joi.object({
+  favoriteId: idValidationSchema.required(),
+});
+
+export const updateUserValidationSchema = Joi.object({
+  firstName: userValidationFields.firstName.optional(),
+  lastName: userValidationFields.lastName.optional(),
+  email: userValidationFields.email.optional(),
+  password: userValidationFields.password.optional(),
+  avatar,
+  address,
+  phoneNumber,
 });
