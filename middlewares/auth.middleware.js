@@ -66,7 +66,7 @@ export const verifyToken = (requiredRoles) => {
 
       if (!hasRequiredRole) {
         throw new ForbiddenError(
-          `User ${id} doesn't have the required role(s)`
+          'You do not have permission to view/modify this account'
         );
       }
 

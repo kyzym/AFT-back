@@ -3,6 +3,7 @@ import {
   errorName,
   errorResponse,
 } from '#controllers/swagger.common.js';
+import { DefaultErrorResponse } from '#controllers/users/swaggerCommon.js';
 import { roles } from '#constants/roles.js';
 
 export const getFavoritesByTypeSwagger = {
@@ -10,7 +11,7 @@ export const getFavoritesByTypeSwagger = {
     '/users/{userId}/favorite/{type}': {
       get: {
         tags: ['Users'],
-        summary: 'Get user favorites by type',
+        summary: 'Get favorite items',
         description:
           'Returns a list of user favorites based on the specified type',
         security: [{ bearerAuth: [roles.USER] }],
@@ -64,9 +65,7 @@ export const getFavoritesByTypeSwagger = {
           401: {
             ...errorResponse(errorName[401], errorMessage[401]),
           },
-          403: {
-            ...errorResponse(errorName[403], errorMessage[403]),
-          },
+          403: DefaultErrorResponse[403],
           404: {
             ...errorResponse(errorName[404], 'User not found'),
           },

@@ -6,10 +6,15 @@ export const updateCartAndRespond = async (
   res,
   successMessage = 'Cart successfully updated'
 ) => {
-  await User.findByIdAndUpdate({ _id: userId }, { $set: { cart: newCart } });
+  const user = await User.findByIdAndUpdate(
+    { _id: userId },
+    { $set: { cart: newCart } },
+    { new: true }
+  );
 
   return res.status(200).json({
     success: true,
     message: successMessage,
+    cart: user.cart,
   });
 };

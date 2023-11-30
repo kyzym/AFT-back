@@ -39,7 +39,7 @@ const controller = async (req, res) => {
 
   return res.status(200).json({
     success: true,
-    message: 'User account and associated roles deleted successfully',
+    message: `User account with ID ${userId} and associated roles successfully deleted`,
   });
 };
 
