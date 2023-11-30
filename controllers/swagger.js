@@ -3,6 +3,19 @@ import { ordersSwagger } from './orders/swagger.js';
 import { dishesSwagger } from './dishes/index.js';
 import { chefsSwagger } from './chefs/swagger.js';
 
+const { PORT, SWAGGER_URL } = process.env;
+
+const serverUrl =
+  process.env.MODE === 'development'
+    ? {
+        url: `http://localhost:${PORT}/api`,
+        description: 'Development server',
+      }
+    : {
+        url: `${SWAGGER_URL}`,
+        description: 'Production server',
+      };
+
 export const swaggerControllers = {
   openapi: '3.1.0',
   info: {
@@ -10,12 +23,7 @@ export const swaggerControllers = {
     version: '1.0.0',
     description: 'Documentation for IDLO controllers',
   },
-  servers: [
-    {
-      url: 'http://localhost:PORT',
-      description: 'Development server',
-    },
-  ],
+  servers: [serverUrl],
   paths: {
     ...usersSwagger.paths,
     ...ordersSwagger.paths,
@@ -23,6 +31,16 @@ export const swaggerControllers = {
     ...chefsSwagger.paths,
   },
   components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'Authorization',
+        description:
+          'Use the "Bearer" keyword followed by a space and then your JWT token.',
+        bearerFormat: 'JWT',
+      },
+    },
     schemas: {
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,

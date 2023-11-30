@@ -8,7 +8,8 @@
       "#controllers/*": ["controllers/*"],
       "#routes/*": ["routes/*"],
       "#middlewares/*": ["middlewares/*"],
-      "#models/*": ["models/*"]
+      "#models/*": ["models/*"],
+      "#libs/*": ["libs/*"]
     }
   }
 }

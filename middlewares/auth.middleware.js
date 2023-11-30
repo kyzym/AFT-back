@@ -52,6 +52,7 @@ export const verifyToken = (requiredRoles) => {
   return async (req, res, next) => {
     try {
       const token = getTokenFromHeaders(req);
+
       if (!token) throw new UnAuthorizedError('Token missing');
 
       const { id } = await decodeJWT(token);

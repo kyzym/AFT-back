@@ -2,9 +2,10 @@ import { Router } from 'express';
 import { orderControllers as ctrl } from '#controllers/index.js';
 import { validate } from '#middlewares/validation.middleware.js';
 import { orderValidationSchema } from '#models/order/order.validation.js';
-// import verifyToken from '#middlewares/auth.middleware.js';
-// import { roles } from '#constants/roles.js';
+
+import { roles } from '#constants/roles.js';
 import { isValidId } from '#middlewares/isValidId.js';
+import { verifyToken } from '#middlewares/auth.middleware.js';
 
 const ordersRouter = Router();
 
@@ -15,7 +16,7 @@ ordersRouter.get(
 );
 ordersRouter.post(
   '/',
-  //verifyToken([roles.USER]),
+  verifyToken([roles.USER]),
   validate(orderValidationSchema),
   ctrl.createOrder
 );
@@ -86,6 +87,12 @@ ordersRouter.patch(
   //verifyToken([roles.COURIER]),
   isValidId('orderId'),
   ctrl.changeStatus.cancelByCourier
+);
+
+ordersRouter.post(
+  '/:orderId/payment/callback',
+  isValidId('orderId'),
+  ctrl.callbackPayment
 );
 
 export default ordersRouter;
