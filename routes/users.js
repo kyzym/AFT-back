@@ -74,18 +74,25 @@ usersRouter.get(
   isValidId('userId'),
   userControllers.getUserCart
 );
-usersRouter.put(
+usersRouter.post(
   '/:userId/cart',
   validate(cartValidationSchema),
   verifyToken(['user']),
   isValidId('userId'),
-  userControllers.updateUserCart
+  userControllers.addUserCartItem
 );
-usersRouter.delete(
+usersRouter.patch(
   '/:userId/cart',
+  validate(cartValidationSchema),
   verifyToken(['user']),
   isValidId('userId'),
-  userControllers.clearUserCart
+  userControllers.updateUserCartItem
+);
+usersRouter.delete(
+  '/:userId/cart/:dishId',
+  verifyToken(['user']),
+  isValidId('userId', 'dishId'),
+  userControllers.deleteUserCartItem
 );
 
 // admin endpoints

@@ -1,20 +1,16 @@
-import {
-  errorResponse,
-  errorMessage,
-  errorName,
-} from '#controllers/swagger.common.js';
 import { roles } from '#constants/index.js';
 import { DefaultErrorResponse } from '#controllers/users/swaggerCommon.js';
 
-export const updateUserCartItemSwagger = {
+export const addUserCartItemSwagger = {
   paths: {
     '/users/{userId}/cart': {
-      patch: {
+      post: {
         tags: ['Users'],
-        summary: 'Update user cart',
-        description: 'Updates the user cart based on the provided items',
+        summary: 'Add item to user cart',
+        description:
+          'Adds an item to the user cart based on the provided details',
         security: [{ bearerAuth: [roles.USER] }],
-        operationId: 'updateUserCartItem',
+        operationId: 'addUserCartItem',
         parameters: [
           {
             name: 'userId',
@@ -28,7 +24,7 @@ export const updateUserCartItemSwagger = {
           },
         ],
         requestBody: {
-          description: 'Updated cart information',
+          description: 'Item information to be added to the cart',
           required: true,
           content: {
             'application/json': {
@@ -49,19 +45,11 @@ export const updateUserCartItemSwagger = {
               },
             },
           },
-          401: {
-            ...errorResponse(errorName[401], errorMessage[401]),
-          },
+          400: DefaultErrorResponse[400],
+          401: DefaultErrorResponse[401],
           403: DefaultErrorResponse[403],
-          404: {
-            ...errorResponse(
-              errorName[404],
-              'Invalid token: no user found from the token'
-            ),
-          },
-          500: {
-            ...errorResponse(errorName[500], errorMessage[500]),
-          },
+          404: DefaultErrorResponse[404],
+          500: DefaultErrorResponse[500],
         },
       },
     },

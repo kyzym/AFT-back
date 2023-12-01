@@ -78,7 +78,7 @@ export const updateUserValidationSchema = Joi.object({
 });
 
 export const cartValidationSchema = Joi.object({
-  items: Joi.array().items(cartItemValidationSchema),
+  item: cartItemValidationSchema.required(),
 });
 
 export const userStatusValidationSchema = Joi.object({

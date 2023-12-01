@@ -1,15 +1,15 @@
 import { DefaultErrorResponse } from '#controllers/users/swaggerCommon.js';
 import { roles } from '#constants/index.js';
 
-export const clearUserCartSwagger = {
+export const deleteUserCartItemSwagger = {
   paths: {
-    '/users/{userId}/cart': {
+    '/users/{userId}/cart/{dishId}': {
       delete: {
         tags: ['Users'],
-        summary: 'Clear user cart',
-        description: 'Clears the cart of a user',
+        summary: 'Delete item from user cart',
+        description: "Remove an item from the user's cart",
         security: [{ bearerAuth: [roles.USER] }],
-        operationId: 'clearUserCart',
+        operationId: 'deleteUserCartItem',
         parameters: [
           {
             name: 'userId',
@@ -21,29 +21,25 @@ export const clearUserCartSwagger = {
               format: 'objectId',
             },
           },
+          {
+            name: 'dishId',
+            in: 'path',
+            description: 'ID of the dish',
+            required: true,
+            schema: {
+              type: 'string',
+              format: 'objectId',
+            },
+          },
         ],
         responses: {
           200: {
-            description: 'Successful response indicating user cart clearing',
+            description:
+              "Successful response indicating item removal from user's cart",
             content: {
               'application/json': {
                 schema: {
-                  type: 'object',
-                  properties: {
-                    success: { type: 'boolean', default: true },
-                    message: {
-                      type: 'string',
-                      example: 'User cart successfully cleared',
-                    },
-                    cart: {
-                      type: 'object',
-                      properties: {
-                        items: {
-                          type: 'array',
-                        },
-                      },
-                    },
-                  },
+                  $ref: '#/components/schemas/UpdatedUserCartResponse',
                 },
               },
             },

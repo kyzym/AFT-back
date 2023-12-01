@@ -1,9 +1,8 @@
 import { roles } from '#constants/index.js';
 import { findUserAndCheck } from '#controllers/users/helpers.js';
 import { ctrlWrapper } from '#middlewares/index.js';
-import User from '#models/user/userModel.js';
 import { findDishAndCheck, matchChefs } from '../helpers.js';
-import { updateCartItemQty } from './helper.js';
+import { addDishToCart } from './helpers.js';
 
 const controller = async (req, res) => {
   const { userId } = req.params;
@@ -16,19 +15,15 @@ const controller = async (req, res) => {
 
   user.cart.chefId && (await matchChefs(user.cart.chefId, dishInDB.owner)); // check if cart isn't empty
 
-  const updatedCart = await updateCartItemQty(user.cart, item);
+  const newCart = addDishToCart(user.cart, dishInDB.owner, item);
 
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: userId },
-    { $set: { cart: updatedCart } },
-    { new: true }
-  );
+  const updatedUser = await user.updateOne({ $set: { cart: newCart } });
 
   return res.status(200).json({
     success: true,
-    message: `The dish ${item.dishId} has been successfully updated in the cart`,
+    message: `The dish ${item.dishId} has been successfully added to the cart`,
     cart: updatedUser.cart,
   });
 };
 
-export const updateUserCartItem = ctrlWrapper(controller);
+export const addUserCartItem = ctrlWrapper(controller);

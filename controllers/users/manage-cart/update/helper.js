@@ -1,26 +1,18 @@
-import { ValidationError } from '#helpers/errors.js';
-import { Dish } from '#models/index.js';
+import { NotFoundError } from '#helpers/errors.js';
 
-export const findDishesInDB = async (items) => {
-  return await Dish.find(
-    {
-      _id: { $in: items.map((item) => item.dishId) },
-    },
-    'owner id'
-  ).exec();
-};
+export const updateCartItemQty = async (cart, newItem) => {
+  let updatedCart = { ...cart };
 
-export const getExistingItems = (reqItems, dbItems) => {
-  return reqItems.filter((reqItem) =>
-    dbItems.some((dbItem) => dbItem._id.toString() === reqItem.dishId)
+  const existingItem = updatedCart.items.find(
+    (cartItem) => cartItem.dishId.toString() === newItem.dishId
   );
-};
 
-export const getChefId = (dbItems) => {
-  const chefIdSet = new Set(dbItems.map((item) => item.owner.toString()));
-  if (chefIdSet.size !== 1) {
-    throw new ValidationError('Items in the cart must have the same chef');
-  }
-  const chefId = [...chefIdSet][0].toString();
-  return chefId;
+  if (!existingItem)
+    throw new NotFoundError(
+      `The dish with ID ${newItem.dishId} not found in the cart`
+    );
+
+  existingItem.count = newItem.count;
+
+  return updatedCart;
 };

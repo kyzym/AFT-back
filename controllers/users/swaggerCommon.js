@@ -249,6 +249,56 @@ const GetUserCartResponse = createResponseSchema({
   },
 });
 
+const UpdatedUserCartResponse = createResponseSchema({
+  cart: {
+    type: 'object',
+    properties: {
+      chefId: {
+        type: 'string',
+        format: 'objectId',
+        example: '656261602012b055a16d2406',
+      },
+      items: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            dishId: {
+              type: 'string',
+              format: 'objectId',
+              example: '655a201bb01417f2a7b217b2',
+            },
+            count: { type: 'integer', example: 5 },
+          },
+        },
+      },
+    },
+  },
+});
+
+export const CartItemSchema = {
+  type: 'object',
+  properties: {
+    item: {
+      type: 'object',
+      properties: {
+        dishId: {
+          type: 'string',
+          format: 'objectId',
+          example: '656658933c6bdf0d02f71488',
+          description: 'ID of the dish',
+        },
+        count: {
+          type: 'integer',
+          default: 1,
+          description: 'Number of items of the dish to be added to the cart',
+        },
+      },
+      required: ['dishId', 'count'],
+    },
+  },
+};
+
 export const DefaultErrorResponse = {
   400: {
     ...errorResponse(
@@ -284,9 +334,11 @@ export const SwaggerResponses = {
   GetFavoriteDishesResponse,
   GetFavoriteChefsResponse,
   GetUserCartResponse,
+  UpdatedUserCartResponse,
 };
 
 export const SwaggerSchemas = {
   RoleSchema,
   UserSchema,
+  CartItemSchema,
 };
