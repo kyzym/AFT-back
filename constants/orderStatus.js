@@ -1,4 +1,5 @@
 export const orderStatus = Object.freeze({
+  NEW: 'new',
   PENDING: 'pending',
   ACCEPTED: 'accepted',
   COOKING: 'cooking',
@@ -7,7 +8,3 @@ export const orderStatus = Object.freeze({
   COMPLETED: 'completed',
   CANCELED: 'canceled',
 });
-
-/**
- PATCH: /orders/:orderId/status/:orderStatus
- */

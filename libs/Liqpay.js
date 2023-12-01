@@ -90,32 +90,31 @@ export default function LiqPay(public_key, private_key) {
    * @throws {Error}
    */
   this.cnb_form = function cnb_form(params) {
-    // let buttonText = this.buttonTranslations['uk'];
-    // if (params.language) {
-    //   buttonText =
-    //     this.buttonTranslations[params.language] ||
-    //     this.buttonTranslations['uk'];
-    // }
+    let buttonText = this.buttonTranslations['uk'];
+    if (params.language) {
+      buttonText =
+        this.buttonTranslations[params.language] ||
+        this.buttonTranslations['uk'];
+    }
 
     params = this.cnb_params(params);
     const data = Buffer.from(JSON.stringify(params)).toString('base64');
     const signature = this.str_to_sign(private_key + data + private_key);
 
-    return { data, signature };
-    // return (
-    //   '<form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">' +
-    //   '<input type="hidden" name="data" value="' +
-    //   data +
-    //   '" />' +
-    //   '<input type="hidden" name="signature" value="' +
-    //   signature +
-    //   '" />' +
-    //   '<script type="text/javascript" src="https://static.liqpay.ua/libjs/sdk_button.js"></script>' +
-    //   '<sdk-button label="' +
-    //   buttonText +
-    //   '" background="#77CC5D" onClick="submit()"></sdk-button>' +
-    //   '</form>'
-    // );
+    return (
+      '<form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">' +
+      '<input type="hidden" name="data" value="' +
+      data +
+      '" />' +
+      '<input type="hidden" name="signature" value="' +
+      signature +
+      '" />' +
+      '<script type="text/javascript" src="https://static.liqpay.ua/libjs/sdk_button.js"></script>' +
+      '<sdk-button label="' +
+      buttonText +
+      '" background="#77CC5D" onClick="submit()"></sdk-button>' +
+      '</form>'
+    );
   };
 
   /**

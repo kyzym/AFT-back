@@ -9,7 +9,8 @@
       "#routes/*": ["routes/*"],
       "#middlewares/*": ["middlewares/*"],
       "#models/*": ["models/*"],
-      "#libs/*": ["libs/*"]
+      "#libs/*": ["libs/*"],
+      "#config/*": ["config/*"]
     }
   }
 }

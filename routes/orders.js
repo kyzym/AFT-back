@@ -9,11 +9,8 @@ import { verifyToken } from '#middlewares/auth.middleware.js';
 
 const ordersRouter = Router();
 
-ordersRouter.get(
-  '/',
-  //verifyToken([roles.ADMIN]),
-  ctrl.getAllOrders
-);
+// TODO: Add role
+ordersRouter.get('/', /*verifyToken([roles.ADMIN]),*/ ctrl.getAllOrders);
 ordersRouter.post(
   '/',
   verifyToken([roles.USER]),
@@ -21,6 +18,7 @@ ordersRouter.post(
   ctrl.createOrder
 );
 
+/*
 ordersRouter.get(
   '/by-chef/:chefId',
   //verifyToken([roles.CHEF, roles.ADMIN]),
@@ -33,6 +31,8 @@ ordersRouter.get(
   isValidId('courierId'),
   ctrl.getAllOrdersByCourierId
 );
+
+
 ordersRouter.get(
   '/by-user/:userId',
   //verifyToken([roles.USER, roles.ADMIN]),
@@ -87,11 +87,18 @@ ordersRouter.patch(
   //verifyToken([roles.COURIER]),
   isValidId('orderId'),
   ctrl.changeStatus.cancelByCourier
+);*/
+
+ordersRouter.get(
+  '/payment/:orderId',
+  verifyToken([roles.USER]),
+  isValidId('orderId'),
+  ctrl.getPaymentSignature
 );
 
 ordersRouter.post(
-  '/:orderId/payment/callback',
-  isValidId('orderId'),
+  '/payment/callback',
+  // isValidId('orderId'),
   ctrl.callbackPayment
 );
 
