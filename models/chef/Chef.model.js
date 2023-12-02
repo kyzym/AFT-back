@@ -7,7 +7,7 @@ const ObjectId = Schema.Types.ObjectId;
 
 const ChefSchema = new Schema(
   {
-    userId: { type: ObjectId, ref: 'User', required: true },
+    userId: { type: ObjectId, ref: 'user', required: true },
     avatar: {
       type: String,
       required: [true, "Chef's photo is required"],

@@ -2,6 +2,9 @@ import { usersSwagger } from './users/swagger.js';
 import { ordersSwagger } from './orders/swagger.js';
 import { dishesSwagger } from './dishes/swagger.js';
 import { chefsSwagger } from './chefs/swagger.js';
+import { couriersSwagger } from './couriers/swagger.js';
+
+const { SWAGGER_URL } = process.env;
 import { reviewsSwagger } from './reviews/swagger.js';
 import { ingredientsSwagger } from './ingredients/swagger.js';
 
@@ -14,7 +17,7 @@ export const swaggerControllers = {
   },
   servers: [
     {
-      url: 'http://localhost:PORT',
+      url: `${SWAGGER_URL}`,
       description: 'Development server',
     },
   ],
@@ -25,8 +28,19 @@ export const swaggerControllers = {
     ...chefsSwagger.paths,
     ...reviewsSwagger.paths,
     ...ingredientsSwagger.paths,
+    ...couriersSwagger.paths,
   },
   components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'Authorization',
+        description:
+          'Use the "Bearer" keyword followed by a space and then your JWT token.',
+        bearerFormat: 'JWT',
+      },
+    },
     schemas: {
       ...usersSwagger.components.schemas,
       ...ordersSwagger.components.schemas,
@@ -34,6 +48,7 @@ export const swaggerControllers = {
       ...chefsSwagger.components.schemas,
       ...reviewsSwagger.components.schemas,
       ...ingredientsSwagger.components.schemas,
+      ...couriersSwagger.components.schemas,
     },
   },
 };

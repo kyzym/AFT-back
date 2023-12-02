@@ -3,6 +3,8 @@ import {
   errorMessage,
   errorName,
 } from '#controllers/swagger.common.js';
+import { UserSchema } from '#controllers/users/swaggerCommon.js';
+import _ from 'lodash';
 
 export const registerUserSwagger = {
   paths: {
@@ -19,25 +21,14 @@ export const registerUserSwagger = {
               schema: {
                 type: 'object',
                 properties: {
-                  email: {
-                    type: 'string',
-                    format: 'email',
-                    description: 'User email',
-                  },
+                  ..._.pick(UserSchema.properties, [
+                    'firstName',
+                    'lastName',
+                    'email',
+                  ]),
                   password: {
                     type: 'string',
-                    example: 'SecurePass_123',
-                    description: 'User password',
-                  },
-                  firstName: {
-                    type: 'string',
-                    example: 'Nikolay',
-                    description: 'User first name',
-                  },
-                  lastName: {
-                    type: 'string',
-                    example: 'Verstak',
-                    description: 'User last name',
+                    description: 'The password of the user',
                   },
                 },
                 required: ['email', 'password', 'firstName', 'lastName'],

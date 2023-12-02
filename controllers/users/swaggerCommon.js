@@ -2,6 +2,8 @@ import _ from 'lodash';
 import { AddressSchema, objectId } from '#controllers/swagger.common.js';
 import { accountStatus, roles } from '#constants/index.js';
 import { OrderItemSchema } from '#controllers/orders/swagger.common.js';
+import { ChefSchema } from '#controllers/chefs/swaggerChefsComponents.js';
+import { DishSchema } from '#controllers/dishes/swaggerDishesComponents.js';
 
 export const RoleSchema = {
   type: 'object',
@@ -146,5 +148,46 @@ export const GetOneUserResponse = createResponseSchema({
   user: {
     type: 'object',
     properties: _.omit(UserSchema.properties, ['password', 'updatedAt']),
+  },
+});
+
+export const GetFavoriteChefsResponse = createResponseSchema({
+  favoriteChefs: {
+    items: {
+      type: 'object',
+      properties: {
+        ..._.pick(ChefSchema.properties, [
+          'id',
+          'avatar',
+          'address',
+          'isAvailable',
+        ]),
+        firstName: { type: 'string' },
+        lastName: { type: 'string' },
+      },
+    },
+  },
+});
+
+export const GetFavoriteDishesResponse = createResponseSchema({
+  favoriteDishes: {
+    type: 'array',
+    items: {
+      type: 'object',
+      properties: {
+        ..._.pick(DishSchema.properties, [
+          'id',
+          'owner',
+          'name',
+          'image',
+          'description',
+          'price',
+          'category',
+          'cuisine',
+          'isAvailable',
+        ]),
+        owner: { type: 'string', format: 'objectId' },
+      },
+    },
   },
 });
