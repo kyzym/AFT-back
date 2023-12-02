@@ -12,7 +12,7 @@ const controller = async (req, res) => {
   const { address, items: dishes } = req.body;
 
   // mock id
-  const userId = '655a051fb7cc813b6007220b';
+  const userId = '6566e859a48ddb482e9ab846';
 
   // Check order items
   const dbDishes = await findOrderItemsInDb(dishes);
