@@ -1,7 +1,8 @@
 import { Review } from '../../../models/review/index.js';
 
 export const addReview = async (req, res) => {
-  const { id: owner } = req.user;
+  // const { id: owner } = req.user;
+  const owner = '6561f42ef5c506ec5f36dbba';
 
   const data = {
     ...req.body,

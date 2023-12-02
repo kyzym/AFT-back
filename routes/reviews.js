@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { reviewControllers } from '../controllers/index.js';
-import { ctrlWrapper, isValidId, joiValidation } from '../middlewares/index.js';
+import { ctrlWrapper, isValidId, validate } from '../middlewares/index.js';
 import { addReviewSchema } from '../models/review/review.validation.js';
 
 const router = express.Router();
@@ -10,7 +10,7 @@ router.post(
   '/',
   // add authenticate middleware
   // authenticate,
-  joiValidation(addReviewSchema),
+  validate(addReviewSchema),
   ctrlWrapper(reviewControllers.addReview)
 );
 
@@ -34,7 +34,7 @@ router.put(
   // add authenticate middleware
   // authenticate,
   isValidId('reviewId'),
-  joiValidation(addReviewSchema),
+  validate(addReviewSchema),
   ctrlWrapper(reviewControllers.updateReviewById)
 );
 
