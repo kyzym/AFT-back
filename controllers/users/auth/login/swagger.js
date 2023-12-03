@@ -53,7 +53,10 @@ export const loginUserSwagger = {
             ...errorResponse(errorName[403], 'User has a blocked account'),
           },
           404: {
-            ...errorResponse(errorName[404], 'User not found'),
+            ...errorResponse(
+              errorName[404],
+              'User with ID 656658933c6bdf0d02f71488 not found'
+            ),
           },
           500: {
             ...errorResponse(errorName[500], errorMessage[500]),

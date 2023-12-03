@@ -4,6 +4,7 @@ import {
   errorResponse,
 } from '#controllers/swagger.common.js';
 import { roles } from '#constants/roles.js';
+import { DefaultErrorResponse } from '#controllers/users/swaggerCommon.js';
 
 export const addFavoriteItemSwagger = {
   paths: {
@@ -86,9 +87,7 @@ export const addFavoriteItemSwagger = {
           401: {
             ...errorResponse(errorName[401], errorMessage[401]),
           },
-          403: {
-            ...errorResponse(errorName[403], errorMessage[403]),
-          },
+          403: DefaultErrorResponse[403],
           404: {
             ...errorResponse(
               errorName[404],

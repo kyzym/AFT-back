@@ -6,7 +6,6 @@ import {
   getTypeSingular,
   getFavoritesKeyByType,
 } from '../helpers.js';
-import User from '#models/user/userModel.js';
 
 const controller = async (req, res) => {
   const { userId, type } = req.params;
@@ -26,10 +25,7 @@ const controller = async (req, res) => {
       message: `The ${typeSingular} with ID ${favoriteId} is already in favorites for user ${userId}`,
     });
 
-  await User.updateOne(
-    { _id: userId },
-    { $push: { [favoritesArrayName]: favoriteId } }
-  );
+  await user.updateOne({ $push: { [favoritesArrayName]: favoriteId } });
 
   return res.status(200).json({
     success: true,
