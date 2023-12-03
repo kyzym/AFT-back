@@ -35,6 +35,10 @@ const ChefSchema = new Schema(
       required: true,
       default: accountStatus.PENDING,
     },
+    liqpayKey: {
+      type: String,
+      required: [true, "Chef's LiqPay public key is required"],
+    },
     isAvailable: {
       type: Boolean,
       required: true,

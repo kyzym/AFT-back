@@ -4,62 +4,69 @@ import { isValidId } from '../middlewares/isValidId.js';
 import { joiValidation } from '#middlewares/joiValidation.js';
 import ChefValidationSchema from '#models/chef/Chef.validation.js';
 import { chefControllers } from '#controllers/index.js';
+import { verifyToken } from '#middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.get('/', ctrlWrapper(chefControllers.chefControllers.getChefs));
+router.get(
+  '/',
+  verifyToken(['user', 'admin', 'chef']),
+  ctrlWrapper(chefControllers.chefControllers.getChefs)
+);
 
 router.get(
   '/:chefId',
   isValidId('chefId'),
+  verifyToken(['user', 'admin', 'chef', 'courier']),
   ctrlWrapper(chefControllers.chefControllers.getChef)
 );
 
 router.patch(
   '/:chefId',
   isValidId('chefID'),
-  //role: chef
+  verifyToken(['chef']),
   ctrlWrapper(chefControllers.chefControllers.updateChef)
 );
 
 router.patch(
   '/:chefId',
   isValidId('chefId'),
-  //role: admin
+  verifyToken(['admin']),
   ctrlWrapper(chefControllers.chefControllers.updateChefAvailableStatus)
 );
 
 router.delete(
   '/:chefId',
   isValidId('chefId'),
-  // role: chef, admin
+  verifyToken(['admin', 'chef']),
   ctrlWrapper(chefControllers.chefControllers.deleteChef)
 );
 
 router.post(
   '/',
   joiValidation(ChefValidationSchema),
-  // role: chef
+  verifyToken(['user']),
   ctrlWrapper(chefControllers.chefControllers.createChef)
 );
 
 router.patch(
   '/:chefId/orders/:orderId',
   isValidId(['chefId', 'orderId']),
+  verifyToken(['chef']),
   ctrlWrapper(chefControllers.chefControllers.updateChefOrderStatus)
 );
 
 router.get(
   '/:chefId/orders/:status',
   isValidId('chefId'),
-  // role: chef, admin
+  verifyToken(['admin', 'chef']),
   ctrlWrapper(chefControllers.chefControllers.getChefOrdersByStatus)
 );
 
 router.get(
   '/:chefId/orders',
   isValidId('chefId'),
-  // role: chef, admin
+  verifyToken(['admin', 'chef']),
   ctrlWrapper(chefControllers.chefControllers.getChefOrders)
 );
 
