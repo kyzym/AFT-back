@@ -1,38 +1,40 @@
 import express from 'express';
 
 import { reviewControllers } from '../controllers/index.js';
-import { ctrlWrapper, isValidId, validate } from '../middlewares/index.js';
+import {
+  ctrlWrapper,
+  isValidId,
+  validate,
+  verifyToken,
+} from '../middlewares/index.js';
 import { addReviewSchema } from '../models/review/review.validation.js';
+import { roles } from '#constants/roles.js';
 
 const router = express.Router();
 
 router.post(
   '/',
-  // add authenticate middleware
-  // authenticate,
+  verifyToken([roles.USER]),
   validate(addReviewSchema),
   ctrlWrapper(reviewControllers.addReview)
 );
 
 router.delete(
   '/:reviewId',
-  // add authenticate middleware
-  // authenticate,
+  verifyToken([roles.USER]),
   isValidId('reviewId'),
   ctrlWrapper(reviewControllers.deleteReviewById)
 );
 
 router.get(
   '/',
-  // add authenticate middleware
-  // authenticate,);
+  verifyToken([roles.ADMIN]),
   ctrlWrapper(reviewControllers.getAllReviews)
 );
 
 router.put(
   '/:reviewId',
-  // add authenticate middleware
-  // authenticate,
+  verifyToken([roles.USER]),
   isValidId('reviewId'),
   validate(addReviewSchema),
   ctrlWrapper(reviewControllers.updateReviewById)
@@ -40,16 +42,14 @@ router.put(
 
 router.get(
   '/by-dish/:dishId',
-  // add authenticate middleware
-  // authenticate,
+  verifyToken([roles.USER]),
   isValidId('dishId'),
   ctrlWrapper(reviewControllers.getReviewsByDishId)
 );
 
 router.get(
   '/by-chef/:chefId',
-  // add authenticate middleware
-  // authenticate,
+  verifyToken([roles.USER]),
   isValidId('chefId'),
   ctrlWrapper(reviewControllers.getReviewsByChefId)
 );

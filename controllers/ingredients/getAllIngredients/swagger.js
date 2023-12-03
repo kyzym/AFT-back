@@ -1,3 +1,5 @@
+import { roles } from '#constants/roles.js';
+
 export const getAllIngredients = {
   paths: {
     '/ingredients': {
@@ -6,22 +8,9 @@ export const getAllIngredients = {
         description: 'Returns the list of all ingredients',
         operationId: 'getAllIngredients',
         tags: ['Ingredients'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
-        parameters: [
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
-          },
-        ],
+
+        security: [{ bearerAuth: [roles.USER] }],
+
         responses: {
           200: {
             description: 'The list of ingredients',

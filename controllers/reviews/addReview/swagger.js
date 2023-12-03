@@ -1,3 +1,5 @@
+import { roles } from '#constants/roles.js';
+
 export const addReview = {
   paths: {
     '/reviews': {
@@ -6,22 +8,7 @@ export const addReview = {
         description: 'Create a new review',
         operationId: 'addReview',
         tags: ['Reviews'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
-        parameters: [
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
-          },
-        ],
+        security: [{ bearerAuth: [roles.USER] }],
         requestBody: {
           required: true,
           content: {

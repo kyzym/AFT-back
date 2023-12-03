@@ -1,3 +1,5 @@
+import { roles } from '#constants/roles.js';
+
 export const deleteIngredientById = {
   paths: {
     '/ingredients/{ingredientId}': {
@@ -6,11 +8,7 @@ export const deleteIngredientById = {
         description: 'Delete a ingredient by ID',
         operationId: 'deleteIngredient',
         tags: ['Ingredients'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
+        security: [{ bearerAuth: [roles.USER] }],
         parameters: [
           {
             in: 'path',
@@ -20,15 +18,6 @@ export const deleteIngredientById = {
             },
             required: true,
             description: 'ID of the ingredient to delete',
-          },
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
           },
         ],
         responses: {

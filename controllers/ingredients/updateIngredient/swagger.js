@@ -1,3 +1,5 @@
+import { roles } from '#constants/roles.js';
+
 export const updateIngredient = {
   paths: {
     '/ingredients/{ingredientId}': {
@@ -6,11 +8,7 @@ export const updateIngredient = {
         description: 'Update ingredient',
         operationId: 'updateIngredient',
         tags: ['Ingredients'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
+        security: [{ bearerAuth: [roles.ADMIN] }],
         parameters: [
           {
             in: 'path',
@@ -20,15 +18,6 @@ export const updateIngredient = {
             },
             required: true,
             description: 'ID of the ingredient to delete',
-          },
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
           },
         ],
         requestBody: {
