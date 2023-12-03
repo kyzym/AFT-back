@@ -24,6 +24,7 @@ usersRouter.post(
   validate(loginValidationSchema),
   userControllers.loginUser
 );
+usersRouter.post('/logout', verifyToken(['user']), userControllers.logoutUser);
 
 // user account endpoints
 usersRouter.get(

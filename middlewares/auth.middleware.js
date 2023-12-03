@@ -66,7 +66,7 @@ export const verifyToken = (requiredRoles) => {
 
       if (!hasRequiredRole) {
         throw new ForbiddenError(
-          'You do not have permission to view/modify this account'
+          'You are not authorized to view/modify this resource'
         );
       }
 

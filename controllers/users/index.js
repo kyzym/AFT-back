@@ -5,6 +5,7 @@ export * from './delete/index.js';
 
 export * from './auth/login/index.js';
 export * from './auth/register/index.js';
+export * from './auth/logout/index.js';
 
 export * from './manage-favorites/get-all/index.js';
 export * from './manage-favorites/add/index.js';
