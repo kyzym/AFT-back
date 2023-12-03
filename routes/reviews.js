@@ -21,7 +21,7 @@ router.post(
 
 router.delete(
   '/:reviewId',
-  verifyToken([roles.USER]),
+  verifyToken([roles.USER, roles.ADMIN]),
   isValidId('reviewId'),
   ctrlWrapper(reviewControllers.deleteReviewById)
 );
