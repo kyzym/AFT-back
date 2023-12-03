@@ -1,27 +1,18 @@
+import { roles } from '#constants/roles.js';
+
+import { pagePaginationParameters } from '#controllers/swagger.common.js';
+
 export const getAllReviews = {
   paths: {
-    '/api/reviews': {
+    '/reviews': {
       get: {
         summary: 'Returns the list of all reviews',
         description: 'Returns the list of all reviews',
         operationId: 'getAllReviews',
         tags: ['Reviews'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
-        parameters: [
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
-          },
-        ],
+        security: [{ bearerAuth: [roles.ADMIN] }],
+        parameters: [...pagePaginationParameters],
+
         responses: {
           200: {
             description: 'The list of reviews',

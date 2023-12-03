@@ -1,27 +1,15 @@
+import { roles } from '#constants/roles.js';
+
 export const addIngredient = {
   paths: {
-    '/api/ingredients': {
+    '/ingredients': {
       post: {
         summary: 'Create a new ingredient',
         description: 'Create a new ingredient',
         operationId: 'addIngredient',
         tags: ['Ingredients'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
-        parameters: [
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
-          },
-        ],
+        security: [{ bearerAuth: [roles.ADMIN] }],
+
         requestBody: {
           required: true,
           content: {
