@@ -21,7 +21,7 @@ export const populateUserDetails = async (userId) => {
     .populate({
       path: 'cart.items.dishId',
       select:
-        'id image description price cuisine category spiceLevel isAvailable',
+        'id image name description price cuisine category spiceLevel isAvailable',
     })
     .exec();
 
