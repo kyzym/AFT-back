@@ -3,6 +3,7 @@ import { ordersSwagger } from './orders/swagger.js';
 import { dishesSwagger } from './dishes/swagger.js';
 import { chefsSwagger } from './chefs/swagger.js';
 import { couriersSwagger } from './couriers/swagger.js';
+import { filesSwagger } from './files/swagger.js';
 
 const { SWAGGER_URL } = process.env;
 
@@ -25,6 +26,7 @@ export const swaggerControllers = {
     ...dishesSwagger.paths,
     ...chefsSwagger.paths,
     ...couriersSwagger.paths,
+    ...filesSwagger.paths,
   },
   components: {
     securitySchemes: {

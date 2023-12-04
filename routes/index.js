@@ -15,5 +15,5 @@ export const routes = (app) => {
   app.use('/api/chefs', chefsRoutes);
   app.use('/api/users', userRoutes);
   app.use('/api/couriers', courierRoutes);
-  app.use('/api/s3', s3Router);
+  app.use('/api/files', s3Router);
 };
