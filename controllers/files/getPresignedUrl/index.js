@@ -3,14 +3,17 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import chalk from 'chalk';
 import s3Client from '../../../config/s3client.js';
 import { getFolderPath } from '../helpers/getFolderPath.js';
+import { v4 as uuidv4 } from 'uuid';
 
 export const getPresignedUrl = async (req, res) => {
   const { fileName, fileType, category } = req.query;
   const folderPath = getFolderPath(category);
 
+  const uniqueFileName = `${uuidv4()}-${fileName}`;
+
   const command = new PutObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET,
-    Key: `${folderPath}${fileName}`,
+    Key: `${folderPath}${uniqueFileName}`,
     ContentType: fileType,
   });
 
