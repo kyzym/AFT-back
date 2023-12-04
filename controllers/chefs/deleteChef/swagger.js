@@ -9,14 +9,14 @@ export const deleteChefSwagger = {
   '/chefs/{chefId}': {
     delete: {
       tags: ['Chefs'],
-      summary: 'Chef a dish',
+      summary: 'Delete chef',
       description: 'Deletes a chef with the specified ID.',
       parameters: [
         {
           name: 'chefId',
           in: 'path',
           required: true,
-          description: 'ID of the dish to delete',
+          description: 'ID of the chef to delete',
           schema: idSchema,
         },
       ],

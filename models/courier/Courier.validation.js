@@ -14,9 +14,10 @@ const CourierValidationSchema = Joi.object({
   avatar: Joi.string().required(),
   phoneNumber: Joi.string().pattern(phoneNumberPattern).required(),
   address: addressValidationSchema.required(),
-  vechicleType: Joi.string(0)
+  vehicleType: Joi.string()
     .valid(...Object.values(vehicleType))
-    .default(vehicleType.NONE).required,
+    .default(vehicleType.NONE)
+    .required(),
   accountStatus: Joi.string()
     .valid(...Object.values(accountStatus))
     .default(accountStatus.PENDING)

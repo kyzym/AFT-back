@@ -1,7 +1,7 @@
 import { Review } from '../../../models/review/index.js';
 
 export const addReview = async (req, res) => {
-  const { id: owner } = req.user;
+  const { user: owner } = req.roleIds;
 
   const data = {
     ...req.body,

@@ -6,7 +6,12 @@ export const updateChefOrderStatus = async (req, res) => {
   const { orderId } = req.params;
   const { status: updateStatus } = req.body;
 
-  if (!orderStatus[updateStatus.toUpperCase()]) {
+  if (
+    !Object.prototype.hasOwnProperty.call(
+      orderStatus,
+      updateStatus.toUpperCase()
+    )
+  ) {
     throw new ForbiddenError('Invalid order status');
   }
 

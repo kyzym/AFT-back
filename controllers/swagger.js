@@ -1,9 +1,12 @@
 import { usersSwagger } from './users/swagger.js';
 import { ordersSwagger } from './orders/swagger.js';
-import { dishesSwagger } from './dishes/index.js';
+import { dishesSwagger } from './dishes/swagger.js';
 import { chefsSwagger } from './chefs/swagger.js';
+import { couriersSwagger } from './couriers/swagger.js';
+import { reviewsSwagger } from './reviews/swagger.js';
+import { ingredientsSwagger } from './ingredients/swagger.js';
 
-const { PORT, SWAGGER_URL } = process.env;
+const { PORT, SERVER_URL } = process.env;
 
 const serverUrl =
   process.env.MODE === 'development'
@@ -12,7 +15,7 @@ const serverUrl =
         description: 'Development server',
       }
     : {
-        url: `${SWAGGER_URL}`,
+        url: `${SERVER_URL}/api`,
         description: 'Production server',
       };
 
@@ -29,6 +32,9 @@ export const swaggerControllers = {
     ...ordersSwagger.paths,
     ...dishesSwagger.paths,
     ...chefsSwagger.paths,
+    ...reviewsSwagger.paths,
+    ...ingredientsSwagger.paths,
+    ...couriersSwagger.paths,
   },
   components: {
     securitySchemes: {
@@ -46,6 +52,9 @@ export const swaggerControllers = {
       ...ordersSwagger.components.schemas,
       ...dishesSwagger.components.schemas,
       ...chefsSwagger.components.schemas,
+      ...reviewsSwagger.components.schemas,
+      ...ingredientsSwagger.components.schemas,
+      ...couriersSwagger.components.schemas,
     },
   },
 };

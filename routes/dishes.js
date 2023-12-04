@@ -16,13 +16,6 @@ router.get(
 );
 
 router.get(
-  '/',
-  // isAuthenticated,
-  // hasRole(['user', 'admin']),
-  ctrlWrapper(dishControllers.getDishesByChef)
-);
-
-router.get(
   '/own',
   // isAuthenticated,
   // hasRole(['chef']),

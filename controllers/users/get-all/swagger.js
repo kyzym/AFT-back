@@ -5,6 +5,7 @@ import {
   errorResponse,
   pagePaginationParameters,
 } from '#controllers/swagger.common.js';
+import { DefaultErrorResponse } from '../swaggerCommon.js';
 
 export const getAllUsersSwagger = {
   paths: {
@@ -67,9 +68,7 @@ export const getAllUsersSwagger = {
           401: {
             ...errorResponse(errorName[401], errorMessage[401]),
           },
-          403: {
-            ...errorResponse(errorName[403], errorMessage[403]),
-          },
+          403: DefaultErrorResponse[403],
           404: {
             ...errorResponse(
               errorName[404],

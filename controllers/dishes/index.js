@@ -1,2 +1,9 @@
-export { dishesSwagger } from './swagger.js';
-export * from './swaggerDishesComponents.js';
+export * from './createDish/index.js';
+export * from './deleteDish/index.js';
+export * from './getDish/index.js';
+export * from './getDishes/index.js';
+export * from './getOwnDishes/index.js';
+export * from './getPopularDishes/index.js';
+export * from './getRandomDish/index.js';
+export * from './updateDish/index.js';
+export * from './updateDishBlockedStatus/index.js';

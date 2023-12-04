@@ -9,7 +9,6 @@ import { verifyToken } from '#middlewares/auth.middleware.js';
 
 const ordersRouter = Router();
 
-// TODO: Add role
 ordersRouter.get('/', verifyToken([roles.ADMIN]), ctrl.getAllOrders);
 ordersRouter.post(
   '/',
