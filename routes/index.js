@@ -5,7 +5,7 @@ import dishesRoutes from './dishes.js';
 import chefsRoutes from './chefs.js';
 import userRoutes from './users.js';
 import courierRoutes from './couriers.js';
-import s3Router from './api.js';
+import s3Router from './files.js';
 
 export const routes = (app) => {
   app.use('/api/orders', ordersRouter);
