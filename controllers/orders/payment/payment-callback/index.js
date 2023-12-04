@@ -16,6 +16,8 @@ const controller = async (req, res, next) => {
 
   const response = JSON.parse(atob(data));
 
+  console.log(response);
+
   if (response.status !== 'success') throw new Error('Payment error');
 
   const transactionData = {
@@ -33,7 +35,7 @@ const controller = async (req, res, next) => {
       if (!order) throw new NotFoundError('Order not found');
 
       const transaction = new Transaction(transactionData);
-      await transaction.save();
+      await transaction.save({ session });
 
       order.paymentTransaction = transaction.id;
       await order.save();

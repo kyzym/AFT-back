@@ -10,7 +10,7 @@ import { verifyToken } from '#middlewares/auth.middleware.js';
 const ordersRouter = Router();
 
 // TODO: Add role
-ordersRouter.get('/', /*verifyToken([roles.ADMIN]),*/ ctrl.getAllOrders);
+ordersRouter.get('/', verifyToken([roles.ADMIN]), ctrl.getAllOrders);
 ordersRouter.post(
   '/',
   verifyToken([roles.USER]),
@@ -93,13 +93,9 @@ ordersRouter.get(
   '/payment/:orderId',
   verifyToken([roles.USER]),
   isValidId('orderId'),
-  ctrl.getPaymentSignature
+  ctrl.payment.getPaymentStatusByOrderId
 );
 
-ordersRouter.post(
-  '/payment/callback',
-  // isValidId('orderId'),
-  ctrl.callbackPayment
-);
+ordersRouter.post('/payment/callback', ctrl.payment.callbackPayment);
 
 export default ordersRouter;

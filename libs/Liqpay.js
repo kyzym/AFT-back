@@ -223,6 +223,7 @@ export default function LiqPay(public_key, private_key) {
     params = this.cnb_params(params);
     const data = Buffer.from(JSON.stringify(params)).toString('base64');
     const signature = this.str_to_sign(private_key + data + private_key);
+
     return { data: data, signature: signature };
   };
 

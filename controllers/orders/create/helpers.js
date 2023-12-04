@@ -63,11 +63,15 @@ export const getItemsInfo = (items) => {
     orderPrice = normalizeDecimal(orderPrice + item.price * item.count);
   }
 
+  const tax = normalizeDecimal(orderPrice * (config.taxPercent / 100));
+  const chef = normalizeDecimal(orderPrice * ((100 - config.taxPercent) / 100));
+  const delivery = config.delivery;
+
   return {
     summaryPrice: {
-      tax: normalizeDecimal(orderPrice * (config.taxPercent / 100)),
-      chef: normalizeDecimal(orderPrice * ((100 - config.taxPercent) / 100)),
-      delivery: 50,
+      tax,
+      chef,
+      delivery,
     },
     errors,
     chefId,

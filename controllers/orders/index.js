@@ -5,5 +5,4 @@ export * from './get-by-courier-id/index.js';
 export * from './get-by-id/index.js';
 export * from './get-by-user-id/index.js';
 export * as changeStatus from './change-status/index.js';
-export * from './payment-callback/index.js';
-export * from './get-payment/index.js';
+export * as payment from './payment/index.js';

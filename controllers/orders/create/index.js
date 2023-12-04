@@ -1,15 +1,12 @@
 import { ctrlWrapper } from '../../../middlewares/index.js';
-import Order from '../../../models/order/index.js';
+
 import { ValidationError } from '../../../helpers/errors.js';
 import {
   concatArraysById,
   findOrderItemsInDb,
   getItemsInfo,
 } from './helpers.js';
-
-// import LiqPay from '#libs/Liqpay.js';
-
-// const { LIQPAY_PUBLIC_KEY, LIQPAY_PRIVATE_KEY } = process.env;
+import Order from '#models/order/Order.model.js';
 
 const controller = async (req, res) => {
   const {
