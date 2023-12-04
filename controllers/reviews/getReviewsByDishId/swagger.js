@@ -1,3 +1,6 @@
+import { roles } from '#constants/roles.js';
+import { pagePaginationParameters } from '#controllers/swagger.common.js';
+
 export const getReviewsByDishId = {
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
@@ -5,7 +8,7 @@ export const getReviewsByDishId = {
       get: {
         summary: 'Get reviews by dish ID',
         tags: ['Reviews'],
-        security: [{ BearerAuth: [] }],
+        security: [{ bearerAuth: [roles.USER] }],
         parameters: [
           {
             in: 'path',
@@ -14,13 +17,7 @@ export const getReviewsByDishId = {
             schema: { type: 'string' },
             description: 'Dish ID to get reviews for',
           },
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: { type: 'string' },
-            description: 'Bearer token for authentication',
-          },
+          ...pagePaginationParameters,
         ],
         responses: {
           200: {
@@ -28,14 +25,12 @@ export const getReviewsByDishId = {
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/Review',
-                  },
+                  $ref: '#/components/schemas/ReviewByChefIdOrDishId',
                 },
               },
             },
           },
+
           401: {
             description: 'Unauthorized - Missing or invalid token',
           },

@@ -3,7 +3,7 @@ import {
   errorMessage,
   errorName,
 } from '#controllers/swagger.common.js';
-import { UserSchema } from '#controllers/users/swaggerCommon.js';
+import { SwaggerSchemas } from '#controllers/users/swaggerCommon.js';
 import _ from 'lodash';
 
 export const registerUserSwagger = {
@@ -11,7 +11,7 @@ export const registerUserSwagger = {
     '/users/register': {
       post: {
         tags: ['Users'],
-        summary: 'Register a user',
+        summary: 'Register user',
         description: 'Register a new user and generate access token',
         operationId: 'registerUser',
         requestBody: {
@@ -21,7 +21,7 @@ export const registerUserSwagger = {
               schema: {
                 type: 'object',
                 properties: {
-                  ..._.pick(UserSchema.properties, [
+                  ..._.pick(SwaggerSchemas.UserSchema.properties, [
                     'firstName',
                     'lastName',
                     'email',

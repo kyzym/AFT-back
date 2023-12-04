@@ -6,6 +6,8 @@ import { couriersSwagger } from './couriers/swagger.js';
 import { filesSwagger } from './files/swagger.js';
 
 const { SWAGGER_URL } = process.env;
+import { reviewsSwagger } from './reviews/swagger.js';
+import { ingredientsSwagger } from './ingredients/swagger.js';
 
 export const swaggerControllers = {
   openapi: '3.1.0',
@@ -25,6 +27,8 @@ export const swaggerControllers = {
     ...ordersSwagger.paths,
     ...dishesSwagger.paths,
     ...chefsSwagger.paths,
+    ...reviewsSwagger.paths,
+    ...ingredientsSwagger.paths,
     ...couriersSwagger.paths,
     ...filesSwagger.paths,
   },
@@ -44,6 +48,8 @@ export const swaggerControllers = {
       ...ordersSwagger.components.schemas,
       ...dishesSwagger.components.schemas,
       ...chefsSwagger.components.schemas,
+      ...reviewsSwagger.components.schemas,
+      ...ingredientsSwagger.components.schemas,
       ...couriersSwagger.components.schemas,
     },
   },

@@ -1,27 +1,16 @@
+import { roles } from '#constants/roles.js';
+
 export const getAllIngredients = {
   paths: {
-    '/api/ingredients': {
+    '/ingredients': {
       get: {
         summary: 'Returns the list of all ingredients',
         description: 'Returns the list of all ingredients',
         operationId: 'getAllIngredients',
         tags: ['Ingredients'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
-        parameters: [
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
-          },
-        ],
+
+        security: [{ bearerAuth: [roles.USER] }],
+
         responses: {
           200: {
             description: 'The list of ingredients',

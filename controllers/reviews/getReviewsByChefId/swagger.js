@@ -1,3 +1,6 @@
+import { roles } from '#constants/roles.js';
+import { pagePaginationParameters } from '#controllers/swagger.common.js';
+
 export const getReviewsByChefId = {
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
@@ -5,7 +8,7 @@ export const getReviewsByChefId = {
       get: {
         summary: 'Get reviews by chef ID',
         tags: ['Reviews'],
-        security: [{ BearerAuth: [] }],
+        security: [{ bearerAuth: [roles.USER] }],
         parameters: [
           {
             in: 'path',
@@ -14,13 +17,7 @@ export const getReviewsByChefId = {
             schema: { type: 'string' },
             description: 'Chef ID to get reviews for',
           },
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: { type: 'string' },
-            description: 'Bearer token for authentication',
-          },
+          ...pagePaginationParameters,
         ],
         responses: {
           200: {
@@ -28,10 +25,7 @@ export const getReviewsByChefId = {
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/ReviewByChefId',
-                  },
+                  $ref: '#/components/schemas/ReviewByChefIdOrDishId',
                 },
               },
             },
@@ -61,7 +55,6 @@ export const getReviewsByChefId = {
           id: {
             type: 'string',
             description: 'The auto-generated id of the review',
-            format: 'uuid',
           },
           owner: {
             type: 'string',
@@ -73,12 +66,10 @@ export const getReviewsByChefId = {
               id: {
                 type: 'string',
                 description: 'The id of the reviewed dish',
-                format: 'uuid',
               },
               owner: {
                 type: 'string',
                 description: 'The id of the chef of the reviewed dish',
-                format: 'uuid',
               },
             },
             description: 'The reviewed dish details',
