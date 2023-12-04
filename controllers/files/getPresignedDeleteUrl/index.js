@@ -2,13 +2,15 @@ import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import chalk from 'chalk';
 import s3Client from '../../../config/s3client.js';
+import { getFolderPath } from '../helpers/getFolderPath.js';
 
 export const getPresignedDeleteUrl = async (req, res) => {
-  const { fileName } = req.query;
+  const { fileName, category } = req.query;
+  const folderPath = getFolderPath(category);
 
   const command = new DeleteObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET,
-    Key: fileName,
+    Key: `${folderPath}${fileName}`,
   });
 
   const presignedUrl = await getSignedUrl(s3Client, command, {
