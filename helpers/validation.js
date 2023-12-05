@@ -39,3 +39,6 @@ export const passwordPattern =
 // - '.' symbol
 // - Non-whitespace characters after the '.' symbol
 export const emailPattern = /\S+@\S+\.\S+/;
+
+export const isEmailValid = (email) =>
+  !Joi.string().email().validate(email).error;

@@ -4,10 +4,21 @@ import { dishesSwagger } from './dishes/swagger.js';
 import { chefsSwagger } from './chefs/swagger.js';
 import { couriersSwagger } from './couriers/swagger.js';
 import { filesSwagger } from './files/swagger.js';
-
-const { SWAGGER_URL } = process.env;
 import { reviewsSwagger } from './reviews/swagger.js';
 import { ingredientsSwagger } from './ingredients/swagger.js';
+
+const { PORT, SERVER_URL } = process.env;
+
+const serverUrl =
+  process.env.MODE === 'development'
+    ? {
+        url: `http://localhost:${PORT}/api`,
+        description: 'Development server',
+      }
+    : {
+        url: `${SERVER_URL}/api`,
+        description: 'Production server',
+      };
 
 export const swaggerControllers = {
   openapi: '3.1.0',
@@ -16,12 +27,7 @@ export const swaggerControllers = {
     version: '1.0.0',
     description: 'Documentation for IDLO controllers',
   },
-  servers: [
-    {
-      url: `${SWAGGER_URL}`,
-      description: 'Development server',
-    },
-  ],
+  servers: [serverUrl],
   paths: {
     ...usersSwagger.paths,
     ...ordersSwagger.paths,

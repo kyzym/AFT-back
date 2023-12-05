@@ -16,6 +16,7 @@ const { PORT = 3000 } = process.env;
 
 app.use(morgan('short'));
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/docs', swaggerDoc.serve, swaggerDoc.setup(swaggerControllers));

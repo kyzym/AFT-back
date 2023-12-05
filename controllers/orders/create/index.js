@@ -1,25 +1,30 @@
 import { ctrlWrapper } from '../../../middlewares/index.js';
-import Order from '../../../models/order/index.js';
+
 import { ValidationError } from '../../../helpers/errors.js';
 import {
   concatArraysById,
   findOrderItemsInDb,
   getItemsInfo,
 } from './helpers.js';
+import Order from '#models/order/Order.model.js';
 
 const controller = async (req, res) => {
-  // const { id as userId } = req.user;
-  const { address, items: dishes } = req.body;
-
-  // mock id
-  const userId = '655a051fb7cc813b6007220b';
+  const {
+    name,
+    email,
+    phoneNumber,
+    additionalInfo = null,
+    address,
+    items: dishes,
+  } = req.body;
+  const { user: userId } = req.roleIds;
 
   // Check order items
   const dbDishes = await findOrderItemsInDb(dishes);
   // Concat items list from client and db dishes list
   const concatItems = concatArraysById(dishes, dbDishes);
   // Calculate order price and find invalid dishes (not found or not available)
-  const { orderPrice, errors, chefId } = getItemsInfo(concatItems);
+  const { summaryPrice, errors, chefId } = getItemsInfo(concatItems);
 
   // Check for invalid dishes
   if (errors.length > 0) {
@@ -30,13 +35,24 @@ const controller = async (req, res) => {
     orderNumber: Date.now(),
     userId,
     chefId,
-    address,
+    deliveryInfo: {
+      name,
+      email,
+      phoneNumber,
+      address,
+    },
+    summaryPrice,
+    additionalInfo,
     items: dishes,
-    totalPrice: orderPrice,
   });
   const data = await order.save();
 
-  return res.status(201).send({ success: true, data: { order: data } });
+  return res.status(201).send({
+    success: true,
+    data: {
+      order: data,
+    },
+  });
 };
 
 export const createOrder = ctrlWrapper(controller);
