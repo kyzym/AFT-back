@@ -10,6 +10,8 @@ export const addressSchema = new Schema(
     country: { type: String, required: true },
     city: { type: String, required: true },
     street: { type: String, required: true },
+    houseNumber: { type: String, required: true },
+    apartment: { type: String, default: null },
     coordinate: {
       type: coordinateSchema,
       default: null,

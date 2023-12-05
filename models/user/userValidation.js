@@ -6,8 +6,12 @@ import {
   passwordPattern,
 } from '../../helpers/index.js';
 import { accountStatus } from '../../constants/index.js';
-import { orderItemValidationSchema } from '../order/order.validation.js';
 import { roleValidationSchema } from './roleSchema.js';
+
+export const cartItemValidationSchema = Joi.object({
+  dishId: idValidationSchema.required(),
+  count: Joi.number().integer().min(1).required().strict(true),
+});
 
 const userValidationFields = {
   firstName: Joi.string().min(3).required(),
@@ -32,12 +36,13 @@ const userValidationFields = {
     .allow(''),
   favoriteDishes: Joi.array().items(idValidationSchema),
   favoriteChefs: Joi.array().items(idValidationSchema),
-  cart: Joi.array()
-    .items(orderItemValidationSchema)
-    .label('Invalid order data'),
+  cart: Joi.object({
+    chefId: idValidationSchema,
+    items: Joi.array().items(cartItemValidationSchema),
+  }),
   roles: Joi.array().items(roleValidationSchema),
   accountStatus: Joi.string()
-    .valid(...Object.values(accountStatus))
+    .valid(accountStatus.ACTIVE, accountStatus.BLOCKED)
     .default(accountStatus.ACTIVE),
 };
 
@@ -70,4 +75,14 @@ export const updateUserValidationSchema = Joi.object({
   avatar,
   address,
   phoneNumber,
+});
+
+export const cartValidationSchema = Joi.object({
+  item: cartItemValidationSchema.required(),
+});
+
+export const userStatusValidationSchema = Joi.object({
+  accountStatus: Joi.string()
+    .valid(accountStatus.ACTIVE, accountStatus.BLOCKED)
+    .required(),
 });

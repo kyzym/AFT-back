@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "watch": "node --watch index.js",
-    "dev": "nodemon index.js",
+    "dev": "MODE=development nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
@@ -15,15 +15,20 @@
   "author": "AFT-Team",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.465.0",
+    "@aws-sdk/s3-request-presigner": "^3.465.0",
+    "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "mongoose": "^8.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "chalk": "^5.3.0",
@@ -42,6 +47,8 @@
     "#controllers/*": "./controllers/*",
     "#helpers/*": "./helpers/*",
     "#middlewares/*": "./middlewares/*",
-    "#models/*": "./models/*"
+    "#models/*": "./models/*",
+    "#libs/*": "./libs/*",
+    "#config/*": "./config/*"
   }
 }

@@ -1,32 +1,20 @@
+import { roles } from '#constants/roles.js';
+
 export const deleteReview = {
   paths: {
-    '/api/reviews/{reviewId}': {
+    '/reviews/{reviewId}': {
       delete: {
         summary: 'Delete a review by ID',
         description: 'Delete a review by ID',
         operationId: 'deleteReview',
         tags: ['Reviews'],
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
+        security: [{ bearerAuth: [roles.USER, roles.ADMIN] }],
         parameters: [
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: {
-              type: 'string',
-            },
-            description: 'Bearer token for authentication',
-          },
           {
             in: 'path',
             name: 'reviewId',
             schema: {
               type: 'string',
-              format: 'uuid',
             },
             required: true,
             description: 'ID of the review to delete',
