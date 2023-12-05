@@ -1,4 +1,5 @@
 export * from './get-all/index.js';
+export * from './get-current/index.js';
 export * from './get-one/index.js';
 export * from './update/index.js';
 export * from './delete/index.js';

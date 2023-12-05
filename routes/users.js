@@ -28,6 +28,11 @@ usersRouter.post('/logout', verifyToken(['user']), userControllers.logoutUser);
 
 // user account endpoints
 usersRouter.get(
+  '/current-user',
+  verifyToken(['user']),
+  userControllers.getCurrentUser
+);
+usersRouter.get(
   '/:userId',
   verifyToken(['user', 'admin']),
   isValidId('userId'),
