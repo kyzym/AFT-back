@@ -4,7 +4,7 @@ import { Dish } from '../../../models/index.js';
 export const deleteDish = async (req, res) => {
   const { dishId } = req.params;
   const userRoles = req.roleIds;
-  const userId = req.roleIds.user;
+  const userId = req.roleIds.chef;
 
   const dish = await Dish.findById(dishId);
 
