@@ -30,7 +30,7 @@ export const phoneNumberPattern = /^\+38\(0[3-9]\d\)\d{7}$/;
 
 // Password should have at least one lowercase letter, one uppercase letter, one digit, and one special character
 export const passwordPattern =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$_!%*?&])[A-Za-z\d@$_!%*?&]+$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*_+|~\-={}:;'"<>,.?!])[A-Za-z\d@#$%^&*_+|~\-={}:;'"<>,.?!]+$/;
 
 // Email should have
 // - Non-whitespace characters before the '@' symbol
@@ -39,3 +39,6 @@ export const passwordPattern =
 // - '.' symbol
 // - Non-whitespace characters after the '.' symbol
 export const emailPattern = /\S+@\S+\.\S+/;
+
+export const isEmailValid = (email) =>
+  !Joi.string().email().validate(email).error;

@@ -1,18 +1,13 @@
+import config from '#config/config.js';
+import { normalizeDecimal } from '#helpers/normalizeDecimal.js';
 import { compareObjectIds } from '../../../helpers/compareObjectIds.js';
 import { ValidationError } from '../../../helpers/errors.js';
 import Dish from '../../../models/dish/dishModel.js';
 
-function ceilToDecimalPlaces(number, decimalPlaces = 2) {
-  var multiplier = Math.pow(10, decimalPlaces);
-  var roundedNumber = Math.ceil(number * multiplier) / multiplier;
-
-  return roundedNumber;
-}
-
 export const findOrderItemsInDb = async (orderItems) => {
   const dbDishes = await Dish.find(
     {
-      _id: { $in: orderItems.map(({ dish }) => dish) },
+      _id: { $in: orderItems.map(({ dishId }) => dishId) },
     },
     'price isAvailable owner'
   ).exec();
@@ -23,7 +18,7 @@ export const findOrderItemsInDb = async (orderItems) => {
 export const concatArraysById = (orderDishes, dbDishes) => {
   return orderDishes.map((orderDish) => {
     const matchingDish = dbDishes.find((dbDish) => {
-      return compareObjectIds(orderDish.dish, dbDish.id);
+      return compareObjectIds(orderDish.dishId, dbDish.id);
     });
 
     if (!matchingDish) return orderDish;
@@ -49,7 +44,10 @@ export const getItemsInfo = (items) => {
 
     // Checking for dish exist in db
     if (!item.owner) {
-      errors.push({ dish: item.dish, message: `"${item.name}" not found` });
+      errors.push({
+        dish: item.dish,
+        message: `"Dish with id ${item.name}" not found`,
+      });
       continue;
     }
 
@@ -62,8 +60,20 @@ export const getItemsInfo = (items) => {
       continue;
     }
 
-    orderPrice = ceilToDecimalPlaces(orderPrice + item.price * item.count);
+    orderPrice = normalizeDecimal(orderPrice + item.price * item.count);
   }
 
-  return { orderPrice, errors, chefId };
+  const tax = normalizeDecimal(orderPrice * (config.taxPercent / 100));
+  const chef = normalizeDecimal(orderPrice * ((100 - config.taxPercent) / 100));
+  const delivery = config.delivery;
+
+  return {
+    summaryPrice: {
+      tax,
+      chef,
+      delivery,
+    },
+    errors,
+    chefId,
+  };
 };

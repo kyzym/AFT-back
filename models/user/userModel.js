@@ -1,10 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
-import { addressSchema, orderItemSchema } from '../schemas/index.js';
+import { addressSchema } from '../schemas/index.js';
 import { accountStatus } from '../../constants/index.js';
 import { emailPattern, phoneNumberPattern } from '../../helpers/index.js';
 import { getDefaultRoles, roleSchema } from './roleSchema.js';
 
 const ObjectId = Schema.Types.ObjectId;
+
+export const cartItemSchema = new Schema(
+  {
+    dishId: { type: ObjectId, ref: 'dish', required: true },
+    count: { type: Number, min: 1, required: true },
+  },
+  { _id: false }
+);
 
 const userSchema = new Schema(
   {
@@ -42,7 +50,10 @@ const userSchema = new Schema(
     },
     favoriteDishes: [{ type: ObjectId, ref: 'dish' }],
     favoriteChefs: [{ type: ObjectId, ref: 'chef' }],
-    cart: [orderItemSchema],
+    cart: {
+      chefId: { type: ObjectId, ref: 'chef' },
+      items: [cartItemSchema],
+    },
     roles: {
       type: [roleSchema],
       default: getDefaultRoles,
@@ -68,6 +79,10 @@ const userSchema = new Schema(
     },
   }
 );
+
+userSchema.virtual('fullName').get(function () {
+  return `${this.firstName} ${this.lastName}`;
+});
 
 const User = mongoose.model('user', userSchema);
 

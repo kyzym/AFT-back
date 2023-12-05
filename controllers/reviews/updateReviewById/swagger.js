@@ -1,13 +1,16 @@
+import { roles } from '#constants/roles.js';
+
 export const updateReviewById = {
   tags: [{ name: 'Reviews', description: 'The reviews managing API' }],
   paths: {
-    '/api/reviews/{reviewId}': {
+    '/reviews/{reviewId}': {
       put: {
         summary: 'Update a review by review ID',
         description: 'Update a review by review ID',
         operationId: 'updateReviewById',
         tags: ['Reviews'],
-        security: [{ BearerAuth: [] }],
+        security: [{ bearerAuth: [roles.USER] }],
+
         parameters: [
           {
             in: 'path',
@@ -15,13 +18,6 @@ export const updateReviewById = {
             required: true,
             schema: { type: 'string' },
             description: 'Review ID to update the review for',
-          },
-          {
-            in: 'header',
-            name: 'Authorization',
-            required: true,
-            schema: { type: 'string' },
-            description: 'Bearer token for authentication',
           },
         ],
         requestBody: {

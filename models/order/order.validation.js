@@ -1,12 +1,11 @@
 import Joi from 'joi';
-import { isObjectId } from '../../helpers/index.js';
+import { isObjectId, phoneNumberPattern } from '../../helpers/index.js';
 
 const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 
 export const orderItemValidationSchema = Joi.object().keys({
-  dish: idValidationSchema.required(),
+  dishId: idValidationSchema.required(),
   count: Joi.number().min(1).required(),
-  name: Joi.string().min(1).max(100).required(),
 });
 
 export const addressValidationSchema = Joi.object().keys({
@@ -47,13 +46,28 @@ export const addressValidationSchema = Joi.object().keys({
     'string.max': 'Street name cannot exceed {#limit} characters',
     'any.required': 'Street name is required',
   }),
-  coordinate: Joi.object().keys({
-    lat: Joi.number().min(-90).max(90).required(),
-    lng: Joi.number().min(-180).max(180).required(),
-  }),
+  houseNumber: Joi.string().trim().min(1).max(10).required(),
+  apartment: Joi.string().trim().allow(null).optional(),
+  coordinate: Joi.object()
+    .keys({
+      lat: Joi.number().min(-90).max(90).required(),
+      lng: Joi.number().min(-180).max(180).required(),
+    })
+    .allow(null)
+    .optional(),
 });
 
 export const orderValidationSchema = Joi.object({
   items: Joi.array().min(1).items(orderItemValidationSchema).required(),
   address: addressValidationSchema.required(),
+  name: Joi.string().trim().min(3).required(),
+  email: Joi.string().email().required(),
+  phoneNumber: Joi.string()
+    .pattern(phoneNumberPattern)
+    .messages({
+      'string.pattern.base':
+        'Phone number should follow the pattern +38(0##)#######',
+    })
+    .required(),
+  additionalInfo: Joi.string().max(400).allow(null).optional(),
 });

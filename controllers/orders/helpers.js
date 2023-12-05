@@ -9,9 +9,9 @@ export const getOrderByRole = async (findId, reqQuery) => {
   const filter = getFilter(reqQuery.filter);
 
   const [orders, pagination] = await withPagination(
-    Order.find({ ...findId, ...filter }, { updatedAt: false, __v: false })
+    Order.find({ ...findId, ...filter }, { __v: false })
       .sort(sort)
-      .populate('items.dish', 'image'),
+      .populate('items.dish'),
     reqQuery
   );
 

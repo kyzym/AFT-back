@@ -5,14 +5,14 @@ import {
   errorName,
 } from '#controllers/swagger.common.js';
 import { roles } from '#constants/roles.js';
-import { UserSchema } from '../swaggerCommon.js';
+import { DefaultErrorResponse, SwaggerSchemas } from '../swaggerCommon.js';
 
 export const updateUserSwagger = {
   paths: {
     '/users/{userId}': {
       patch: {
         tags: ['Users'],
-        summary: 'Update a user by id',
+        summary: 'Update user by id',
         description: 'Updates information about a single user',
         security: [{ bearerAuth: [roles.USER] }],
         operationId: 'updateUser',
@@ -36,7 +36,7 @@ export const updateUserSwagger = {
               schema: {
                 type: 'object',
                 properties: {
-                  ..._.pick(UserSchema.properties, [
+                  ..._.pick(SwaggerSchemas.UserSchema.properties, [
                     'firstName',
                     'lastName',
                     'email',
@@ -73,9 +73,7 @@ export const updateUserSwagger = {
           401: {
             ...errorResponse(errorName[401], errorMessage[401]),
           },
-          403: {
-            ...errorResponse(errorName[403], errorMessage[403]),
-          },
+          403: DefaultErrorResponse[403],
           404: {
             ...errorResponse(errorName[404], 'User not found'),
           },

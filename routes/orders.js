@@ -2,24 +2,22 @@ import { Router } from 'express';
 import { orderControllers as ctrl } from '#controllers/index.js';
 import { validate } from '#middlewares/validation.middleware.js';
 import { orderValidationSchema } from '#models/order/order.validation.js';
-// import verifyToken from '#middlewares/auth.middleware.js';
-// import { roles } from '#constants/roles.js';
+
+import { roles } from '#constants/roles.js';
 import { isValidId } from '#middlewares/isValidId.js';
+import { verifyToken } from '#middlewares/auth.middleware.js';
 
 const ordersRouter = Router();
 
-ordersRouter.get(
-  '/',
-  //verifyToken([roles.ADMIN]),
-  ctrl.getAllOrders
-);
+ordersRouter.get('/', verifyToken([roles.ADMIN]), ctrl.getAllOrders);
 ordersRouter.post(
   '/',
-  //verifyToken([roles.USER]),
+  verifyToken([roles.USER]),
   validate(orderValidationSchema),
   ctrl.createOrder
 );
 
+/*
 ordersRouter.get(
   '/by-chef/:chefId',
   //verifyToken([roles.CHEF, roles.ADMIN]),
@@ -32,6 +30,8 @@ ordersRouter.get(
   isValidId('courierId'),
   ctrl.getAllOrdersByCourierId
 );
+
+
 ordersRouter.get(
   '/by-user/:userId',
   //verifyToken([roles.USER, roles.ADMIN]),
@@ -86,6 +86,15 @@ ordersRouter.patch(
   //verifyToken([roles.COURIER]),
   isValidId('orderId'),
   ctrl.changeStatus.cancelByCourier
+);*/
+
+ordersRouter.get(
+  '/payment/:orderId',
+  verifyToken([roles.USER]),
+  isValidId('orderId'),
+  ctrl.payment.getPaymentStatusByOrderId
 );
+
+ordersRouter.post('/payment/callback', ctrl.payment.callbackPayment);
 
 export default ordersRouter;

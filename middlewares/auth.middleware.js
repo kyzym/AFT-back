@@ -52,6 +52,7 @@ export const verifyToken = (requiredRoles) => {
   return async (req, res, next) => {
     try {
       const token = getTokenFromHeaders(req);
+
       if (!token) throw new UnAuthorizedError('Token missing');
 
       const { id } = await decodeJWT(token);
@@ -66,7 +67,7 @@ export const verifyToken = (requiredRoles) => {
 
       if (!hasRequiredRole) {
         throw new ForbiddenError(
-          `User ${id} doesn't have the required role(s)`
+          'You are not authorized to view/modify this resource'
         );
       }
 
