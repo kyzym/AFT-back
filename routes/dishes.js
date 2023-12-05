@@ -1,14 +1,8 @@
 import express from 'express';
 
 import { dishControllers } from '../controllers/index.js';
-import {
-  ctrlWrapper,
-  isValidId,
-  joiValidation,
-  verifyToken,
-} from '../middlewares/index.js';
+import { ctrlWrapper, isValidId, joiValidation } from '../middlewares/index.js';
 import { dishValidationSchema } from '../models/index.js';
-import { roles } from '#constants/roles.js';
 
 // import { isAuthenticated, hasRole } from ' universe ';
 
@@ -22,8 +16,7 @@ router.get(
 );
 
 router.get(
-  '/own/:chefId',
-  verifyToken(roles.CHEF),
+  '/own',
   // isAuthenticated,
   // hasRole(['chef']),
   ctrlWrapper(dishControllers.getOwnDishes)
