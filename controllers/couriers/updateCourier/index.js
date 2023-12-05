@@ -6,9 +6,14 @@ export const updateCourier = async (req, res) => {
   const courierUpdates = req.body;
 
   if ('isAvailable' in courierUpdates) {
-    throw new ForbiddenError(
-      "You are not allowed to change the 'isAvailable' field"
-    );
+    if (
+      courierUpdates.isAvailable === null ||
+      courierUpdates.isAvailable === undefined
+    ) {
+      throw new ForbiddenError(
+        "You are not allowed to change the 'isAvailable' field"
+      );
+    }
   }
 
   const updatedCourier = await Courier.findByIdAndUpdate(

@@ -18,7 +18,7 @@ const combinedDishesPaths = {
     ...deleteDishSwagger['/dishes/{dishId}'],
     ...updateDishSwagger['/dishes/{dishId}'],
   },
-  '/dishes/own': { ...getOwnDishesSwagger['/dishes/own'] },
+  '/dishes/own/{chefId}': { ...getOwnDishesSwagger['/dishes/own'] },
   '/dishes/popular': { ...getPopularDishesSwagger['/dishes/popular'] },
   '/dishes/random': { ...getRandomDishSwagger['/dishes/random'] },
 };
