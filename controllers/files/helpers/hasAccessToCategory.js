@@ -1,9 +1,11 @@
+import { roles } from '#constants/roles.js';
+
 export const hasAccessToCategory = (userRoles, category) => {
   const accessMap = {
-    dishes: ['CHEF', 'ADMIN'],
-    'chef-certificates': ['CHEF', 'ADMIN'],
-    'delivery-certificates': ['COURIER', 'ADMIN'],
-    'user-avatars': ['CHEF', 'COURIER', 'USER', 'ADMIN'],
+    dishes: [roles.CHEF, roles.ADMIN],
+    'chef-certificates': [roles.CHEF, roles.ADMIN],
+    'delivery-certificates': [roles.COURIER, roles.ADMIN],
+    'user-avatars': [roles.CHEF, roles.COURIER, roles.USER, roles.ADMIN],
   };
 
   return accessMap[category]?.some((role) => userRoles.includes(role));

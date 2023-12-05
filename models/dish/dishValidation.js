@@ -1,7 +1,10 @@
 import Joi from 'joi';
 import { CATEGORIES, CUISINES } from '../../constants/dishEnums.js';
+import { idValidationSchema } from '#helpers/validation.js';
 
 const dishValidationSchema = Joi.object({
+  owner: idValidationSchema.required(),
+
   name: Joi.string().min(1).required(),
 
   image: Joi.string().uri().required(),
@@ -29,11 +32,11 @@ const dishValidationSchema = Joi.object({
   cookTimeInMinutes: Joi.number().greater(0).required(),
 
   nutrition: Joi.object({
-    calories: Joi.number().min(0),
-    protein: Joi.number().min(0),
-    fats: Joi.number().min(0),
-    carbohydrates: Joi.number().min(0),
-  }),
+    calories: Joi.number().min(0).optional().allow(''),
+    protein: Joi.number().min(0).optional().allow(''),
+    fats: Joi.number().min(0).optional().allow(''),
+    carbohydrates: Joi.number().min(0).optional().allow(''),
+  }).optional(),
 
   spiceLevel: Joi.number().min(0).max(3).default(0),
 });
