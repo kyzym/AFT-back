@@ -10,8 +10,6 @@ export const getPresignedUrl = async (req, res) => {
   const { fileName, fileType, category } = req.query;
 
   const userRoles = Object.keys(req.roleIds);
-  console.log('userRoles', userRoles);
-  console.log('category', category);
 
   if (!hasAccessToCategory(userRoles, category)) {
     return res.status(403).json({ message: 'Access denied for this category' });
