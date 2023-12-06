@@ -13,11 +13,7 @@ import { addOwnerToBody } from '#middlewares/addOwnerToBody.js';
 
 const router = express.Router();
 
-router.get(
-  '/',
-  verifyToken([roles.USER, roles.ADMIN]),
-  ctrlWrapper(dishControllers.getDishes)
-);
+router.get('/', ctrlWrapper(dishControllers.getDishes));
 
 router.get(
   '/own',
@@ -32,7 +28,6 @@ router.get('/popular', ctrlWrapper(dishControllers.getPopularDishes));
 router.get(
   '/:dishId',
   isValidId('dishId'),
-  verifyToken([roles.USER, roles.ADMIN, roles.CHEF]),
   ctrlWrapper(dishControllers.getDish)
 );
 

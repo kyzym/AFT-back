@@ -28,6 +28,15 @@ export const getDishesSwagger = {
           },
         },
         {
+          name: 'name',
+          in: 'query',
+          required: false,
+          description: 'Search for dishes by name',
+          schema: {
+            type: 'string',
+          },
+        },
+        {
           name: 'isVegan',
           in: 'query',
           required: false,
@@ -71,6 +80,24 @@ export const getDishesSwagger = {
             'Sort dishes ("newest or oldest" for sorting by creation date)',
           schema: {
             type: 'string',
+          },
+        },
+        {
+          name: 'page',
+          in: 'query',
+          required: false,
+          description: 'Page number for pagination',
+          schema: {
+            type: 'integer',
+          },
+        },
+        {
+          name: 'limit',
+          in: 'query',
+          required: false,
+          description: 'Number of dishes per page for pagination',
+          schema: {
+            type: 'integer',
           },
         },
       ],
