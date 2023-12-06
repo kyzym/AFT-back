@@ -16,5 +16,6 @@ export * from './manage-cart/add/index.js';
 export * from './manage-cart/update/index.js';
 export * from './manage-cart/delete/index.js';
 export * from './manage-cart/get/index.js';
+export * from './manage-cart/clear/index.js';
 
 export * from './change-status/index.js';

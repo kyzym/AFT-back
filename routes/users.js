@@ -95,6 +95,12 @@ usersRouter.patch(
   userControllers.updateUserCartItem
 );
 usersRouter.delete(
+  '/:userId/cart',
+  verifyToken(['user']),
+  isValidId('userId'),
+  userControllers.clearUserCart
+);
+usersRouter.delete(
   '/:userId/cart/:dishId',
   verifyToken(['user']),
   isValidId('userId', 'dishId'),

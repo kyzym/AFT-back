@@ -17,6 +17,7 @@ import { getUserCartSwagger } from './manage-cart/get/swagger.js';
 import { addUserCartItemSwagger } from './manage-cart/add/swagger.js';
 import { updateUserCartItemSwagger } from './manage-cart/update/swagger.js';
 import { deleteUserCartItemSwagger } from './manage-cart/delete/swagger.js';
+import { clearUserCartSwagger } from './manage-cart/clear/swagger.js';
 import { SwaggerSchemas, SwaggerResponses } from './swaggerCommon.js';
 
 export const usersSwagger = {
@@ -43,6 +44,7 @@ export const usersSwagger = {
       ...getUserCartSwagger.paths['/users/{userId}/cart'],
       ...addUserCartItemSwagger.paths['/users/{userId}/cart'],
       ...updateUserCartItemSwagger.paths['/users/{userId}/cart'],
+      ...clearUserCartSwagger.paths['/users/{userId}/cart'],
     },
     ...deleteUserCartItemSwagger.paths,
   },
