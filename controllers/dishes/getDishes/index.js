@@ -7,6 +7,11 @@ export const getDishes = async (req, res) => {
     query = query.where('owner').equals(req.query.chef);
   }
 
+  if (req.query.name) {
+    const regex = new RegExp(req.query.name, 'i');
+    query = query.where('name').regex(regex);
+  }
+
   if (req.query.cuisine) {
     query = query.where('cuisine').equals(req.query.cuisine);
   }
@@ -35,7 +40,24 @@ export const getDishes = async (req, res) => {
     query = query.sort(sortOption);
   }
 
+  const page = parseInt(req.query.page) || 1;
+
+  const limit = parseInt(req.query.limit) || 10;
+
+  const skipIndex = (page - 1) * limit;
+
+  query = query.skip(skipIndex).limit(limit);
+
   const dishes = await query.exec();
 
-  res.status(200).json(dishes);
+  const total = await Dish.countDocuments(query.getFilter());
+
+  res.status(200).json({
+    dishes,
+    pageInfo: {
+      total,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+    },
+  });
 };
