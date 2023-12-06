@@ -1,24 +1,27 @@
 import express from 'express';
 
 import { dishControllers } from '../controllers/index.js';
-import { ctrlWrapper, isValidId, joiValidation } from '../middlewares/index.js';
+import {
+  ctrlWrapper,
+  isValidId,
+  joiValidation,
+  verifyToken,
+} from '../middlewares/index.js';
 import { dishValidationSchema } from '../models/index.js';
-
-// import { isAuthenticated, hasRole } from ' universe ';
+import { roles } from '#constants/roles.js';
+import { addOwnerToBody } from '#middlewares/addOwnerToBody.js';
 
 const router = express.Router();
 
 router.get(
   '/',
-  // isAuthenticated,
-  // hasRole(['user', 'admin']),
+  verifyToken([roles.USER, roles.ADMIN]),
   ctrlWrapper(dishControllers.getDishes)
 );
 
 router.get(
   '/own',
-  // isAuthenticated,
-  // hasRole(['chef']),
+  verifyToken([roles.CHEF]),
   ctrlWrapper(dishControllers.getOwnDishes)
 );
 
@@ -29,39 +32,36 @@ router.get('/popular', ctrlWrapper(dishControllers.getPopularDishes));
 router.get(
   '/:dishId',
   isValidId('dishId'),
-  // isAuthenticated,
+  verifyToken([roles.USER, roles.ADMIN, roles.CHEF]),
   ctrlWrapper(dishControllers.getDish)
 );
 
 router.post(
   '/',
+  verifyToken([roles.CHEF]),
+  addOwnerToBody,
   joiValidation(dishValidationSchema),
-  // isAuthenticated,
-  // hasRole(['chef']),
   ctrlWrapper(dishControllers.createDish)
 );
 
 router.patch(
   '/:dishId',
   isValidId('dishId'),
-  // isAuthenticated,
-  // hasRole(['chef']),
+  verifyToken([roles.CHEF]),
   ctrlWrapper(dishControllers.updateDish)
 );
 
 router.patch(
   '/:dishId',
   isValidId('dishId'),
-  // isAuthenticated,
-  // hasRole(['admin']),
+  verifyToken([roles.ADMIN]),
   ctrlWrapper(dishControllers.updateDishBlockedStatus)
 );
 
 router.delete(
   '/:dishId',
   isValidId('dishId'),
-  // isAuthenticated,
-  // hasRole(['chef', 'admin']),
+  verifyToken([roles.CHEF, roles.ADMIN]),
   ctrlWrapper(dishControllers.deleteDish)
 );
 

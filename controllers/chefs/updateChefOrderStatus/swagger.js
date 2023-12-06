@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import { orderStatus } from '../../../constants/orderStatus.js';
 import {
   createErrorResponse,
@@ -31,6 +32,7 @@ export const updateChefOrderStatusSwagger = {
           },
         },
       ],
+      security: [{ bearerAuth: [roles.CHEF] }],
       responses: {
         200: createSuccessResponse('Orders by status retrieved successfully'),
         400: createErrorResponse('Format of this ID is not correct'),

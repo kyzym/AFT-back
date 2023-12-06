@@ -48,6 +48,7 @@ export const getS3PresignedUrlSwagger = {
       responses: {
         200: createSuccessResponse('Presigned URL generated successfully'),
         400: createErrorResponse('Missing or invalid parameters'),
+        403: createErrorResponse('Access denied for this category'),
         500: serverError,
       },
     },

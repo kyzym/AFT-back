@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import {
   createSuccessResponseArray,
   serverError,
@@ -21,6 +22,7 @@ export const getChefsSwagger = {
           },
         },
       ],
+      security: [{ bearerAuth: [roles.ADMIN, roles.CHEF, roles.USER] }],
       responses: {
         200: createSuccessResponseArray(
           'A list of chefs retrieved successfully'

@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import {
   createErrorResponse,
   createSuccessResponse,
@@ -20,6 +21,7 @@ export const getChefOrdersSwagger = {
           schema: idSchema,
         },
       ],
+      security: [{ bearerAuth: [roles.ADMIN, roles.CHEF] }],
       responses: {
         200: createSuccessResponse('Orders retrieved successfully'),
         400: createErrorResponse('Format of this ID is not correct'),

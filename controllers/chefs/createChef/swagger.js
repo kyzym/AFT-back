@@ -15,7 +15,7 @@ export const createChefSwagger = {
           },
         },
       },
-      security: [{ bearerAuth: [roles.CHEF] }],
+      security: [{ bearerAuth: [roles.USER] }],
       responses: {
         201: {
           description: 'Chef created successfully',

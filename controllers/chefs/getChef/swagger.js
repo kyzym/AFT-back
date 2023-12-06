@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import {
   createErrorResponse,
   createSuccessResponse,
@@ -11,6 +12,7 @@ export const getChefSwagger = {
       tags: ['Chefs'],
       summary: 'Get a chef',
       description: 'Get a chef with the specified ID.',
+      security: [{ bearerAuth: roles }],
       parameters: [
         {
           name: 'chefId',
