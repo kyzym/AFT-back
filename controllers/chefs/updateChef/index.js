@@ -6,9 +6,14 @@ export const updateChef = async (req, res) => {
   const chefUpdates = req.body;
 
   if ('isAvailable' in chefUpdates) {
-    throw new ForbiddenError(
-      "You are not allowed to change the 'isAvailable' field"
-    );
+    if (
+      chefUpdates.isAvailable === null ||
+      chefUpdates.isAvailable === undefined
+    ) {
+      throw new ForbiddenError(
+        "You are not allowed to change the 'isAvailable' field"
+      );
+    }
   }
 
   const updatedChef = await Chef.findByIdAndUpdate(chefId, chefUpdates, {
@@ -19,5 +24,5 @@ export const updateChef = async (req, res) => {
     throw new NotFoundError('Chef not found');
   }
 
-  res.status(200).json(updatedChef);
+  res.status(200).json({ message: 'Chef update successfully' });
 };

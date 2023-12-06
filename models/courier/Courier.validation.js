@@ -22,6 +22,7 @@ const CourierValidationSchema = Joi.object({
     .valid(...Object.values(accountStatus))
     .default(accountStatus.PENDING)
     .required(),
+  liqpayKey: Joi.string().required(),
   isAvailable: Joi.boolean().default(false),
 });
 

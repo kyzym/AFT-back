@@ -4,19 +4,14 @@ import Chef from '../../../models/chef/Chef.model.js';
 
 export const createChef = async (req, res) => {
   const session = await User.startSession();
-
-  const userId = '655eadc79b5f12df707d537c'; //req.user.id
+  const userId = req.body.userId;
   try {
     await session.withTransaction(async () => {
       const existingChef = await Chef.findOne({ userId: userId });
       if (existingChef) {
         throw new ConflictError('Role of chef already exists');
       }
-      // const newChefData = new Chef({ ...req.body, userId: req.user.id });
-      const newChefData = {
-        ...req.body,
-        userId: userId,
-      };
+      const newChefData = new Chef({ ...req.body, userId: userId });
       const newChef = new Chef(newChefData);
       await newChef.save();
       const newChefId = newChef._id;
@@ -30,8 +25,10 @@ export const createChef = async (req, res) => {
         { new: true }
       );
       if (!updatedUser) {
+        console.error('Failed to update user role:', userId);
         throw new Error('Failed to update user role');
       }
+
       res.status(201).json({ message: 'Chef created successfully' });
     });
   } finally {

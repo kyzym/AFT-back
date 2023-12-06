@@ -4,28 +4,35 @@ import { isValidId } from '../middlewares/isValidId.js';
 import { joiValidation } from '#middlewares/joiValidation.js';
 import { courierControllers } from '#controllers/index.js';
 import CourierValidationSchema from '#models/courier/Courier.validation.js';
+import { verifyToken } from '#middlewares/auth.middleware.js';
+import { roles } from '#constants/roles.js';
 
 const router = express.Router();
 
-router.get('/', ctrlWrapper(courierControllers.courierControllers.getCouriers));
+router.get(
+  '/',
+  verifyToken([roles.ADMIN]),
+  ctrlWrapper(courierControllers.courierControllers.getCouriers)
+);
 
 router.get(
   '/:courierId',
   isValidId('courierId'),
+  verifyToken([roles.ADMIN, roles.COURIER, roles.USER, roles.CHEF]),
   ctrlWrapper(courierControllers.courierControllers.getCourier)
 );
 
 router.patch(
   '/:courierId',
   isValidId('courierID'),
-  //role: courier
+  verifyToken([roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.updateCourier)
 );
 
 router.patch(
   '/:courierId',
   isValidId('courierId'),
-  //role: admin
+  verifyToken([roles.ADMIN]),
   ctrlWrapper(
     courierControllers.courierControllers.updateCourierAvailableStatus
   )
@@ -34,39 +41,41 @@ router.patch(
 router.delete(
   '/:courierId',
   isValidId('courierId'),
-  // role: courier, admin
+  verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.deleteCourier)
 );
 
 router.post(
   '/',
   joiValidation(CourierValidationSchema),
-  // role: courier
+  verifyToken([roles.USER]),
   ctrlWrapper(courierControllers.courierControllers.createCourier)
 );
 
 router.patch(
   '/:courierId/orders/:orderId',
   isValidId(['courierId', 'orderId']),
+  verifyToken([roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.updateCourierOrderStatus)
 );
 
 router.get(
   '/:courierId/orders/:status',
   isValidId('courierId'),
-  // role: courier, admin
+  verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getCourierOrdersByStatus)
 );
 
 router.get(
   '/:courierId/orders',
   isValidId('courierId'),
-  // role: courier, admin
+  verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getCourierOrders)
 );
 
 router.get(
   '/accountStatus/:accountStatus',
+  verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getCourierByAccountStatus)
 );
 
