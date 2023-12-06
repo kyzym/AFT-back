@@ -6,9 +6,9 @@ import {
 } from '../swaggerChefsComponents.js';
 
 export const getOwnChefOrdersSwagger = {
-  '/orders': {
+  '/chefs/orders': {
     get: {
-      tags: ['Orders'],
+      tags: ['Chefs'],
       summary: 'Get own chef orders',
       description: 'Gets orders for the currently authenticated chef',
       parameters: [],

@@ -79,7 +79,7 @@ router.get(
 router.get(
   '/:chefId/orders',
   isValidId('chefId'),
-  verifyToken([roles.ADMIN, roles.CHEF]),
+  verifyToken([roles.ADMIN]),
   ctrlWrapper(chefControllers.chefControllers.getChefOrders)
 );
 
