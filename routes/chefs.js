@@ -21,6 +21,12 @@ router.get(
   ctrlWrapper(chefControllers.chefControllers.getOwnChefOrders)
 );
 
+router.patch(
+  '/orders/:orderId',
+  verifyToken([roles.CHEF]),
+  ctrlWrapper(chefControllers.chefControllers.updateChefOwnOrderStatus)
+);
+
 router.get(
   '/:chefId',
   isValidId('chefId'),
