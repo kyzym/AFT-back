@@ -17,7 +17,7 @@ export const updateDish = async (req, res) => {
     throw new NotFoundError('Dish not found');
   }
 
-  if (dish.owner !== chefId) {
+  if (dish.owner.toString() !== chefId) {
     throw new ForbiddenError('You are not allowed to update this dish');
   }
 

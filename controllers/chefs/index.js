@@ -10,6 +10,8 @@ import { createChef } from './createChef/index.js';
 import { getChefOrders } from './getChefOrders/index.js';
 import { getChefOrdersByStatus } from './getChefOrdersByStatus/index.js';
 import { updateChefOrderStatus } from './updateChefOrderStatus/index.js';
+import { getOwnChefOrders } from './getOwnChefOrders/index.js';
+import { updateChefOwnOrderStatus } from './updateChefOwnOrderStatus/index.js';
 
 export const chefControllers = {
   getChefs,
@@ -21,4 +23,6 @@ export const chefControllers = {
   getChefOrders,
   getChefOrdersByStatus,
   updateChefOrderStatus,
+  updateChefOwnOrderStatus,
+  getOwnChefOrders,
 };

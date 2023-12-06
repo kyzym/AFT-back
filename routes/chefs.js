@@ -16,6 +16,18 @@ router.get(
 );
 
 router.get(
+  '/orders',
+  verifyToken([roles.CHEF]),
+  ctrlWrapper(chefControllers.chefControllers.getOwnChefOrders)
+);
+
+router.patch(
+  '/orders/:orderId',
+  verifyToken([roles.CHEF]),
+  ctrlWrapper(chefControllers.chefControllers.updateChefOwnOrderStatus)
+);
+
+router.get(
   '/:chefId',
   isValidId('chefId'),
   verifyToken([roles.USER, roles.ADMIN, roles.CHEF, roles.COURIER]),
@@ -67,7 +79,7 @@ router.get(
 router.get(
   '/:chefId/orders',
   isValidId('chefId'),
-  verifyToken([roles.ADMIN, roles.CHEF]),
+  verifyToken([roles.ADMIN]),
   ctrlWrapper(chefControllers.chefControllers.getChefOrders)
 );
 

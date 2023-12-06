@@ -7,7 +7,7 @@ export const getChefOrders = async (req, res) => {
   const chefOrders = await Order.find({ chefId });
 
   if (!chefOrders) {
-    throw new NotFoundError('Orders for chef not found');
+    throw new NotFoundError('Orders for the chef not found');
   }
   res.status(200).json(chefOrders);
 };
