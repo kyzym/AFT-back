@@ -1,9 +1,9 @@
 import { Dish } from '../../../models/index.js';
 
-export const getOwnDishes = async (_req, res) => {
-  const ownerPlaceholder = '65520e1b49c89850ff8556ea';
-  // const dishes = await Dish.find({ owner: req.user.id });
-  const dishes = await Dish.find({ owner: ownerPlaceholder });
+export const getOwnDishes = async (req, res) => {
+  const chefId = req.roleIds.chef;
+
+  const dishes = await Dish.find({ owner: chefId });
 
   res.status(200).json(dishes);
 };

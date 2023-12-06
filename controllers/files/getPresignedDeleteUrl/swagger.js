@@ -42,6 +42,7 @@ export const getS3PresignedDeleteUrlSwagger = {
           'Presigned delete URL generated successfully'
         ),
         400: createErrorResponse('Missing or invalid parameters'),
+        403: createErrorResponse('Access denied for this category'),
         500: serverError,
       },
     },

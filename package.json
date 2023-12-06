@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "watch": "node --watch index.js",
-    "dev": "MODE=development nodemon index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
