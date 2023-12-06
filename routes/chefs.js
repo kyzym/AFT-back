@@ -16,6 +16,12 @@ router.get(
 );
 
 router.get(
+  '/orders',
+  verifyToken([roles.CHEF]),
+  ctrlWrapper(chefControllers.chefControllers.getOwnChefOrders)
+);
+
+router.get(
   '/:chefId',
   isValidId('chefId'),
   verifyToken([roles.USER, roles.ADMIN, roles.CHEF, roles.COURIER]),
