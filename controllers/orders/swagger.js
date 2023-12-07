@@ -2,6 +2,7 @@ import { AddressSchema } from '#controllers/swagger.common.js';
 import { createOrderSwagger } from './create/swagger.js';
 import { getAllOrdersSwagger } from './get-all/swagger.js';
 import { getOrderPaymentStatusSwagger } from './payment/get-payment-status/swagger.js';
+import { paymentCallbackSwagger } from './payment/payment-callback/swagger.js';
 // import { getOrdersByChefIdSwagger } from './get-by-chef-id/swagger.js';
 // import { getOrdersByCourierIdSwagger } from './get-by-courier-id/swagger.js';
 // import { getOrderByIdSwagger } from './get-by-id/swagger.js';
@@ -25,6 +26,7 @@ export const ordersSwagger = {
       ...createOrderSwagger.paths['/orders'],
     },
     ...getOrderPaymentStatusSwagger.paths,
+    ...paymentCallbackSwagger.paths,
     /*...getOrdersByChefIdSwagger.paths,
     ...getOrdersByCourierIdSwagger.paths,
     ...getOrdersByUserIdSwagger.paths,
