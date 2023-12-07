@@ -4,6 +4,7 @@ import {
   swaggerResponse,
   swaggerResponseWithPagination,
 } from '#helpers/swaggerResponse.js';
+import { phoneNumberPattern } from '#helpers/validation.js';
 
 export const ShortDishSchema = {
   type: 'object',
@@ -51,11 +52,49 @@ export const OrderSchema = {
       type: 'array',
       items: { $ref: '#/components/schemas/OrderItemSchema' },
     },
+    summaryPrice: {
+      type: 'object',
+      properties: {
+        tax: {
+          type: 'number',
+          minimum: 0.01,
+        },
+        delivery: {
+          type: 'number',
+          minimum: 0.01,
+        },
+        chef: {
+          type: 'number',
+          min: 0.01,
+        },
+      },
+    },
     totalPrice: {
       type: 'number',
       minimum: 0.01,
     },
-    address: AddressSchema,
+    deliveryInfo: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          minLength: 3,
+        },
+        phoneNumber: {
+          type: 'string',
+          pattern: phoneNumberPattern,
+        },
+        email: {
+          type: 'string',
+          format: 'email',
+        },
+        address: AddressSchema,
+      },
+    },
+    additionalInfo: {
+      type: 'string',
+      maxLength: 400,
+    },
     status: {
       type: 'string',
       enum: Object.values(orderStatus),

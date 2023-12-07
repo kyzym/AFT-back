@@ -9,7 +9,7 @@ import { verifyToken } from '#middlewares/auth.middleware.js';
 
 const ordersRouter = Router();
 
-ordersRouter.get('/', verifyToken([roles.ADMIN]), ctrl.getAllOrders);
+ordersRouter.get('/', /*verifyToken([roles.ADMIN]), */ ctrl.getAllOrders);
 ordersRouter.post(
   '/',
   verifyToken([roles.USER]),
