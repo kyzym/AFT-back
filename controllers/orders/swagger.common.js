@@ -1,4 +1,5 @@
 import { orderStatus } from '#constants/orderStatus.js';
+import { BaseDishSchema } from '#controllers/dishes/swaggerDishesComponents.js';
 import { AddressSchema, objectId } from '#controllers/swagger.common.js';
 import {
   swaggerResponse,
@@ -10,23 +11,19 @@ export const ShortDishSchema = {
   type: 'object',
   properties: {
     id: objectId,
-    image: { type: 'string' },
+    ...BaseDishSchema.properties,
   },
 };
 
 export const OrderItemSchema = {
   type: 'object',
   properties: {
-    id: objectId,
+    dishId: objectId,
     dish: ShortDishSchema,
     count: {
       type: 'integer',
       minimum: 1,
       default: 1,
-    },
-    price: {
-      type: 'number',
-      minimum: 0.01,
     },
   },
   minItems: 1,
