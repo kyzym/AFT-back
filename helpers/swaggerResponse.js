@@ -4,7 +4,7 @@ export const swaggerResponse = (data) => {
   };
 
   if (typeof data === 'string') {
-    response.data = { type: 'string', default: data, example: 'sadasdadad' };
+    response.data = { type: 'string', default: data, example: 'Example' };
   } else {
     response.data = {
       type: 'object',

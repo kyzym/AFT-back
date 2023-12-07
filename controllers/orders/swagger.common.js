@@ -1,31 +1,30 @@
 import { orderStatus } from '#constants/orderStatus.js';
+import { paymentStatus } from '#constants/paymentStatus.js';
+import { BaseDishSchema } from '#controllers/dishes/swaggerDishesComponents.js';
 import { AddressSchema, objectId } from '#controllers/swagger.common.js';
 import {
   swaggerResponse,
   swaggerResponseWithPagination,
 } from '#helpers/swaggerResponse.js';
+import { phoneNumberPattern } from '#helpers/validation.js';
 
 export const ShortDishSchema = {
   type: 'object',
   properties: {
     id: objectId,
-    image: { type: 'string' },
+    ...BaseDishSchema.properties,
   },
 };
 
 export const OrderItemSchema = {
   type: 'object',
   properties: {
-    id: objectId,
+    dishId: objectId,
     dish: ShortDishSchema,
     count: {
       type: 'integer',
       minimum: 1,
       default: 1,
-    },
-    price: {
-      type: 'number',
-      minimum: 0.01,
     },
   },
   minItems: 1,
@@ -51,16 +50,62 @@ export const OrderSchema = {
       type: 'array',
       items: { $ref: '#/components/schemas/OrderItemSchema' },
     },
+    summaryPrice: {
+      type: 'object',
+      properties: {
+        tax: {
+          type: 'number',
+          minimum: 0.01,
+        },
+        delivery: {
+          type: 'number',
+          minimum: 0.01,
+        },
+        chef: {
+          type: 'number',
+          min: 0.01,
+        },
+      },
+    },
     totalPrice: {
       type: 'number',
       minimum: 0.01,
     },
-    address: AddressSchema,
+    deliveryInfo: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          minLength: 3,
+        },
+        phoneNumber: {
+          type: 'string',
+          pattern: phoneNumberPattern,
+        },
+        email: {
+          type: 'string',
+          format: 'email',
+        },
+        address: AddressSchema,
+      },
+    },
+    additionalInfo: {
+      type: 'string',
+      maxLength: 400,
+    },
     status: {
       type: 'string',
       enum: Object.values(orderStatus),
       default: orderStatus.PENDING,
     },
+  },
+};
+
+export const PaymentDataSchema = {
+  type: ['object', 'null'],
+  properties: {
+    data: { type: 'string' },
+    signature: { type: 'string' },
   },
 };
 
@@ -89,5 +134,19 @@ export const CreateOrderResponse = {
   type: 'object',
   properties: {
     ...swaggerResponse({ order: { $ref: '#/components/schemas/OrderSchema' } }),
+  },
+};
+
+export const GetOrderPaymentStatusResponse = {
+  type: 'object',
+  properties: {
+    ...swaggerResponse({
+      status: {
+        type: 'string',
+        enum: Object.values(paymentStatus),
+        default: paymentStatus.PENDING,
+      },
+      payment: { $ref: '#/components/schemas/PaymentDataSchema' },
+    }),
   },
 };

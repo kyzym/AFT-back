@@ -24,6 +24,8 @@ export const AddressSchema = {
     city: { type: 'string' },
     country: { type: 'string' },
     street: { type: 'string' },
+    houseNumber: { type: 'string' },
+    apartment: { type: 'string' },
     coordinates: CoordinateSchema,
   },
 };

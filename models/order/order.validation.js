@@ -24,5 +24,5 @@ export const orderValidationSchema = Joi.object({
         'Phone number should follow the pattern +38(0##)#######',
     })
     .required(),
-  additionalInfo: Joi.string().max(400).allow(null).optional(),
+  additionalInfo: Joi.string().min(0).max(400).allow(null).optional(),
 });
