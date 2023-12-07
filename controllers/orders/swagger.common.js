@@ -1,4 +1,5 @@
 import { orderStatus } from '#constants/orderStatus.js';
+import { paymentStatus } from '#constants/paymentStatus.js';
 import { BaseDishSchema } from '#controllers/dishes/swaggerDishesComponents.js';
 import { AddressSchema, objectId } from '#controllers/swagger.common.js';
 import {
@@ -100,6 +101,14 @@ export const OrderSchema = {
   },
 };
 
+export const PaymentDataSchema = {
+  type: ['object', 'null'],
+  properties: {
+    data: { type: 'string' },
+    signature: { type: 'string' },
+  },
+};
+
 export const GetAllOrdersResponse = {
   type: 'object',
   properties: {
@@ -125,5 +134,19 @@ export const CreateOrderResponse = {
   type: 'object',
   properties: {
     ...swaggerResponse({ order: { $ref: '#/components/schemas/OrderSchema' } }),
+  },
+};
+
+export const GetOrderPaymentStatusResponse = {
+  type: 'object',
+  properties: {
+    ...swaggerResponse({
+      status: {
+        type: 'string',
+        enum: Object.values(paymentStatus),
+        default: paymentStatus.PENDING,
+      },
+      payment: { $ref: '#/components/schemas/PaymentDataSchema' },
+    }),
   },
 };
