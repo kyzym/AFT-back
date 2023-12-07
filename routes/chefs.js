@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get(
   '/',
-  verifyToken([roles.ADMIN, roles.USER, roles.CHEF]),
+  // verifyToken([roles.ADMIN, roles.USER, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefs)
 );
 
@@ -30,7 +30,7 @@ router.patch(
 router.get(
   '/:chefId',
   isValidId('chefId'),
-  verifyToken([roles.USER, roles.ADMIN, roles.CHEF, roles.COURIER]),
+  // verifyToken([roles.USER, roles.ADMIN, roles.CHEF, roles.COURIER]),
   ctrlWrapper(chefControllers.chefControllers.getChef)
 );
 
