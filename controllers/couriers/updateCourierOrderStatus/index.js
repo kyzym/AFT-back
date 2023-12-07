@@ -35,27 +35,50 @@ import { ForbiddenError, NotFoundError } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const updateCourierOrderStatus = async (req, res) => {
-  const courierId = req.roleIds.courier;
+  const courierId = '656cff4d4125411c58aec41d';
+  // req.roleIds.courier;
   const { orderId } = req.params;
   const { status: updateStatus } = req.body;
 
-  if (!orderStatus[updateStatus.toUpperCase()]) {
+  if (
+    !updateStatus ||
+    !Object.prototype.hasOwnProperty.call(
+      orderStatus,
+      updateStatus.toUpperCase()
+    )
+  ) {
     throw new ForbiddenError('Invalid order status');
   }
-
+  let newCourierOrderStatus;
   const order = await Order.findById(orderId);
 
   if (!order) {
     throw new NotFoundError('Order not found');
-  } else if (order.courierId.toString() !== courierId.toString()) {
-    throw new ForbiddenError('Access denied: Chef IDs do not match');
   }
-
-  const newCourierOrderStatus = await Order.findByIdAndUpdate(
-    orderId,
-    { status: updateStatus },
-    { new: true }
+  console.log(
+    'check: ',
+    updateStatus === orderStatus.DELIVERING,
+    updateStatus.toUpperCase(),
+    orderStatus.DELIVERING
   );
+  if (updateStatus === orderStatus.DELIVERING) {
+    newCourierOrderStatus = await Order.findByIdAndUpdate(
+      orderId,
+      { courierId: courierId, status: updateStatus },
+      { new: true }
+    );
+    console.log(courierId, 'good');
+  } else if (order.courierId && order.courierId.toString() !== courierId) {
+    // else if (order.courierId.toString() !== courierId) {
+    throw new ForbiddenError('Access denied: Courier IDs do not match');
+  } else {
+    newCourierOrderStatus = await Order.findByIdAndUpdate(
+      orderId,
+      { status: updateStatus },
+      { new: true }
+    );
+    console.log('cool');
+  }
 
   res.status(200).json(newCourierOrderStatus);
 };

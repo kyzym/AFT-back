@@ -62,7 +62,7 @@ router.post(
 router.patch(
   '/orders/:orderId',
   isValidId(['orderId']),
-  verifyToken([roles.COURIER]),
+  //verifyToken([roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.updateCourierOrderStatus)
 );
 
