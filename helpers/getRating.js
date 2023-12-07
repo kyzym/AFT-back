@@ -57,10 +57,8 @@ export const getRating = async (chefId) => {
   if (data.length > 0) {
     return Number(
       (
-        data[0].reviews.reduce(
-          (acc, review) => acc + Number(review.rating),
-          0
-        ) / data[0].totalReviews
+        data[0].reviews.reduce((acc, review) => acc + review.rating, 0) /
+        data[0].totalReviews
       ).toFixed(1)
     );
   }
