@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { addressSchema } from '../schemas/address.schema.js';
 import { accountStatus } from '../../constants/accountStatus.js';
 import { phoneNumberPattern } from '../../helpers/validation.js';
-import { getRating } from './helpers.js';
+// import { getRating } from './helpers.js';
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -50,23 +50,18 @@ const ChefSchema = new Schema(
     versionKey: false,
     timestamps: true,
     id: true,
-    toJSON: {
-      virtual: true,
-      transform: function (_doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
   }
 );
-ChefSchema.set('toJSON', { virtuals: true });
 
-ChefSchema.virtual('rating').get(async function () {
-  const rating = await getRating(this.id);
-  console.log('rating:', rating);
-
-  return 0;
+ChefSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (_doc, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+  },
 });
+
+ChefSchema.virtual('rating');
 
 const Chef = model('chef', ChefSchema);
 

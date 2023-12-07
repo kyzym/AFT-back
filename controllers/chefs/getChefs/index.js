@@ -1,3 +1,4 @@
+import { getRating } from '#helpers/getRating.js';
 import Chef from '../../../models/chef/Chef.model.js';
 
 export const getChefs = async (req, res) => {
@@ -7,5 +8,13 @@ export const getChefs = async (req, res) => {
   }
   const chefs = await Chef.find(query).exec();
 
-  return res.status(200).json(chefs);
+  const promises = chefs.map((chef) => getRating(chef.id));
+  const ratings = await Promise.all(promises);
+
+  const mappedChefs = chefs.map((chef, index) => {
+    chef.rating = ratings[index];
+    return chef;
+  });
+
+  return res.status(200).json(mappedChefs);
 };

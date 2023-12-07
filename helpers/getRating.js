@@ -15,17 +15,6 @@ export const getRating = async (chefId) => {
       $unwind: '$dish',
     },
     {
-      $lookup: {
-        from: 'users',
-        localField: 'owner',
-        foreignField: '_id',
-        as: 'owner',
-      },
-    },
-    {
-      $unwind: '$owner',
-    },
-    {
       $match: {
         'dish.owner': new mongoose.Types.ObjectId(chefId),
       },
@@ -35,21 +24,7 @@ export const getRating = async (chefId) => {
         reviews: [
           {
             $project: {
-              _id: 0,
-              id: '$_id',
               rating: 1,
-              review: 1,
-              dish: {
-                id: '$dish._id',
-                owner: 1,
-              },
-              owner: {
-                id: '$owner._id',
-                firstName: 1,
-                lastName: 1,
-                avatar: 1,
-              },
-              createdAt: 1,
             },
           },
         ],
@@ -80,9 +55,13 @@ export const getRating = async (chefId) => {
   ]).exec();
 
   if (data.length > 0) {
-    return Math.round(
-      data[0].reviews.reduce((acc, review) => acc + Number(review.rating), 0) /
-        data[0].totalReviews
+    return Number(
+      (
+        data[0].reviews.reduce(
+          (acc, review) => acc + Number(review.rating),
+          0
+        ) / data[0].totalReviews
+      ).toFixed(1)
     );
   }
 
