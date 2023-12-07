@@ -1,25 +1,27 @@
+import { roles } from '#constants/roles.js';
 import {
   createErrorResponse,
   createSuccessResponse,
-  idSchema,
+  //idSchema,
   serverError,
 } from '../swaggerCouriersComponents.js';
 
 export const getCourierSwagger = {
-  '/couriers/{courierId}': {
+  '/couriers': {
     get: {
       tags: ['Couriers'],
       summary: 'Get a courier',
       description: 'Get a courier with the specified ID.',
-      parameters: [
-        {
-          name: 'courierId',
-          in: 'path',
-          required: true,
-          description: 'ID of the courier to get',
-          schema: idSchema,
-        },
-      ],
+      // parameters: [
+      //   {
+      //     name: 'courierId',
+      //     in: 'path',
+      //     required: true,
+      //     description: 'ID of the courier to get',
+      //     schema: idSchema,
+      //   },
+      // ],
+      security: [{ bearerAuth: [roles.ADMIN, roles.COURIER] }],
       responses: {
         200: createSuccessResponse('Courier retrieved successfully'),
         400: createErrorResponse('Format of this ID is not correct'),

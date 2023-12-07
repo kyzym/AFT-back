@@ -1,25 +1,25 @@
 import { roles } from '#constants/roles.js';
 import {
   createErrorResponse,
-  idSchema,
+  //idSchema,
   serverError,
 } from '../swaggerCouriersComponents.js';
 
 export const deleteCourierSwagger = {
-  '/couriers/{courierId}': {
+  '/couriers': {
     delete: {
       tags: ['Couriers'],
       summary: 'Delete courier',
       description: 'Deletes a courier with the specified ID.',
-      parameters: [
-        {
-          name: 'courierId',
-          in: 'path',
-          required: true,
-          description: 'ID of the courier to delete',
-          schema: idSchema,
-        },
-      ],
+      // parameters: [
+      //   {
+      //     name: 'courierId',
+      //     in: 'path',
+      //     required: true,
+      //     description: 'ID of the courier to delete',
+      //     schema: idSchema,
+      //   },
+      // ],
       security: [{ bearerAuth: [roles.COURIER, roles.ADMIN] }],
       responses: {
         200: {

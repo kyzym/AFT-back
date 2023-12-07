@@ -18,7 +18,7 @@ export const createCourierSwagger = {
           },
         },
       },
-      security: [{ bearerAuth: [roles.COURIER] }],
+      security: [{ bearerAuth: [roles.USER] }],
       responses: {
         201: {
           description: 'Courier created successfully',

@@ -7,12 +7,13 @@ import {
   serverError,
 } from '../swaggerCouriersComponents.js';
 
-export const getCourierOrdersByStatusSwagger = {
-  '/couriers/orders/{status}': {
+export const getOrdersByStatusSwagger = {
+  '/couriers/allorders/{status}': {
     get: {
       tags: ['Couriers'],
-      summary: "Get courier's orders by status",
-      description: 'Gets orders for a courier with the specified ID and status',
+      summary: 'Get orders for courier by status',
+      description:
+        'Gets orders for a couriers with the specified ID and status',
       parameters: [
         // {
         //   name: 'courierId',

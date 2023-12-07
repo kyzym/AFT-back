@@ -2,7 +2,7 @@ import Courier from '#models/courier/Courier.model.js';
 import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
 
 export const updateCourier = async (req, res) => {
-  const { courierId } = req.params;
+  const courierId = req.roleIds.courier;
   const courierUpdates = req.body;
 
   if ('isAvailable' in courierUpdates) {
