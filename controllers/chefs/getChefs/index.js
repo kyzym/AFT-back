@@ -5,6 +5,7 @@ export const getChefs = async (req, res) => {
   if (req.query.isAvailable) {
     query.isAvailable = req.query.isAvailable === 'true';
   }
-  const chefs = await Chef.find(query);
+  const chefs = await Chef.find(query).exec();
+
   return res.status(200).json(chefs);
 };
