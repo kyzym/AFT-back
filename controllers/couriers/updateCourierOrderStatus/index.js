@@ -35,7 +35,7 @@ import { ForbiddenError, NotFoundError } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const updateCourierOrderStatus = async (req, res) => {
-  const courierId = '656cff4d4125411c58aec41d';
+  const courierId = '6571051b4bf4c4bafef01361';
   // req.roleIds.courier;
   const { orderId } = req.params;
   const { status: updateStatus } = req.body;
@@ -55,12 +55,6 @@ export const updateCourierOrderStatus = async (req, res) => {
   if (!order) {
     throw new NotFoundError('Order not found');
   }
-  console.log(
-    'check: ',
-    updateStatus === orderStatus.DELIVERING,
-    updateStatus.toUpperCase(),
-    orderStatus.DELIVERING
-  );
   if (updateStatus === orderStatus.DELIVERING) {
     newCourierOrderStatus = await Order.findByIdAndUpdate(
       orderId,
@@ -69,7 +63,6 @@ export const updateCourierOrderStatus = async (req, res) => {
     );
     console.log(courierId, 'good');
   } else if (order.courierId && order.courierId.toString() !== courierId) {
-    // else if (order.courierId.toString() !== courierId) {
     throw new ForbiddenError('Access denied: Courier IDs do not match');
   } else {
     newCourierOrderStatus = await Order.findByIdAndUpdate(

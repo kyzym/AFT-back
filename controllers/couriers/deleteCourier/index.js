@@ -2,7 +2,7 @@ import Courier from '#models/courier/Courier.model.js';
 import User from '#models/user/userModel.js';
 
 export const deleteCourier = async (req, res) => {
-  const courierId = req.roleIds.courier;
+  const courierId = req.params.courierId;
   const session = await User.startSession();
   try {
     await session.withTransaction(async () => {

@@ -16,15 +16,15 @@ router.get(
 );
 
 router.get(
-  '/',
-  // isValidId('courierId'),
+  '/:courierId',
+  isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER, roles.USER, roles.CHEF]),
   ctrlWrapper(courierControllers.courierControllers.getCourier)
 );
 
 router.patch(
-  '/',
-  // isValidId('courierID'),
+  '/:courierId',
+  isValidId('courierID'),
   verifyToken([roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.updateCourier)
 );
@@ -39,8 +39,8 @@ router.patch(
 );
 
 router.delete(
-  '/',
-  // isValidId('courierId'),
+  '/:courierId',
+  isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.deleteCourier)
 );
@@ -52,36 +52,27 @@ router.post(
   ctrlWrapper(courierControllers.courierControllers.createCourier)
 );
 
-// router.patch(
-//   '/:courierId/orders/:orderId',
-//   isValidId(['courierId', 'orderId']),
-//   verifyToken([roles.COURIER]),
-//   ctrlWrapper(courierControllers.courierControllers.updateCourierOrderStatus)
-// );
-
 router.patch(
   '/orders/:orderId',
   isValidId(['orderId']),
-  //verifyToken([roles.COURIER]),
+  verifyToken([roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.updateCourierOrderStatus)
 );
 
 router.get(
   '/orders/:status',
-  // isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getCourierOrdersByStatus)
 );
 
 router.get(
   '/allorders/:status',
-  //verifyToken([roles.ADMIN, roles.COURIER]),
+  verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getOrdersByStatus)
 );
 
 router.get(
   '/orders',
-  //isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getCourierOrders)
 );

@@ -15,14 +15,14 @@ const combinedCourierPaths = {
   '/couriers': {
     ...getCouriersSwagger['/couriers'],
     ...createCourierSwagger['/couriers'],
-    ...getCourierSwagger['/couriers'],
-    ...updateCourierSwagger['/couriers'],
-    ...deleteCourierSwagger['/couriers'],
   },
 
-  // '/couriers/{courierId}/orders': {
-  //   ...getCourierOrdersSwagger['/couriers/{courierId}/orders'],
-  // },
+  '/couriers/{courierId}': {
+    ...getCourierOrdersSwagger['/couriers/{courierId}'],
+    ...getCourierSwagger['/couriers/{courierId}'],
+    ...updateCourierSwagger['/couriers/{courierId}'],
+    ...deleteCourierSwagger['/couriers/{courierId}'],
+  },
   '/couriers/orders': {
     ...getCourierOrdersSwagger['/couriers/orders'],
   },
