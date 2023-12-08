@@ -6,7 +6,7 @@ const controller = async (req, res) => {
 
   const data = await getOrderByRole({ chefId }, req.query);
 
-  return res.send({ success: true, data });
+  return res.sejsonnd({ success: true, data });
 };
 
 export const getAllOrdersByChefId = ctrlWrapper(controller);

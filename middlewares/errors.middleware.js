@@ -10,10 +10,10 @@ export const error = (error, _req, res, _next) => {
 
     if (errors) data.errors = errors;
 
-    return res.status(code).send(data);
+    return res.status(code).json(data);
   }
 
   return res
     .status(500)
-    .send({ success: false, message: 'Internal server error' });
+    .json({ success: false, message: 'Internal server error' });
 };

@@ -1,3 +1,4 @@
+import { orderStatus } from '#constants/orderStatus.js';
 import { transactionAction } from '#constants/transactionAction.js';
 import { calcAmountWithTax } from '#helpers/calcAmountWithTax.js';
 import { normalizeDecimal } from '#helpers/normalizeDecimal.js';
@@ -95,8 +96,9 @@ export const createTransaction = async (order, data) => {
       const transaction = new Transaction(data);
       await transaction.save({ session });
 
+      order.status = orderStatus.PENDING;
       order.paymentTransaction = transaction.id;
-      await order.save();
+      await order.save({ session });
     });
 
     return transaction;

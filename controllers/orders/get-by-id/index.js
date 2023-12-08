@@ -34,7 +34,7 @@ const controller = async (req, res) => {
     (order.courierId && compareObjectIds(order.courierId, courierId)) ||
     adminId
   ) {
-    return res.send({ success: true, data: { order } });
+    return res.json({ success: true, data: { order } });
   }
 
   throw new ForbiddenError("You don't have access to this order");

@@ -6,7 +6,7 @@ const controller = async (req, res) => {
 
   const data = await getOrderByRole({ courierId }, req.query);
 
-  return res.send({ success: true, data });
+  return res.json({ success: true, data });
 };
 
 export const getAllOrdersByCourierId = ctrlWrapper(controller);
