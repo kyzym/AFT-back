@@ -32,9 +32,6 @@ const combinedCourierPaths = {
   '/couriers/orders/{status}': {
     ...getCourierOrdersByStatusSwagger['/couriers/orders/{status}'],
   },
-  // '/couriers/{courierId}/orders/{orderId}': {
-  //   ...updateCourierOrderSwagger['/couriers/{courierId}/orders/{orderId}'],
-  // },
   '/couriers/orders/{orderId}': {
     ...updateCourierOrderSwagger['/couriers/orders/{orderId}'],
   },

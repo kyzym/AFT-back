@@ -63,22 +63,20 @@ router.post(
 );
 
 router.patch(
-  '/:chefId/orders/:orderId',
-  isValidId(['chefId', 'orderId']),
+  '/orders/:orderId',
+  isValidId(['orderId']),
   verifyToken([roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.updateChefOrderStatus)
 );
 
 router.get(
-  '/:chefId/orders/:status',
-  isValidId('chefId'),
+  '/orders/:status',
   verifyToken([roles.ADMIN, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefOrdersByStatus)
 );
 
 router.get(
-  '/:chefId/orders',
-  isValidId('chefId'),
+  '/orders',
   verifyToken([roles.ADMIN]),
   ctrlWrapper(chefControllers.chefControllers.getChefOrders)
 );

@@ -2,7 +2,7 @@ import Courier from '#models/courier/Courier.model.js';
 import { NotFoundError } from '../../../helpers/errors.js';
 
 export const updateCourierAvailableStatus = async (req, res) => {
-  const courierId = req.roleIds.courier;
+  const courierId = req.params.courierId;
   const { isAvailable } = req.body;
 
   const updatedCourier = await Courier.findByIdAndUpdate(
