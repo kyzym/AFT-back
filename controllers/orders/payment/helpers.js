@@ -2,6 +2,7 @@ import { orderStatus } from '#constants/orderStatus.js';
 import { transactionAction } from '#constants/transactionAction.js';
 import { calcAmountWithTax } from '#helpers/calcAmountWithTax.js';
 import { normalizeDecimal } from '#helpers/normalizeDecimal.js';
+import { getOrderCodeByValue } from '#helpers/orderStatus.js';
 import LiqPay from '#libs/Liqpay.js';
 import Order from '#models/order/Order.model.js';
 import Transaction from '#models/transaction/Transaction.model.js';
@@ -96,7 +97,7 @@ export const createTransaction = async (order, data) => {
       const transaction = new Transaction(data);
       await transaction.save({ session });
 
-      order.status = orderStatus.PENDING;
+      order.statusCode = getOrderCodeByValue(orderStatus.PENDING);
       order.paymentTransaction = transaction.id;
       await order.save({ session });
     });
