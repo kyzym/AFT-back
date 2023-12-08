@@ -30,7 +30,6 @@ router.patch(
 router.get(
   '/:chefId',
   isValidId('chefId'),
-  verifyToken([roles.USER, roles.ADMIN, roles.CHEF, roles.COURIER]),
   ctrlWrapper(chefControllers.chefControllers.getChef)
 );
 
