@@ -3,7 +3,6 @@ import { NotFoundError } from '../../../helpers/index.js';
 
 export const getCourier = async (req, res) => {
   const courier = await Courier.findById(req.params.courierId);
-
   if (!courier) {
     throw new NotFoundError('Courier not found');
   }

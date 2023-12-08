@@ -6,7 +6,7 @@ import {
 } from '../swaggerCouriersComponents.js';
 
 export const deleteCourierSwagger = {
-  '/couriers/{courierId}': {
+  '/couriers': {
     delete: {
       tags: ['Couriers'],
       summary: 'Delete courier',

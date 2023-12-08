@@ -21,18 +21,15 @@ const combinedChefsPaths = {
     ...updateChefSwagger['/chefs/{chefId}'],
     ...deleteChefSwagger['/chefs/{chefId}'],
   },
-  '/chefs/{chefId}/orders': {
-    ...getChefOrdersSwagger['/chefs/{chefId}/orders'],
-  },
-  '/chefs/{chefId}/orders/{status}': {
-    ...getChefOrdersByStatusSwagger['/chefs/{chefId}/orders/{status}'],
-  },
-  '/chefs/{chefId}/orders/{orderId}': {
-    ...updateChefOrderStatusSwagger['/chefs/{chefId}/orders/{status}'],
-  },
   '/chefs/orders': {
+    ...getChefOrdersSwagger['/chefs/orders'],
     ...getOwnChefOrdersSwagger['/chefs/orders'],
   },
+  '/chefs/orders/{status}': {
+    ...getChefOrdersByStatusSwagger['/chefs/orders/{status}'],
+    ...updateChefOrderStatusSwagger['/chefs/orders/{status}'],
+  },
+
   '/chefs/orders/{orderId}': {
     ...updateChefOwnOrderStatusSwagger['/chefs/orders/{orderId}'],
   },

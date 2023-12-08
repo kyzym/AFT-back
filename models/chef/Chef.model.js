@@ -11,7 +11,7 @@ const ChefSchema = new Schema(
     userId: { type: ObjectId, ref: 'user', required: true },
     avatar: {
       type: String,
-      //required: [true, "Chef's photo is required"],
+      required: [true, "Chef's photo is required"],
     },
     phoneNumber: {
       type: String,
