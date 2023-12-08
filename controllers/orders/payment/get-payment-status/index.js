@@ -1,11 +1,6 @@
-import { orderStatus } from '#constants/orderStatus.js';
 import { paymentStatus } from '#constants/paymentStatus.js';
 import { compareObjectIds } from '#helpers/compareObjectIds.js';
-import {
-  ForbiddenError,
-  NotFoundError,
-  ValidationError,
-} from '#helpers/errors.js';
+import { ForbiddenError, NotFoundError } from '#helpers/errors.js';
 import { ctrlWrapper } from '#middlewares/ctrlWrapper.js';
 import Order from '#models/order/Order.model.js';
 
@@ -33,33 +28,29 @@ const controller = async (req, res) => {
     throw new ForbiddenError("You don't have access to this order");
   }
 
-  if (order.status !== orderStatus.NEW) {
-    throw new ValidationError('Payment unavailable for this order');
-  }
-
   const responseData = {};
 
   if (order.isPaid) {
     responseData.status = paymentStatus.PAID;
-  }
-
-  // Check payment status in liqpay, if order paid but liqpay did't call server callback
-  const transactionResponse = await getPaymentStatus(order.id);
-
-  // If order paid in liqpay, we add transaction to our db and return error.
-  if (transactionResponse.status === 'success') {
-    await createTransaction(
-      order,
-      getTransactionData(orderId, transactionResponse)
-    );
-
-    responseData.status = paymentStatus.PAID;
   } else {
-    // Create payment signature
-    const payment = getPaymentSignature(getPaymentData(order));
+    // Check payment status in liqpay, if order paid but liqpay did't call server callback
+    const transactionResponse = await getPaymentStatus(order.id);
 
-    responseData.status = paymentStatus.PENDING;
-    responseData.payment = payment;
+    // If order paid in liqpay, we add transaction to our db and return error.
+    if (transactionResponse.status === 'success') {
+      await createTransaction(
+        order,
+        getTransactionData(orderId, transactionResponse)
+      );
+
+      responseData.status = paymentStatus.PAID;
+    } else {
+      // Create payment signature
+      const payment = getPaymentSignature(getPaymentData(order));
+
+      responseData.status = paymentStatus.PENDING;
+      responseData.payment = payment;
+    }
   }
 
   return res.status(200).send({

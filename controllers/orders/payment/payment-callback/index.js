@@ -1,8 +1,9 @@
+import { orderStatus } from '#constants/orderStatus.js';
 import { transactionAction } from '#constants/transactionAction.js';
 import { NotFoundError, normalizeDecimal } from '#helpers/index.js';
 import { ctrlWrapper } from '#middlewares/index.js';
 import Order from '#models/order/index.js';
-import Transaction from '#models/transaction/index.js';
+import { createTransaction } from '../helpers.js';
 
 import { isValidResponseSignature } from './helpers.js';
 
@@ -15,8 +16,6 @@ const controller = async (req, res, next) => {
     throw new Error('Incorrect payment signature');
 
   const response = JSON.parse(atob(data));
-
-  console.log(response);
 
   if (response.status !== 'success') throw new Error('Payment error');
 
@@ -34,11 +33,9 @@ const controller = async (req, res, next) => {
 
       if (!order) throw new NotFoundError('Order not found');
 
-      const transaction = new Transaction(transactionData);
-      await transaction.save({ session });
+      if (order.status !== orderStatus.NEW) return res.status(200).json('Ok');
 
-      order.paymentTransaction = transaction.id;
-      await order.save();
+      await createTransaction(order, transactionData);
     });
 
     return res.status(200).json({ success: true, data: 'Payment success' });
