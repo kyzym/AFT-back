@@ -5,11 +5,12 @@ import {
   errorResponse,
   objectId,
 } from '#controllers/swagger.common.js';
+import { phoneNumberPattern } from '#helpers/validation.js';
 
 const OrderItemRequest = {
   type: 'object',
   properties: {
-    dish: objectId,
+    dishId: objectId,
     count: {
       type: 'integer',
       minimum: 1,
@@ -24,14 +25,35 @@ const CreateOrderRequest = {
     items: {
       type: 'array',
       items: OrderItemRequest,
+      minItems: 1,
     },
     address: AddressSchema,
+    name: {
+      type: 'string',
+      minLength: 3,
+    },
+    phoneNumber: {
+      type: 'string',
+      pattern: phoneNumberPattern,
+    },
+    email: {
+      type: 'string',
+      format: 'email',
+    },
+    additionalInfo: {
+      type: 'string',
+      maxLength: 400,
+    },
   },
-  required: ['items', 'address'],
+  required: ['items', 'address', 'name', 'email', 'phoneNumber'],
   example: {
+    name: 'Test Name',
+    phoneNumber: '+38(099)5556677',
+    email: 'test@email.com',
+    additionalInfo: 'Some text',
     items: [
       {
-        dish: '64572415cf191a7f14e8e423',
+        dishId: '64572415cf191a7f14e8e423',
         count: 2,
       },
     ],
@@ -39,6 +61,8 @@ const CreateOrderRequest = {
       city: 'City',
       country: 'Country',
       street: 'Street',
+      houseNumber: '24a',
+      apartment: '123',
     },
   },
 };

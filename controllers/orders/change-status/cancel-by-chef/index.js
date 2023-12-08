@@ -20,7 +20,7 @@ const controller = async (req, res) => {
   });
   await order.save();
 
-  return res.send({ success: true, data: 'Order canceled by chef' });
+  return res.json({ success: true, data: 'Order canceled by chef' });
 };
 
 export const cancelByChef = ctrlWrapper(controller);

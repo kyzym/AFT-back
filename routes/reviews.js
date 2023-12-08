@@ -42,14 +42,14 @@ router.put(
 
 router.get(
   '/by-dish/:dishId',
-  verifyToken([roles.USER]),
+  // verifyToken([roles.USER]),
   isValidId('dishId'),
   ctrlWrapper(reviewControllers.getReviewsByDishId)
 );
 
 router.get(
   '/by-chef/:chefId',
-  verifyToken([roles.USER]),
+  // verifyToken([roles.USER]),
   isValidId('chefId'),
   ctrlWrapper(reviewControllers.getReviewsByChefId)
 );

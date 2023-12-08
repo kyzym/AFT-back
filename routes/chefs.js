@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get(
   '/',
-  verifyToken([roles.ADMIN, roles.USER, roles.CHEF]),
+  // verifyToken([roles.ADMIN, roles.USER, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefs)
 );
 

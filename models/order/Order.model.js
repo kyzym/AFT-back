@@ -52,6 +52,11 @@ const orderSchema = new Schema(
         min: [0.01, 'Chef amount must be greater than 0'],
         required: [true, 'Chef amount is required'],
       },
+      bankCommission: {
+        type: Number,
+        min: [0.01, 'Bank commission amount must be greater than 0'],
+        required: [true, 'Bank commission amount is required'],
+      },
     },
 
     deliveryInfo: {
@@ -129,8 +134,8 @@ orderSchema.virtual('courier', {
 });
 
 orderSchema.virtual('totalPrice').get(function () {
-  const { tax, delivery, chef } = this.summaryPrice;
-  return normalizeDecimal(tax + delivery + chef);
+  const { tax, delivery, chef, bankCommission } = this.summaryPrice;
+  return normalizeDecimal(tax + delivery + chef + bankCommission);
 });
 
 orderSchema.virtual('isPaid').get(function () {
