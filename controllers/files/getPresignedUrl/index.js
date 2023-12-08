@@ -7,9 +7,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { hasAccessToCategory } from '../helpers/hasAccessToCategory.js';
 
 export const getPresignedUrl = async (req, res) => {
-  const { fileName, fileType, category } = req.query;
+  const { fileName, fileType, category, fileSize } = req.query;
+  const MAX_FILE_SIZE = 20 * 1025 * 1024;
 
   const userRoles = Object.keys(req.roleIds);
+
+  if (Number(fileSize) > MAX_FILE_SIZE) {
+    return res.status(400).json({ message: 'File size exceeds the limit' });
+  }
 
   if (!hasAccessToCategory(userRoles, category)) {
     return res.status(403).json({ message: 'Access denied for this category' });
