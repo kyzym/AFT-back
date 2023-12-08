@@ -61,6 +61,13 @@ ChefSchema.set('toJSON', {
   },
 });
 
+ChefSchema.virtual('user', {
+  ref: 'user',
+  localField: 'userId',
+  foreignField: '_id',
+  justOne: true,
+});
+
 ChefSchema.virtual('rating');
 
 const Chef = model('chef', ChefSchema);
