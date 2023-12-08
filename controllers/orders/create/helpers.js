@@ -1,4 +1,5 @@
 import config from '#config/config.js';
+import { calcAmountWithTax } from '#helpers/calcAmountWithTax.js';
 import { normalizeDecimal } from '#helpers/normalizeDecimal.js';
 import { compareObjectIds } from '../../../helpers/compareObjectIds.js';
 import { ValidationError } from '../../../helpers/errors.js';
@@ -66,12 +67,21 @@ export const getItemsInfo = (items) => {
   const tax = normalizeDecimal(orderPrice * (config.taxPercent / 100));
   const chef = normalizeDecimal(orderPrice * ((100 - config.taxPercent) / 100));
   const delivery = config.delivery;
+  const totalWithoutBankCommission = normalizeDecimal(tax + chef + delivery);
+
+  const bankCommission = normalizeDecimal(
+    calcAmountWithTax(tax) +
+      calcAmountWithTax(chef) +
+      calcAmountWithTax(delivery) -
+      totalWithoutBankCommission
+  );
 
   return {
     summaryPrice: {
       tax,
       chef,
       delivery,
+      bankCommission,
     },
     errors,
     chefId,
