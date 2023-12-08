@@ -47,7 +47,7 @@ const controller = async (req, res) => {
   });
   const data = await order.save();
 
-  return res.status(201).send({
+  return res.status(201).json({
     success: true,
     data: {
       order: data,

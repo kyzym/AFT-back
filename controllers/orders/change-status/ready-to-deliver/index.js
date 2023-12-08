@@ -20,7 +20,7 @@ const controller = async (req, res) => {
   });
   await order.save();
 
-  return res.send({ success: true, data: 'Order ready to delivery' });
+  return res.json({ success: true, data: 'Order ready to delivery' });
 };
 
 export const readyToDelivery = ctrlWrapper(controller);

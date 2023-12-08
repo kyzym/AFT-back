@@ -21,7 +21,7 @@ const controller = async (req, res) => {
   order.courierId = null;
   await order.save();
 
-  return res.send({ success: true, data: 'Order delivery canceled' });
+  return res.json({ success: true, data: 'Order delivery canceled' });
 };
 
 export const cancelByCourier = ctrlWrapper(controller);
