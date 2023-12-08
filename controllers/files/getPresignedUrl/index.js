@@ -8,7 +8,7 @@ import { hasAccessToCategory } from '../helpers/hasAccessToCategory.js';
 
 export const getPresignedUrl = async (req, res) => {
   const { fileName, fileType, category, fileSize } = req.query;
-  const MAX_FILE_SIZE = 20 * 1025 * 1024;
+  const MAX_FILE_SIZE = 20 * 1024 * 1024;
 
   const userRoles = Object.keys(req.roleIds);
 
