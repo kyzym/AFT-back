@@ -21,6 +21,19 @@ const controller = async (req, res) => {
   // Populate user data, including chef and cart items
   const { chef, items } = await populateUserDetails(userId);
 
+  // If chef wasn't found if the database, clear user's cart
+  if (!chef.id) {
+    const emptyCart = { items: [] };
+    const notExistedChefId = user.cart.chefId;
+    await user.updateOne({ $set: { cart: emptyCart } }).exec();
+
+    return res.status(200).json({
+      success: true,
+      message: `User cart was cleared because the chef with ID ${notExistedChefId} doesn't exist`,
+      cart: { ...emptyCart },
+    });
+  }
+
   return res.status(200).json({
     success: true,
     message: 'User cart successfully found',
