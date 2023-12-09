@@ -26,6 +26,11 @@ export const populateUserDetails = async (userId) => {
     .exec();
 
   const { chefId: chefData, items: cartItems } = populatedUser.cart;
+
+  if (!chefData) {
+    return { chef: { id: null }, items: [] };
+  }
+
   const chefRoleDetails = mapChefData(chefData);
   const items = cartItems.map(mapCartItem);
 

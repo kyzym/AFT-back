@@ -6,6 +6,7 @@ import {
   phoneNumberPattern,
 } from '../../helpers/validation.js';
 import { accountStatus } from '../../constants/accountStatus.js';
+import { workStatus } from '#constants/workStatus.js';
 
 const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 
@@ -20,10 +21,12 @@ const CourierValidationSchema = Joi.object({
     .required(),
   accountStatus: Joi.string()
     .valid(...Object.values(accountStatus))
-    .default(accountStatus.PENDING)
-    .required(),
+    .default(accountStatus.PENDING),
   liqpayKey: Joi.string().required(),
-  isAvailable: Joi.boolean().default(false),
+  isAvailable: Joi.string()
+    .valid(...Object.values(workStatus))
+    .default(workStatus.NON_ACTIVE)
+    .required(),
 });
 
 export default CourierValidationSchema;

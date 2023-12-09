@@ -5,17 +5,26 @@ export const updateChef = async (req, res) => {
   const { chefId } = req.params;
   const chefUpdates = req.body;
 
-  if ('isAvailable' in chefUpdates) {
+  // if ('isAvailable' in chefUpdates) {
+  //   if (
+  //     chefUpdates.isAvailable === null ||
+  //     chefUpdates.isAvailable === undefined
+  //   ) {
+  //     throw new ForbiddenError(
+  //       "You are not allowed to change the 'isAvailable' field"
+  //     );
+  //   }
+  // }
+  if ('accountStatus' in chefUpdates) {
     if (
-      chefUpdates.isAvailable === null ||
-      chefUpdates.isAvailable === undefined
+      chefUpdates.accountStatus === null ||
+      chefUpdates.accountStatus === undefined
     ) {
       throw new ForbiddenError(
-        "You are not allowed to change the 'isAvailable' field"
+        "You are not allowed to change the 'AccountStatus' field"
       );
     }
   }
-
   const updatedChef = await Chef.findByIdAndUpdate(chefId, chefUpdates, {
     new: true,
   });

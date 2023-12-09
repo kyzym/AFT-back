@@ -12,20 +12,13 @@ export const updateChefSwagger = {
     patch: {
       tags: ['Chefs'],
       summary: 'Update a chef',
-      description: 'Update the status of order by ID for chef by their ID.',
+      description: 'Update the chef by ID.',
       parameters: [
         {
           name: 'chefId',
           in: 'path',
           required: true,
           description: 'The unique identifier of the chef',
-          schema: idSchema,
-        },
-        {
-          name: 'orderId',
-          in: 'path',
-          required: true,
-          description: 'The unique identifier of the order to be updated',
           schema: idSchema,
         },
       ],
