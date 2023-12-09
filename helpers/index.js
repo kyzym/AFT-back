@@ -5,3 +5,4 @@ export * from './swaggerResponse.js';
 export * from './compareObjectIds.js';
 export * from './normalizeDecimal.js';
 export * from './calcAmountWithTax.js';
+export * from './orderStatus.js';

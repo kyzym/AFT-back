@@ -10,6 +10,7 @@ import {
 } from '#models/user/userValidation.js';
 import { isValidId, validate } from '#middlewares/index.js';
 import { verifyToken } from '#middlewares/index.js';
+import { roles } from '#constants/roles.js';
 
 const usersRouter = Router();
 
@@ -116,6 +117,14 @@ usersRouter.patch(
   verifyToken(['admin']),
   isValidId('userId'),
   userControllers.changeUserStatus
+);
+
+// orders
+usersRouter.get(
+  '/:userId/orders',
+  verifyToken([roles.USER, roles.ADMIN]),
+  isValidId('userId'),
+  userControllers.order.getAllUserOrders
 );
 
 export default usersRouter;

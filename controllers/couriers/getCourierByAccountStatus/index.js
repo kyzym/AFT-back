@@ -4,6 +4,7 @@ import { NotFoundError } from '../../../helpers/index.js';
 export const getCourierByAccountStatus = async (req, res) => {
   const { accountStatus } = req.params;
   const couriers = await Courier.find({ accountStatus });
+
   if (!couriers) {
     throw new NotFoundError('Couriers not found');
   }

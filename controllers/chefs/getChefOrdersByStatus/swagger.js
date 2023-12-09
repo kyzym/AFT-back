@@ -3,16 +3,24 @@ import { orderStatus } from '../../../constants/orderStatus.js';
 import {
   createErrorResponse,
   createSuccessResponse,
+  idSchema,
   serverError,
 } from '../swaggerChefsComponents.js';
 
 export const getChefOrdersByStatusSwagger = {
-  '/chefs/orders/{status}': {
+  '/chefs/{chefId}/orders/{status}': {
     get: {
       tags: ['Chefs'],
       summary: "Get chef's orders by status",
       description: 'Gets orders for a chef with the specified ID and status',
       parameters: [
+        {
+          name: 'chefId',
+          in: 'path',
+          required: true,
+          description: 'ID of the chef to get',
+          schema: idSchema,
+        },
         {
           name: 'status',
           in: 'path',

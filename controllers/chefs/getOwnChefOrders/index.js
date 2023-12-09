@@ -1,12 +1,21 @@
-import { NotFoundError } from '../../../helpers/index.js';
+import { orderStatus } from '#constants/orderStatus.js';
+import { NotFoundError, getOrderCodeByValue } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const getOwnChefOrders = async (req, res) => {
   const chefId = req.roleIds.chef;
 
+  // TODO: Change status code
+  // const chefOrders = await Order.find({
+  //   chefId,
+  //   status: { $ne: 'new' },
+  // }).populate({
+  //   path: 'items.dishId',
+  //   select: 'name',
+  // });
   const chefOrders = await Order.find({
     chefId,
-    status: { $ne: 'new' },
+    statusCode: { $ne: getOrderCodeByValue(orderStatus.NEW) },
   }).populate({
     path: 'items.dishId',
     select: 'name',

@@ -1,5 +1,9 @@
-import { orderStatus } from '#constants/orderStatus.js';
-import { ForbiddenError, NotFoundError } from '../../../helpers/index.js';
+import { orderStatuses } from '#constants/orderStatus.js';
+import {
+  ForbiddenError,
+  NotFoundError,
+  getOrderCodeByValue,
+} from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const updateChefOwnOrderStatus = async (req, res) => {
@@ -7,7 +11,11 @@ export const updateChefOwnOrderStatus = async (req, res) => {
   const { orderId } = req.params;
   const { status: updateStatus } = req.body;
 
-  if (!orderStatus[updateStatus.toUpperCase()]) {
+  // TODO: Change status code
+  // if (!orderStatus[updateStatus.toUpperCase()]) {
+  //   throw new ForbiddenError('Invalid order status');
+  // }
+  if (!orderStatuses.includes(updateStatus)) {
     throw new ForbiddenError('Invalid order status');
   }
 
@@ -19,9 +27,15 @@ export const updateChefOwnOrderStatus = async (req, res) => {
     throw new ForbiddenError('Access denied: Chef IDs do not match');
   }
 
+  // TODO: Change status code
+  // const newChefOrderStatus = await Order.findByIdAndUpdate(
+  //   orderId,
+  //   { status: updateStatus },
+  //   { new: true }
+  // );
   const newChefOrderStatus = await Order.findByIdAndUpdate(
     orderId,
-    { status: updateStatus },
+    { statusCode: getOrderCodeByValue(updateStatus) },
     { new: true }
   );
 

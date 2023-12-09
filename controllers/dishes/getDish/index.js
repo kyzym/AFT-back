@@ -3,6 +3,7 @@ import { Dish } from '../../../models/index.js';
 
 export const getDish = async (req, res) => {
   const dish = await Dish.findById(req.params.dishId)
+    .select('-isBlocked')
     .populate({
       path: 'owner',
       select: 'id avatar',

@@ -12,7 +12,7 @@ const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 
 const CourierValidationSchema = Joi.object({
   userId: idValidationSchema.required(),
-  avatar: Joi.string().uri().required(),
+  avatar: Joi.string().required(),
   phoneNumber: Joi.string().pattern(phoneNumberPattern).required(),
   address: addressValidationSchema.required(),
   vehicleType: Joi.string()
