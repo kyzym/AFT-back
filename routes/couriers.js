@@ -14,6 +14,11 @@ router.get(
   verifyToken([roles.ADMIN]),
   ctrlWrapper(courierControllers.courierControllers.getCouriers)
 );
+router.get(
+  '/orders',
+  verifyToken([roles.ADMIN, roles.COURIER]),
+  ctrlWrapper(courierControllers.courierControllers.getCourierOrders)
+);
 
 router.get(
   '/:courierId',
@@ -64,13 +69,6 @@ router.get(
   isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getCourierOrdersByStatus)
-);
-
-router.get(
-  '/:courierId/orders',
-  isValidId('courierId'),
-  verifyToken([roles.ADMIN, roles.COURIER]),
-  ctrlWrapper(courierControllers.courierControllers.getCourierOrders)
 );
 
 router.get(

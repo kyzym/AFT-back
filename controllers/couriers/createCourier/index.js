@@ -5,7 +5,7 @@ import User from '#models/user/userModel.js';
 export const createCourier = async (req, res) => {
   const session = await User.startSession();
 
-  const userId = '655eadc79b5f12df707d537c'; //req.user.id
+  const userId = req.body.userId;
   try {
     await session.withTransaction(async () => {
       const existingCourier = await Courier.findOne({ userId: userId });

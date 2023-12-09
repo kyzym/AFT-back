@@ -69,8 +69,7 @@ router.patch(
 );
 
 router.get(
-  '/:chefId/orders/:status',
-  isValidId('chefId'),
+  '/orders/:status',
   verifyToken([roles.ADMIN, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefOrdersByStatus)
 );
