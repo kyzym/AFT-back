@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { addressSchema } from '../schemas/address.schema.js';
 import { accountStatus } from '../../constants/accountStatus.js';
 import { phoneNumberPattern } from '../../helpers/validation.js';
+import { workStatus } from '#constants/workStatus.js';
 // import { getRating } from './helpers.js';
 
 const ObjectId = Schema.Types.ObjectId;
@@ -28,12 +29,12 @@ const ChefSchema = new Schema(
 
     certificate: {
       type: String,
-      //required: [true, "Chef's certificate is required"],
+      required: [true, "Chef's certificate is required"],
     },
     accountStatus: {
       type: String,
       enum: Object.values(accountStatus),
-      required: true,
+      required: false,
       default: accountStatus.PENDING,
     },
     liqpayKey: {
@@ -41,9 +42,10 @@ const ChefSchema = new Schema(
       required: [true, "Chef's LiqPay public key is required"],
     },
     isAvailable: {
-      type: Boolean,
+      type: String,
+      enum: Object.values(workStatus),
       required: true,
-      default: false,
+      default: workStatus.NON_ACTIVE,
     },
   },
   {
@@ -69,6 +71,13 @@ ChefSchema.virtual('user', {
 });
 
 ChefSchema.virtual('rating');
+
+ChefSchema.virtual('user', {
+  ref: 'user',
+  localField: 'userId',
+  foreignField: '_id',
+  justOne: true,
+});
 
 const Chef = model('chef', ChefSchema);
 
