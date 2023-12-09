@@ -1,6 +1,6 @@
 import { CourierSchema } from './swaggerCouriersComponents.js';
 
-import { getCouriersSwagger } from './getCouriers/swagger.js';
+import { getChefsSwagger } from './getCouriers/swagger.js';
 import { getCourierSwagger } from './getCourier/swagger.js';
 import { deleteCourierSwagger } from './deleteCourier/swagger.js';
 import { createCourierSwagger } from './createCourier/swagger.js';
@@ -9,31 +9,25 @@ import { getCourierOrdersByStatusSwagger } from './getCourierOrdersByStatus/swag
 import { updateCourierSwagger } from './updateCourier/swagger.js';
 import { updateCourierOrderSwagger } from './updateCourierOrderStatus/swagger.js';
 import { getCourierByAccountStatusSwagger } from './getCourierByAccountStatus/swagger.js';
-import { getOrdersByStatusSwagger } from './getOrdersByStatus/swagger.js';
 
 const combinedCourierPaths = {
   '/couriers': {
-    ...getCouriersSwagger['/couriers'],
+    ...getChefsSwagger['/api/chefs'],
     ...createCourierSwagger['/couriers'],
   },
-
   '/couriers/{courierId}': {
-    ...getCourierOrdersSwagger['/couriers/{courierId}'],
     ...getCourierSwagger['/couriers/{courierId}'],
     ...updateCourierSwagger['/couriers/{courierId}'],
     ...deleteCourierSwagger['/couriers/{courierId}'],
   },
-  '/couriers/orders': {
-    ...getCourierOrdersSwagger['/couriers/orders'],
+  '/couriers/{courierId}/orders': {
+    ...getCourierOrdersSwagger['/couriers/{courierId}/orders'],
   },
-  '/couriers/allorders/{status}': {
-    ...getOrdersByStatusSwagger['/couriers/allorders/{status}'],
+  '/couriers/{courierId}/orders/{status}': {
+    ...getCourierOrdersByStatusSwagger['/couriers/{courierId}/orders/{status}'],
   },
-  '/couriers/orders/{status}': {
-    ...getCourierOrdersByStatusSwagger['/couriers/orders/{status}'],
-  },
-  '/couriers/orders/{orderId}': {
-    ...updateCourierOrderSwagger['/couriers/orders/{orderId}'],
+  '/couriers/{courierId}}/orders/{orderId}': {
+    ...updateCourierOrderSwagger['/courier/{courierId}/orders/{status}'],
   },
   '/couriers/accountStatus/{accountStatus}': {
     ...getCourierByAccountStatusSwagger[

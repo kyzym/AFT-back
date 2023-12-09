@@ -19,3 +19,5 @@ export * from './manage-cart/get/index.js';
 export * from './manage-cart/clear/index.js';
 
 export * from './change-status/index.js';
+
+export * as order from './orders/index.js';
