@@ -3,11 +3,11 @@ import { NotFoundError } from '../../../helpers/errors.js';
 
 export const updateCourierAvailableStatus = async (req, res) => {
   const courierId = req.params.courierId;
-  const { isAvailable } = req.body;
+  const { accountStatus } = req.body;
 
   const updatedCourier = await Courier.findByIdAndUpdate(
     courierId,
-    { isAvailable },
+    { accountStatus },
     { new: true }
   );
 
@@ -17,5 +17,5 @@ export const updateCourierAvailableStatus = async (req, res) => {
 
   res
     .status(200)
-    .json({ message: `Courier available status updated to ${isAvailable}` });
+    .json({ message: `Courier available status updated to ${accountStatus}` });
 };

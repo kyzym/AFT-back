@@ -5,13 +5,13 @@ export const updateCourier = async (req, res) => {
   const courierId = req.params.courierId;
   const courierUpdates = req.body;
 
-  if ('isAvailable' in courierUpdates) {
+  if ('accountStatus' in courierUpdates) {
     if (
-      courierUpdates.isAvailable === null ||
-      courierUpdates.isAvailable === undefined
+      courierUpdates.accountStatus === null ||
+      courierUpdates.accountStatus === undefined
     ) {
       throw new ForbiddenError(
-        "You are not allowed to change the 'isAvailable' field"
+        "You are not allowed to change the 'accountStatus' field"
       );
     }
   }

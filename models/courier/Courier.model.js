@@ -3,6 +3,7 @@ import { vehicleType } from '../../constants/vehicleType.js';
 import { phoneNumberPattern } from '../../helpers/validation.js';
 import { accountStatus } from '../../constants/accountStatus.js';
 import { addressSchema } from '#models/schemas/address.schema.js';
+import { workStatus } from '#constants/workStatus.js';
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -34,7 +35,7 @@ const CourierSchema = new Schema(
     accountStatus: {
       type: String,
       enum: Object.values(accountStatus),
-      required: true,
+      required: false,
       default: accountStatus.PENDING,
     },
     liqpayKey: {
@@ -42,9 +43,10 @@ const CourierSchema = new Schema(
       required: [true, "Courier's LiqPay public key is required"],
     },
     isAvailable: {
-      type: Boolean,
+      type: String,
+      enum: Object.values(workStatus),
       required: true,
-      default: false,
+      default: workStatus.NON_ACTIVE,
     },
   },
   {
