@@ -1,6 +1,10 @@
 import { orderStatus } from '#constants/orderStatus.js';
 import { transactionAction } from '#constants/transactionAction.js';
-import { NotFoundError, normalizeDecimal } from '#helpers/index.js';
+import {
+  NotFoundError,
+  getOrderCodeByValue,
+  normalizeDecimal,
+} from '#helpers/index.js';
 import { ctrlWrapper } from '#middlewares/index.js';
 import Order from '#models/order/index.js';
 import { createTransaction } from '../helpers.js';
@@ -33,7 +37,8 @@ const controller = async (req, res, next) => {
 
       if (!order) throw new NotFoundError('Order not found');
 
-      if (order.status !== orderStatus.NEW) return res.status(200).json('Ok');
+      if (order.statusCode !== getOrderCodeByValue(orderStatus.NEW))
+        return res.status(200).json('Ok');
 
       await createTransaction(order, transactionData);
     });

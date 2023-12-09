@@ -2,7 +2,7 @@ import { NotFoundError } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const getChefOrders = async (req, res) => {
-  const chefId = req.roleIds.chef;
+  const chefId = req.params.chefId;
 
   const chefOrders = await Order.find({ chefId });
 

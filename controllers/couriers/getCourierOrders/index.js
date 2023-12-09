@@ -1,9 +1,11 @@
-import { NotFoundError } from '#helpers/errors.js';
+import { NotFoundError } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const getCourierOrders = async (req, res) => {
-  const courierId = req.roleIds.courier;
+  const courierId = req.params.courierId;
+
   const courierOrders = await Order.find({ courierId });
+
   if (!courierOrders) {
     throw new NotFoundError('Orders for courier not found');
   }

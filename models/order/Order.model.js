@@ -1,8 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
-import { orderStatus } from '../../constants/index.js';
+import { orderStatus, orderStatuses } from '../../constants/index.js';
 import { addressSchema, orderItemSchema } from '../schemas/index.js';
 import { isEmailValid, phoneNumberPattern } from '#helpers/validation.js';
 import { normalizeDecimal } from '#helpers/normalizeDecimal.js';
+import {
+  getOrderCodeByValue,
+  getOrderStatusByIndex,
+} from '#helpers/orderStatus.js';
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -87,14 +91,22 @@ const orderSchema = new Schema(
       default: null,
     },
 
-    status: {
-      type: String,
-      enum: {
-        values: Object.values(orderStatus),
-        message: 'Invalid order status',
-      },
+    // status: {
+    //   type: String,
+    //   enum: {
+    //     values: Object.values(orderStatus),
+    //     message: 'Invalid order status',
+    //   },
+    //   required: true,
+    //   default: orderStatus.NEW,
+    // },
+
+    statusCode: {
+      type: Number,
+      min: [0, 'Minimum status code is {VALUE}'],
+      max: [orderStatuses.length - 1, 'Maximum status code is {VALUE}'],
       required: true,
-      default: orderStatus.NEW,
+      default: getOrderCodeByValue(orderStatus.NEW),
     },
 
     paymentTransaction: { type: ObjectId, ref: 'transaction', default: null },
@@ -136,6 +148,10 @@ orderSchema.virtual('courier', {
 orderSchema.virtual('totalPrice').get(function () {
   const { tax, delivery, chef, bankCommission } = this.summaryPrice;
   return normalizeDecimal(tax + delivery + chef + bankCommission);
+});
+
+orderSchema.virtual('status').get(function () {
+  return getOrderStatusByIndex(this.statusCode);
 });
 
 orderSchema.virtual('isPaid').get(function () {

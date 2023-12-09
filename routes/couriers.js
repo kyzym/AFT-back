@@ -10,12 +10,6 @@ import { roles } from '#constants/roles.js';
 const router = express.Router();
 
 router.get(
-  '/orders',
-  verifyToken([roles.ADMIN, roles.COURIER]),
-  ctrlWrapper(courierControllers.courierControllers.getCourierOrders)
-);
-
-router.get(
   '/',
   verifyToken([roles.ADMIN]),
   ctrlWrapper(courierControllers.courierControllers.getCouriers)
@@ -23,21 +17,21 @@ router.get(
 
 router.get(
   '/:courierId',
-  //isValidId('courierId'),
+  isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER, roles.USER, roles.CHEF]),
   ctrlWrapper(courierControllers.courierControllers.getCourier)
 );
 
 router.patch(
   '/:courierId',
-  //isValidId('courierID'),
+  isValidId('courierID'),
   verifyToken([roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.updateCourier)
 );
 
 router.patch(
   '/:courierId',
-  //isValidId('courierId'),
+  isValidId('courierId'),
   verifyToken([roles.ADMIN]),
   ctrlWrapper(
     courierControllers.courierControllers.updateCourierAvailableStatus
@@ -59,22 +53,24 @@ router.post(
 );
 
 router.patch(
-  '/orders/:orderId',
-  isValidId(['orderId']),
+  '/:courierId/orders/:orderId',
+  isValidId(['courierId', 'orderId']),
   verifyToken([roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.updateCourierOrderStatus)
 );
 
 router.get(
-  '/orders/:status',
+  '/:courierId/orders/:status',
+  isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getCourierOrdersByStatus)
 );
 
 router.get(
-  '/allorders/:status',
+  '/:courierId/orders',
+  isValidId('courierId'),
   verifyToken([roles.ADMIN, roles.COURIER]),
-  ctrlWrapper(courierControllers.courierControllers.getOrdersByStatus)
+  ctrlWrapper(courierControllers.courierControllers.getCourierOrders)
 );
 
 router.get(

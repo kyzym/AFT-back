@@ -1,11 +1,15 @@
-import { NotFoundError } from '../../../helpers/index.js';
+import { NotFoundError, getOrderCodeByValue } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const getChefOrdersByStatus = async (req, res) => {
-  const { status } = req.params;
-  const chefId = req.roleIds.chef;
+  const { chefId, status } = req.params;
 
-  const chefOrdersByStatus = await Order.find({ chefId, status });
+  // TODO: Change status code
+  // const chefOrdersByStatus = await Order.find({ chefId, status });
+  const chefOrdersByStatus = await Order.find({
+    chefId,
+    statusCode: getOrderCodeByValue(status),
+  });
 
   if (!chefOrdersByStatus) {
     throw new NotFoundError(`Orders for chef with status ${status} not found`);

@@ -1,4 +1,4 @@
-import { orderStatus } from '#constants/orderStatus.js';
+import { orderStatus, orderStatuses } from '#constants/orderStatus.js';
 import { paymentStatus } from '#constants/paymentStatus.js';
 import { BaseDishSchema } from '#controllers/dishes/swaggerDishesComponents.js';
 import { AddressSchema, objectId } from '#controllers/swagger.common.js';
@@ -65,6 +65,10 @@ export const OrderSchema = {
           type: 'number',
           min: 0.01,
         },
+        bankCommission: {
+          type: 'number',
+          min: 0.01,
+        },
       },
     },
     totalPrice: {
@@ -92,6 +96,12 @@ export const OrderSchema = {
     additionalInfo: {
       type: 'string',
       maxLength: 400,
+    },
+    statusCode: {
+      type: 'number',
+      minimum: 0,
+      maximum: orderStatuses.length - 1,
+      default: 0,
     },
     status: {
       type: 'string',

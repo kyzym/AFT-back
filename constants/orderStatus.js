@@ -3,8 +3,9 @@ export const orderStatus = Object.freeze({
   PENDING: 'pending',
   ACCEPTED: 'accepted',
   COOKING: 'cooking',
-  READYTODELIVERY: 'readyToDelivery',
+  READY_TO_DELIVERY: 'readyToDelivery',
   DELIVERING: 'delivering',
   COMPLETED: 'completed',
   CANCELED: 'canceled',
 });
+export const orderStatuses = Object.values(orderStatus);
