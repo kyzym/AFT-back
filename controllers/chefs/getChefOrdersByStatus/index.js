@@ -9,7 +9,6 @@ export const getChefOrdersByStatus = async (req, res) => {
     chefId,
     statusCode: getOrderCodeByValue(status),
   });
-  console.log(status, getOrderCodeByValue(status));
   if (!chefOrdersByStatus) {
     throw new NotFoundError(`Orders for chef with status ${status} not found`);
   }

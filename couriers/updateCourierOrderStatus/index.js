@@ -61,7 +61,6 @@ export const updateCourierOrderStatus = async (req, res) => {
       { courierId: courierId, status: updateStatus },
       { new: true }
     );
-    console.log(courierId, 'good');
   } else if (order.courierId && order.courierId.toString() !== courierId) {
     throw new ForbiddenError('Access denied: Courier IDs do not match');
   } else {
@@ -70,7 +69,6 @@ export const updateCourierOrderStatus = async (req, res) => {
       { status: updateStatus },
       { new: true }
     );
-    console.log('cool');
   }
 
   res.status(200).json(newCourierOrderStatus);

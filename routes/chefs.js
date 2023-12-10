@@ -16,6 +16,11 @@ router.get(
 );
 
 router.get(
+  '/popular',
+  ctrlWrapper(chefControllers.chefControllers.getPopularChefs)
+);
+
+router.get(
   '/orders',
   verifyToken([roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getOwnChefOrders)
