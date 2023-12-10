@@ -52,8 +52,7 @@ import {
 import Order from '../../../models/order/Order.model.js';
 
 export const updateCourierOrderStatus = async (req, res) => {
-  const courierId = '6571051b4bf4c4bafef01361';
-  // req.roleIds.courier;
+  const courierId = req.roleIds.courier;
   const { orderId } = req.params;
   const { status: updateStatus } = req.body;
 

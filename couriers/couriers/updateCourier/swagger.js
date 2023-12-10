@@ -7,12 +7,12 @@ import {
   serverError,
 } from '../swaggerCouriersComponents.js';
 
-export const updateCourierOrderSwagger = {
-  '/couriers/orders/{orderId}': {
+export const updateCourierSwagger = {
+  '/couriers/{courierId}': {
     patch: {
       tags: ['Couriers'],
-      summary: 'Update order status',
-      description: 'Update the status of order by ID for courier by their ID.',
+      summary: 'Update a courier',
+      description: 'Update the status of order by ID for chef by their ID.',
       parameters: [
         {
           name: 'courierId',
@@ -21,16 +21,10 @@ export const updateCourierOrderSwagger = {
           description: 'The unique identifier of the courier',
           schema: idSchema,
         },
-        {
-          name: 'orderId',
-          in: 'path',
-          required: true,
-          description: 'The unique identifier of the order to be updated',
-          schema: idSchema,
-        },
       ],
+      security: [{ bearerAuth: [roles.ADMIN, roles.COURIER] }],
       requestBody: {
-        description: 'Data for updating the status of the order',
+        description: 'Data for updating the courier',
         required: true,
         content: {
           'application/json': {
@@ -38,11 +32,9 @@ export const updateCourierOrderSwagger = {
           },
         },
       },
-      security: [{ bearerAuth: [roles.COURIER, roles.ADMIN] }],
       responses: {
         200: createSuccessResponse('Status updated successfully'),
         400: createErrorResponse('Format of this ID is not correct'),
-        404: createErrorResponse('Order not found'),
         500: serverError,
       },
     },

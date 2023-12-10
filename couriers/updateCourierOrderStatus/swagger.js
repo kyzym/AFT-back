@@ -14,13 +14,13 @@ export const updateCourierOrderSwagger = {
       summary: 'Update order status',
       description: 'Update the status of order by ID for courier by their ID.',
       parameters: [
-        {
-          name: 'courierId',
-          in: 'path',
-          required: true,
-          description: 'The unique identifier of the courier',
-          schema: idSchema,
-        },
+        // {
+        //   name: 'courierId',
+        //   in: 'path',
+        //   required: true,
+        //   description: 'The unique identifier of the courier',
+        //   schema: idSchema,
+        // },
         {
           name: 'orderId',
           in: 'path',

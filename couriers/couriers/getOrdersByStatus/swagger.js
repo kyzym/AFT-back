@@ -1,17 +1,27 @@
+import { roles } from '#constants/roles.js';
 import { orderStatus } from '../../../constants/orderStatus.js';
 import {
   createErrorResponse,
   createSuccessResponse,
+  //idSchema,
   serverError,
 } from '../swaggerCouriersComponents.js';
 
-export const getCourierOrdersByStatusSwagger = {
-  '/couriers/orders/{status}': {
+export const getOrdersByStatusSwagger = {
+  '/couriers/allorders/{status}': {
     get: {
       tags: ['Couriers'],
-      summary: "Get courier's orders by status",
-      description: 'Gets orders for a courier with the specified ID and status',
+      summary: 'Get orders for courier by status',
+      description:
+        'Gets orders for a couriers with the specified ID and status',
       parameters: [
+        // {
+        //   name: 'courierId',
+        //   in: 'path',
+        //   required: true,
+        //   description: 'ID of the courier to get',
+        //   schema: idSchema,
+        // },
         {
           name: 'status',
           in: 'path',
@@ -23,6 +33,7 @@ export const getCourierOrdersByStatusSwagger = {
           },
         },
       ],
+      security: [{ bearerAuth: [roles.ADMIN, roles.COURIER] }],
       responses: {
         200: createSuccessResponse('Orders by status retrieved successfully'),
         400: createErrorResponse('Format of this ID is not correct'),
