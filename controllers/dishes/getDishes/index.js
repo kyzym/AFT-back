@@ -50,10 +50,12 @@ export const getDishes = async (req, res) => {
 
   const dishes = await query.exec();
 
+  const transformedDishes = dishes.map((dish) => dish.toJSON());
+
   const total = await Dish.countDocuments(query.getFilter());
 
   res.status(200).json({
-    dishes,
+    dishes: transformedDishes,
     pageInfo: {
       total,
       currentPage: page,

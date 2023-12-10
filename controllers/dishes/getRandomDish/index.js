@@ -5,7 +5,7 @@ export const getRandomDish = async (_req, res) => {
 
   const randomDish = await Dish.aggregate([{ $sample: { size: sampleSize } }]);
 
-  const dish = randomDish[0] || null;
+  const dish = Dish.hydrate(randomDish[0] || null);
 
-  res.status(200).json(dish);
+  res.status(200).json(dish.toObject({ virtuals: true }));
 };
