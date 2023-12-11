@@ -10,6 +10,8 @@ export const selectOrderData = (data) =>
       createdAt,
       chef,
       isPaid,
+      additionalInfo,
+      deliveryInfo,
     }) => ({
       id,
       orderNumber,
@@ -19,6 +21,8 @@ export const selectOrderData = (data) =>
       createdAt,
       isPaid,
       totalPrice,
+      additionalInfo,
+      deliveryInfo,
       chef: {
         id: chef.id,
         fullName: `${chef.user.firstName} ${chef.user.lastName}`,
