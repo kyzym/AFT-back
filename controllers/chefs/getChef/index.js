@@ -13,7 +13,6 @@ export const getChef = async (req, res) => {
 
   const rating = parseFloat(await getRating(req.params.chefId));
   chef['rating'] = rating;
-  console.log(chef['rating']);
 
   res.status(200).json(chef);
 };
