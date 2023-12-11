@@ -19,3 +19,18 @@ export const addressSchema = new Schema(
   },
   { _id: false }
 );
+
+export const userAddressSchema = new Schema(
+  {
+    country: { type: String, default: '' },
+    city: { type: String, default: '' },
+    street: { type: String, default: '' },
+    houseNumber: { type: String, default: '' },
+    apartment: { type: String, default: null },
+    coordinate: {
+      type: coordinateSchema,
+      default: null,
+    },
+  },
+  { _id: false }
+);
