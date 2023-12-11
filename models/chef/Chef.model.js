@@ -62,6 +62,7 @@ ChefSchema.set('toJSON', {
     delete ret._id;
   },
 });
+ChefSchema.set('toObject', { virtuals: true });
 
 ChefSchema.virtual('user', {
   ref: 'user',
@@ -71,13 +72,6 @@ ChefSchema.virtual('user', {
 });
 
 ChefSchema.virtual('rating');
-
-ChefSchema.virtual('user', {
-  ref: 'user',
-  localField: 'userId',
-  foreignField: '_id',
-  justOne: true,
-});
 
 const Chef = model('chef', ChefSchema);
 
