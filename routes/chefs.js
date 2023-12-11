@@ -14,7 +14,6 @@ router.get(
   // verifyToken([roles.ADMIN, roles.USER, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefs)
 );
-
 router.get(
   '/orders',
   verifyToken([roles.CHEF]),
@@ -73,13 +72,6 @@ router.get(
   isValidId('chefId'),
   verifyToken([roles.ADMIN, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefOrdersByStatus)
-);
-
-router.get(
-  '/:chefId/orders',
-  isValidId('chefId'),
-  verifyToken([roles.ADMIN]),
-  ctrlWrapper(chefControllers.chefControllers.getChefOrders)
 );
 
 export default router;
