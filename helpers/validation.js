@@ -15,7 +15,7 @@ export const isObjectId = (value, helpers) => {
 
 export const idValidationSchema = Joi.string().custom(isObjectId, 'Invalid id');
 
-export const addressValidationSchema = Joi.object().keys({
+export const addressValidationFields = {
   country: Joi.string()
     .trim()
     .min(1)
@@ -62,6 +62,10 @@ export const addressValidationSchema = Joi.object().keys({
     })
     .allow(null)
     .optional(),
+};
+
+export const addressValidationSchema = Joi.object().keys({
+  ...addressValidationFields,
 });
 
 // Phone number should follow the pattern, for example: +38(050)1234567

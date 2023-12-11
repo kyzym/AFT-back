@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { addressSchema } from '../schemas/index.js';
+import { userAddressSchema } from '../schemas/index.js';
 import { accountStatus } from '../../constants/index.js';
 import { emailPattern, phoneNumberPattern } from '../../helpers/index.js';
 import { getDefaultRoles, roleSchema } from './roleSchema.js';
@@ -40,7 +40,7 @@ const userSchema = new Schema(
       },
     },
     avatar: String,
-    address: addressSchema,
+    address: userAddressSchema,
     phoneNumber: {
       type: String,
       validate: {

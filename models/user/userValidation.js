@@ -1,16 +1,24 @@
 import Joi from 'joi';
 import {
   phoneNumberPattern,
-  addressValidationSchema,
   idValidationSchema,
   passwordPattern,
-} from '../../helpers/index.js';
-import { accountStatus } from '../../constants/index.js';
+  addressValidationFields,
+} from '#helpers/index.js';
+import { accountStatus } from '#constants/index.js';
 import { roleValidationSchema } from './roleSchema.js';
 
 export const cartItemValidationSchema = Joi.object({
   dishId: idValidationSchema.required(),
   count: Joi.number().integer().min(1).required().strict(true),
+});
+
+const userAddressValidationSchema = Joi.object({
+  ...addressValidationFields,
+  country: addressValidationFields.country.allow(''),
+  city: addressValidationFields.city.allow(''),
+  street: addressValidationFields.street.allow(''),
+  houseNumber: addressValidationFields.houseNumber.allow(''),
 });
 
 const userValidationFields = {
@@ -26,7 +34,7 @@ const userValidationFields = {
     .required(),
   email: Joi.string().email().required(),
   avatar: Joi.string().allow(''),
-  address: addressValidationSchema,
+  address: userAddressValidationSchema,
   phoneNumber: Joi.string()
     .pattern(phoneNumberPattern)
     .messages({
@@ -46,7 +54,7 @@ const userValidationFields = {
     .default(accountStatus.ACTIVE),
 };
 
-const { firstName, lastName, password, email, avatar, address, phoneNumber } =
+const { firstName, lastName, password, email, avatar, phoneNumber } =
   userValidationFields;
 
 export const userValidationSchema = Joi.object({ ...userValidationFields });
@@ -71,9 +79,10 @@ export const updateUserValidationSchema = Joi.object({
   firstName: userValidationFields.firstName.optional(),
   lastName: userValidationFields.lastName.optional(),
   email: userValidationFields.email.optional(),
-  password: userValidationFields.password.optional(),
+  currentPassword: userValidationFields.password.allow(''),
+  newPassword: userValidationFields.password.allow(''),
   avatar,
-  address,
+  address: userAddressValidationSchema,
   phoneNumber,
 });
 

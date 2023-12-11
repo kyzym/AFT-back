@@ -119,10 +119,11 @@ const orderSchema = new Schema(
         ret.id = ret._id;
         delete ret._id;
       },
-      virtuals: true,
     },
   }
 );
+orderSchema.set('toObject', { virtuals: true });
+orderSchema.set('toJSON', { virtuals: true });
 
 orderSchema.virtual('user', {
   ref: 'user',
