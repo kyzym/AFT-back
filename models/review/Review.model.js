@@ -1,3 +1,4 @@
+import { Dish } from '#models/index.js';
 import { Schema, model } from 'mongoose';
 
 const reviewSchema = new Schema(
@@ -19,6 +20,35 @@ const reviewSchema = new Schema(
     },
   }
 );
+
+reviewSchema.post('save', async function () {
+  await updateAverageRating(this.dish);
+});
+
+reviewSchema.post('findOneAndUpdate', async function () {
+  await updateAverageRating(this.getQuery().dish);
+});
+
+async function updateAverageRating(dishId) {
+  const aggregateResult = await Review.aggregate([
+    { $match: { dish: dishId } },
+    {
+      $group: {
+        _id: null,
+        averageRating: { $avg: '$rating' },
+        ratingCount: { $sum: 1 },
+      },
+    },
+  ]);
+
+  if (aggregateResult.length > 0) {
+    const { averageRating, ratingCount } = aggregateResult[0];
+    await Dish.findByIdAndUpdate(dishId, {
+      averageRating,
+      ratingCount,
+    });
+  }
+}
 
 reviewSchema.post('save', (error, data, next) => {
   error.status = 400;
