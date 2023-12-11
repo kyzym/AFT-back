@@ -14,12 +14,9 @@ const controller = async (req, res) => {
         select: { firstName: true, lastName: true },
       },
     })
-    .populate('items.dish', 'name image')
+    .populate('items.dish', 'name image price')
     .select({
       __v: false,
-      deliveryInfo: false,
-      additionalInfo: false,
-      paymentTransaction: false,
       items: {
         createdAt: false,
         updatedAt: false,
@@ -28,7 +25,7 @@ const controller = async (req, res) => {
     .sort('statusCode -createdAt')
     .exec();
 
-  return res.json({ success: true, data: selectOrderData(data) });
+  return res.json({ success: true, data: { orders: selectOrderData(data) } });
 };
 
 export const getAllUserOrders = ctrlWrapper(controller);
