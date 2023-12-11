@@ -9,6 +9,7 @@ import { getCourierOrdersByStatusSwagger } from './getCourierOrdersByStatus/swag
 import { updateCourierSwagger } from './updateCourier/swagger.js';
 import { updateCourierOrderSwagger } from './updateCourierOrderStatus/swagger.js';
 import { getCourierByAccountStatusSwagger } from './getCourierByAccountStatus/swagger.js';
+import { getOrdersByStatusSwagger } from './getOrdersByStatus/swagger.js';
 
 const combinedCourierPaths = {
   '/couriers': {
@@ -20,19 +21,22 @@ const combinedCourierPaths = {
     ...updateCourierSwagger['/couriers/{courierId}'],
     ...deleteCourierSwagger['/couriers/{courierId}'],
   },
-  '/couriers/{courierId}/orders': {
-    ...getCourierOrdersSwagger['/couriers/{courierId}/orders'],
+  '/couriers/orders': {
+    ...getCourierOrdersSwagger['/couriers/orders'],
   },
-  '/couriers/{courierId}/orders/{status}': {
-    ...getCourierOrdersByStatusSwagger['/couriers/{courierId}/orders/{status}'],
+  '/couriers/orders/{status}': {
+    ...getCourierOrdersByStatusSwagger['/couriers/orders/{status}'],
   },
-  '/couriers/{courierId}}/orders/{orderId}': {
-    ...updateCourierOrderSwagger['/courier/{courierId}/orders/{status}'],
+  '/couriers/orders/{orderId}': {
+    ...updateCourierOrderSwagger['/couriers/orders/{status}'],
   },
   '/couriers/accountStatus/{accountStatus}': {
     ...getCourierByAccountStatusSwagger[
       '/couriers/accountStatus/{accountStatus}'
     ],
+  },
+  '/couriers/allorders/{status}': {
+    ...getOrdersByStatusSwagger['/couriers/allorders/{status}'],
   },
 };
 

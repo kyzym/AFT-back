@@ -12,6 +12,7 @@ import { getChefOrdersByStatus } from './getChefOrdersByStatus/index.js';
 import { updateChefOrderStatus } from './updateChefOrderStatus/index.js';
 import { getOwnChefOrders } from './getOwnChefOrders/index.js';
 import { updateChefOwnOrderStatus } from './updateChefOwnOrderStatus/index.js';
+import { getPopularChefs } from './popularChefs/index.js';
 
 export const chefControllers = {
   getChefs,
@@ -25,4 +26,5 @@ export const chefControllers = {
   updateChefOrderStatus,
   updateChefOwnOrderStatus,
   getOwnChefOrders,
+  getPopularChefs,
 };

@@ -15,6 +15,11 @@ router.get(
   ctrlWrapper(chefControllers.chefControllers.getChefs)
 );
 router.get(
+  '/popular',
+  ctrlWrapper(chefControllers.chefControllers.getPopularChefs)
+);
+
+router.get(
   '/orders',
   verifyToken([roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getOwnChefOrders)
@@ -68,8 +73,7 @@ router.patch(
 );
 
 router.get(
-  '/:chefId/orders/:status',
-  isValidId('chefId'),
+  '/orders/:status',
   verifyToken([roles.ADMIN, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefOrdersByStatus)
 );

@@ -52,8 +52,7 @@ import {
 import Order from '../../../models/order/Order.model.js';
 
 export const updateCourierOrderStatus = async (req, res) => {
-  const courierId = '6571051b4bf4c4bafef01361';
-  // req.roleIds.courier;
+  const courierId = req.roleIds.courier;
   const { orderId } = req.params;
   const { status: updateStatus } = req.body;
 
@@ -101,7 +100,6 @@ export const updateCourierOrderStatus = async (req, res) => {
       { courierId: courierId, statusCode: getOrderCodeByValue(updateStatus) },
       { new: true }
     );
-    console.log(courierId, 'good');
   } else if (order.courierId && order.courierId.toString() !== courierId) {
     throw new ForbiddenError('Access denied: Courier IDs do not match');
   } else {
@@ -110,7 +108,6 @@ export const updateCourierOrderStatus = async (req, res) => {
       { statusCode: getOrderCodeByValue(updateStatus) },
       { new: true }
     );
-    console.log('cool');
   }
 
   res.status(200).json(newCourierOrderStatus);

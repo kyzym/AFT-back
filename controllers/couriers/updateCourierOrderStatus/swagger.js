@@ -8,7 +8,7 @@ import {
 } from '../swaggerCouriersComponents.js';
 
 export const updateCourierOrderSwagger = {
-  '/couriers/{courierId}/orders/{orderId}': {
+  '/couriers/orders/{orderId}': {
     patch: {
       tags: ['Couriers'],
       summary: 'Update order status',
