@@ -84,6 +84,8 @@ const dishSchema = new Schema(
       max: 3,
       default: 0,
     },
+    averageRating: { type: Number, default: 0 },
+    ratingCount: { type: Number, default: 0 },
   },
   {
     versionKey: false,
@@ -98,6 +100,14 @@ const dishSchema = new Schema(
     },
   }
 );
+
+dishSchema.virtual('chefDetails', {
+  ref: 'chef',
+  localField: 'owner',
+  foreignField: '_id',
+  justOne: true,
+  select: 'name avatar',
+});
 
 const Dish = model('dish', dishSchema);
 
