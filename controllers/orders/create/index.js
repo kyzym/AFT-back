@@ -7,6 +7,7 @@ import {
   getItemsInfo,
 } from './helpers.js';
 import Order from '#models/order/Order.model.js';
+import { createNewOrderNotificationForChef } from '#controllers/notifications/services/createNewOrderNotificationForChef.js';
 
 const controller = async (req, res) => {
   const {
@@ -45,6 +46,8 @@ const controller = async (req, res) => {
     additionalInfo,
     items: dishes,
   });
+
+  await createNewOrderNotificationForChef(chefId, order.orderNumber);
 
   const data = await order.save();
 
