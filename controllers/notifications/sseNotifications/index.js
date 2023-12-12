@@ -1,10 +1,7 @@
+import { roles } from '#constants/roles.js';
 import Notification from '#models/notifications/Notifications.model.js';
 
 export const sseNotifications = async (req, res) => {
-  // const userId = req.user._id;
-  // const chefId = req.roleIds.chef;
-  const userId = req.roleIds.user;
-  // console.log(req);
   res.set({
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
@@ -15,8 +12,28 @@ export const sseNotifications = async (req, res) => {
   });
 
   const sendNotifications = async () => {
-    const notifications = await Notification.find({ userId, read: false });
+    const roleFilters = [
+      { 'roles.name': roles.USER, 'roles.id': req.user._id },
+    ];
 
+    if (req.roleIds.chef) {
+      roleFilters.push({
+        'roles.name': roles.CHEF,
+        'roles.id': req.roleIds.chef,
+      });
+    }
+
+    if (req.roleIds.courier) {
+      roleFilters.push({
+        'roles.name': roles.COURIER,
+        'roles.id': req.roleIds.courier,
+      });
+    }
+
+    const notifications = await Notification.find({
+      userId: req.user._id,
+      $or: roleFilters,
+    });
     res.write(`data: ${JSON.stringify(notifications)}\n\n`);
   };
 
