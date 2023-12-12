@@ -1,4 +1,5 @@
 import { orderStatuses } from '#constants/orderStatus.js';
+import { createOrderStatusNotificationForUser } from '#controllers/notifications/services/createOrderStatusNotificationForUser.js';
 import {
   ForbiddenError,
   NotFoundError,
@@ -38,6 +39,14 @@ export const updateChefOwnOrderStatus = async (req, res) => {
     { statusCode: getOrderCodeByValue(updateStatus) },
     { new: true }
   );
+
+  if (newChefOrderStatus) {
+    await createOrderStatusNotificationForUser(
+      orderId,
+      order.userId,
+      updateStatus
+    );
+  }
 
   res.status(200).json(newChefOrderStatus);
 };

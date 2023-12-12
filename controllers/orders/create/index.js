@@ -45,6 +45,7 @@ const controller = async (req, res) => {
     additionalInfo,
     items: dishes,
   });
+
   const data = await order.save();
 
   return res.status(201).json({
