@@ -44,6 +44,7 @@
 // };
 
 import { orderStatus, orderStatuses } from '#constants/orderStatus.js';
+import { createOrderStatusChangeNotificationForCourier } from '#controllers/notifications/services/createOrderStatusChangeNotificationForCourier.js';
 import {
   ForbiddenError,
   NotFoundError,
@@ -100,6 +101,14 @@ export const updateCourierOrderStatus = async (req, res) => {
       { courierId: courierId, statusCode: getOrderCodeByValue(updateStatus) },
       { new: true }
     );
+
+    if (newCourierOrderStatus) {
+      await createOrderStatusChangeNotificationForCourier(
+        courierId,
+        orderId,
+        updateStatus
+      );
+    }
   } else if (order.courierId && order.courierId.toString() !== courierId) {
     throw new ForbiddenError('Access denied: Courier IDs do not match');
   } else {
