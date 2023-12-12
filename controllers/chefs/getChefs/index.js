@@ -1,4 +1,3 @@
-import { workStatus } from '#constants/workStatus.js';
 import { getRating } from '#helpers/getRating.js';
 import Chef from '../../../models/chef/Chef.model.js';
 
@@ -7,7 +6,6 @@ export const getChefs = async (req, res) => {
 
   if (req.query.isAvailable) {
     query.where({ isAvailable: req.query.isAvailable });
-
   }
   const chefs = await query.exec();
   let chefsList = [];
@@ -15,7 +13,6 @@ export const getChefs = async (req, res) => {
     const regex = new RegExp(req.query.name, 'i');
     for (const chef of chefs) {
       if ((chef.userId.firstName + ' ' + chef.userId.lastName).match(regex)) {
-
         chefsList.push(chef);
       }
     }
@@ -26,9 +23,7 @@ export const getChefs = async (req, res) => {
   const promises = chefs.map((chef) => getRating(chef.id));
   const ratings = await Promise.all(promises);
 
-
   let mappedChefs = chefsList.map((chef, index) => {
-
     chef.rating = ratings[index];
     return chef;
   });
