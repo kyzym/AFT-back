@@ -1,3 +1,4 @@
+import { getRating } from '#helpers/getRating.js';
 import Chef from '#models/chef/Chef.model.js';
 import Dish from '#models/dish/dishModel.js';
 
@@ -9,7 +10,7 @@ export const getFavoritesFromDB = async (type, userFavoritesArray) => {
       )
       .exec();
   } else if (type === 'chefs') {
-    return await Chef.aggregate([
+    const favoriteChefs = await Chef.aggregate([
       { $match: { _id: { $in: userFavoritesArray } } },
       {
         $lookup: {
@@ -32,5 +33,12 @@ export const getFavoritesFromDB = async (type, userFavoritesArray) => {
         },
       },
     ]);
+    const promises = favoriteChefs.map((chef) => getRating(chef._id));
+    const ratings = await Promise.all(promises);
+    favoriteChefs.map((chef, index) => {
+      chef.rating = ratings[index];
+      return chef;
+    });
+    return favoriteChefs;
   }
 };

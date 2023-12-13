@@ -9,7 +9,7 @@ const ObjectId = Schema.Types.ObjectId;
 
 const CourierSchema = new Schema(
   {
-    userId: { type: ObjectId, ref: 'User', required: true },
+    userId: { type: ObjectId, ref: 'user', required: true },
     avatar: {
       type: String,
       required: [true, "Courier's photo is required"],
@@ -62,7 +62,21 @@ const CourierSchema = new Schema(
     },
   }
 );
+CourierSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (_doc, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});
+CourierSchema.set('toObject', { virtuals: true });
 
+CourierSchema.virtual('user', {
+  ref: 'user',
+  localField: 'userId',
+  foreignField: '_id',
+  justOne: true,
+});
 const Courier = model('courier', CourierSchema);
 
 export default Courier;
