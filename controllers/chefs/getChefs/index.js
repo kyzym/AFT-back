@@ -31,8 +31,8 @@ export const getChefs = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-  mappedChefs = mappedChefs.slice(startIndex, endIndex);
   const total = mappedChefs.length;
+  mappedChefs = mappedChefs.slice(startIndex, endIndex);
 
   res.status(200).json({
     mappedChefs,
