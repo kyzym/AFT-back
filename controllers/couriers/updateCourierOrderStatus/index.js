@@ -106,6 +106,7 @@ export const updateCourierOrderStatus = async (req, res) => {
       await createOrderStatusChangeNotificationForCourier(
         courierId,
         orderId,
+        order.orderNumber,
         updateStatus
       );
     }

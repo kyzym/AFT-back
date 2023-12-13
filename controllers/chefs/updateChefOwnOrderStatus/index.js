@@ -43,6 +43,7 @@ export const updateChefOwnOrderStatus = async (req, res) => {
   if (newChefOrderStatus) {
     await createOrderStatusNotificationForUser(
       orderId,
+      order.orderNumber,
       order.userId,
       updateStatus
     );

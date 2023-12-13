@@ -47,7 +47,7 @@ const controller = async (req, res) => {
     items: dishes,
   });
 
-  await createNewOrderNotificationForChef(chefId, order.orderNumber);
+  await createNewOrderNotificationForChef(chefId, order.orderNumber, order.id);
 
   const data = await order.save();
 
