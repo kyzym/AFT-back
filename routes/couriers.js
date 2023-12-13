@@ -72,7 +72,7 @@ router.get(
 );
 
 router.get(
-  '/allorders/:status',
+  '/allorders/:status/:country/:city',
   verifyToken([roles.ADMIN, roles.COURIER]),
   ctrlWrapper(courierControllers.courierControllers.getOrdersByStatus)
 );
