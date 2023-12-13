@@ -11,4 +11,9 @@ router.get(
   verifyToken([roles.ADMIN]),
   ctrlWrapper(adminControllers.getAllOrders)
 );
+router.get(
+  '/statistic/payment',
+  verifyToken([roles.ADMIN]),
+  ctrlWrapper(adminControllers.getOrdersStatistic)
+);
 export default router;
