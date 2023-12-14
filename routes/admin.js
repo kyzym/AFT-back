@@ -16,4 +16,9 @@ router.get(
   verifyToken([roles.ADMIN]),
   ctrlWrapper(adminControllers.getOrdersStatistic)
 );
+router.get(
+  '/statistic/users',
+  verifyToken([roles.ADMIN]),
+  ctrlWrapper(adminControllers.getUsersStatistic)
+);
 export default router;

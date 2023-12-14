@@ -16,6 +16,13 @@ router.get(
 );
 
 router.get(
+  '/:courierId/statistic',
+  isValidId('courierId'),
+  verifyToken([roles.COURIER]),
+  ctrlWrapper(courierControllers.courierControllers.getCourierStatistic)
+);
+
+router.get(
   '/',
   //verifyToken([roles.ADMIN]),
   ctrlWrapper(courierControllers.courierControllers.getCouriers)

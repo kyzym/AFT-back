@@ -12,6 +12,7 @@ import { getCourierOrdersByStatus } from './getCourierOrdersByStatus/index.js';
 import { updateCourierOrderStatus } from './updateCourierOrderStatus/index.js';
 import { getCourierByAccountStatus } from './getCourierByAccountStatus/index.js';
 import { getOrdersByStatus } from './getOrdersByStatus/index.js';
+import { getCourierStatistic } from './getCourierStatistic/index.js';
 
 export const courierControllers = {
   getCouriers,
@@ -25,4 +26,5 @@ export const courierControllers = {
   getCourierOrdersByStatus,
   getCourierByAccountStatus,
   getOrdersByStatus,
+  getCourierStatistic,
 };
