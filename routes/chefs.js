@@ -45,7 +45,7 @@ router.patch(
 );
 
 router.patch(
-  '/:chefId',
+  '/:chefId/account-status',
   isValidId('chefId'),
   verifyToken([roles.ADMIN]),
   ctrlWrapper(chefControllers.chefControllers.updateChefAvailableStatus)

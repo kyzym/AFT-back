@@ -5,6 +5,9 @@ export const getCouriers = async (req, res) => {
   if (req.query.isAvailable) {
     query.where({ isAvailable: req.query.isAvailable });
   }
-  const courier = await Courier.find(query);
+  const courier = await Courier.find(query).populate(
+    'userId',
+    'firstName lastName'
+  );
   return res.status(200).json(courier);
 };
