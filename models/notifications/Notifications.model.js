@@ -17,6 +17,8 @@ const notificationSchema = new Schema(
       enum: Object.values(roles),
       required: true,
     },
+    updateStatus: String,
+    orderNumber: String,
     read: { type: Boolean, default: false },
   },
   {

@@ -44,7 +44,7 @@
 // };
 
 import { orderStatus, orderStatuses } from '#constants/orderStatus.js';
-import { createOrderStatusChangeNotificationForCourier } from '#controllers/notifications/services/createOrderStatusChangeNotificationForCourier.js';
+import { createOrderStatusNotificationForUser } from '#controllers/notifications/services/createOrderStatusNotificationForUser.js';
 import {
   ForbiddenError,
   NotFoundError,
@@ -103,10 +103,10 @@ export const updateCourierOrderStatus = async (req, res) => {
     );
 
     if (newCourierOrderStatus) {
-      await createOrderStatusChangeNotificationForCourier(
-        courierId,
+      await createOrderStatusNotificationForUser(
         orderId,
         order.orderNumber,
+        order.userId,
         updateStatus
       );
     }

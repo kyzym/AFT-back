@@ -1,5 +1,6 @@
-import { orderStatuses } from '#constants/orderStatus.js';
+import { orderStatus, orderStatuses } from '#constants/orderStatus.js';
 import { createOrderStatusNotificationForUser } from '#controllers/notifications/services/createOrderStatusNotificationForUser.js';
+import { notifyCouriersAboutReadyOrder } from '#controllers/notifications/services/notifyCouriersAboutReadyOrder.js';
 import {
   ForbiddenError,
   NotFoundError,
@@ -39,6 +40,14 @@ export const updateChefOwnOrderStatus = async (req, res) => {
     { statusCode: getOrderCodeByValue(updateStatus) },
     { new: true }
   );
+
+  if (updateStatus === orderStatus.READY_TO_DELIVERY) {
+    await notifyCouriersAboutReadyOrder(
+      orderId,
+      order.orderNumber,
+      updateStatus
+    );
+  }
 
   if (newChefOrderStatus) {
     await createOrderStatusNotificationForUser(

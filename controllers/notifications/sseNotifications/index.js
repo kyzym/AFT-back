@@ -21,7 +21,7 @@ export const sseNotifications = async (req, res) => {
     res.write(`data: ${JSON.stringify({ notifications })}\n\n`);
   };
 
-  const intervalId = setInterval(sendNotifications, 50000);
+  const intervalId = setInterval(sendNotifications, 30000);
 
   req.on('close', () => {
     clearInterval(intervalId);

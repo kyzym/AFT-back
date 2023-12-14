@@ -7,11 +7,13 @@ export const createOrderStatusNotificationForUser = async (
   userId,
   updateStatus
 ) => {
-  const content = `Your order ${orderNumber} status has been updated to ${updateStatus}`;
+  const content = `Order ${orderNumber} status has been updated to ${updateStatus}`;
   await new Notification({
     userId,
     orderId,
     type: 'Order Status Update',
+    updateStatus,
+    orderNumber,
     role: roles.USER,
     content,
   }).save();

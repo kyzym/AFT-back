@@ -6,11 +6,12 @@ export const createNewOrderNotificationForChef = async (
   orderNumber,
   orderId
 ) => {
-  const content = `You have a new order with Number: ${orderNumber}`;
+  const content = `New order with Number: ${orderNumber}`;
   await new Notification({
     userId: chefId,
     orderId,
     type: 'New Order',
+    orderNumber,
     role: roles.CHEF,
     content,
   }).save();
