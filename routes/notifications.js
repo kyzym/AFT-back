@@ -1,7 +1,7 @@
 import { roles } from '#constants/roles.js';
 import {
   deleteNotification,
-  findUnreadNotification,
+  findNotifications,
   updateNotifications,
 } from '#controllers/notifications/index.js';
 import { verifyToken } from '#middlewares/auth.middleware.js';
@@ -13,7 +13,7 @@ const router = express.Router();
 router.get(
   '/',
   verifyToken([roles.USER, roles.CHEF, roles.COURIER]),
-  ctrlWrapper(findUnreadNotification)
+  ctrlWrapper(findNotifications)
 );
 
 router.patch(
