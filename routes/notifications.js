@@ -22,7 +22,7 @@ router.patch(
   ctrlWrapper(updateNotifications)
 );
 
-router.patch(
+router.delete(
   '/:id',
   verifyToken([roles.USER, roles.CHEF, roles.COURIER]),
   ctrlWrapper(deleteNotification)
