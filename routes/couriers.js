@@ -24,7 +24,7 @@ router.get(
 
 router.get(
   '/',
-  //verifyToken([roles.ADMIN]),
+  verifyToken([roles.ADMIN]),
   ctrlWrapper(courierControllers.courierControllers.getCouriers)
 );
 
@@ -43,7 +43,7 @@ router.patch(
 );
 
 router.patch(
-  '/:courierId',
+  '/:courierId/account-status',
   isValidId('courierId'),
   verifyToken([roles.ADMIN]),
   ctrlWrapper(

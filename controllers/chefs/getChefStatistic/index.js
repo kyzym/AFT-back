@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { NotFoundError } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const getChefStatistic = async (req, res) => {
@@ -38,10 +37,6 @@ export const getChefStatistic = async (req, res) => {
       $sort: { date: 1 },
     },
   ]);
-
-  if (!ordersChefStatistic || ordersChefStatistic.length === 0) {
-    throw new NotFoundError('Orders statistic not found');
-  }
 
   res.status(200).json(ordersChefStatistic);
 };

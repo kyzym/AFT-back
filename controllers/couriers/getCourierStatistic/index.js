@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { NotFoundError } from '../../../helpers/index.js';
 import Order from '../../../models/order/Order.model.js';
 
 export const getCourierStatistic = async (req, res) => {
   const { courierId } = req.params;
+
   const id = new mongoose.Types.ObjectId(courierId);
   const ordersCourierStatistic = await Order.aggregate([
     {
@@ -38,10 +38,5 @@ export const getCourierStatistic = async (req, res) => {
       $sort: { date: 1 },
     },
   ]);
-
-  if (!ordersCourierStatistic || ordersCourierStatistic.length === 0) {
-    throw new NotFoundError('Orders statistic not found');
-  }
-
   res.status(200).json(ordersCourierStatistic);
 };
