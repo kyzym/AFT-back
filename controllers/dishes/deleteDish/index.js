@@ -1,5 +1,5 @@
 import { ForbiddenError } from '#helpers/errors.js';
-import { Dish } from '../../../models/index.js';
+import { Dish } from '#models/index.js';
 
 export const deleteDish = async (req, res) => {
   const { dishId } = req.params;

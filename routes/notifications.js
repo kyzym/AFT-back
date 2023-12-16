@@ -5,8 +5,8 @@ import {
   updateNotifications,
 } from '#controllers/notifications/index.js';
 import { verifyToken } from '#middlewares/auth.middleware.js';
+import { ctrlWrapper } from '#middlewares/ctrlWrapper.js';
 import express from 'express';
-import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
 
 const router = express.Router();
 
