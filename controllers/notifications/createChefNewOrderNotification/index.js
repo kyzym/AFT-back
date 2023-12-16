@@ -1,7 +1,7 @@
 import { roles } from '#constants/roles.js';
 import Notification from '#models/notifications/Notifications.model.js';
 
-export const createNewOrderNotificationForChef = async (
+export const createChefNewOrderNotification = async (
   chefId,
   orderNumber,
   orderId

@@ -44,13 +44,13 @@
 // };
 
 import { orderStatus, orderStatuses } from '#constants/orderStatus.js';
-import { createOrderStatusNotificationForUser } from '#controllers/notifications/services/createOrderStatusNotificationForUser.js';
+import { createUserOrderStatusNotification } from '#controllers/notifications/index.js';
 import {
   ForbiddenError,
   NotFoundError,
   getOrderCodeByValue,
-} from '../../../helpers/index.js';
-import Order from '../../../models/order/Order.model.js';
+} from '#helpers/index.js';
+import Order from '#models/order/Order.model.js';
 
 export const updateCourierOrderStatus = async (req, res) => {
   const courierId = req.roleIds.courier;
@@ -103,7 +103,7 @@ export const updateCourierOrderStatus = async (req, res) => {
     );
 
     if (newCourierOrderStatus) {
-      await createOrderStatusNotificationForUser(
+      await createUserOrderStatusNotification(
         orderId,
         order.orderNumber,
         order.userId,

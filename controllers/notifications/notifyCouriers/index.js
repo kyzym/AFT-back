@@ -9,11 +9,7 @@ const getAvailableActiveCouriers = async () => {
   return couriers.map((courier) => courier._id);
 };
 
-export const notifyCouriersAboutReadyOrder = async (
-  orderId,
-  orderNumber,
-  updateStatus
-) => {
+export const notifyCouriers = async (orderId, orderNumber, updateStatus) => {
   const courierIds = await getAvailableActiveCouriers();
 
   const content = `Order ${orderNumber} is ready for delivery`;
