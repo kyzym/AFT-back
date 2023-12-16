@@ -15,7 +15,7 @@ const controller = async (req, res) => {
 
   const refreshPayload = await decodeToken(refreshToken, tokenType.REFRESH);
 
-  if (!refreshToken || refreshPayload.expired)
+  if (refreshPayload.expired)
     throw new UnAuthorizedError(tokens_failed_401_error);
 
   const tokenData = await Token.findOne({ refreshToken }).exec();
@@ -26,7 +26,7 @@ const controller = async (req, res) => {
   return res.status(201).json({
     success: true,
     message: 'Tokens successfully updated',
-    ...tokens,
+    accessToken: tokens.accessToken,
   });
 };
 

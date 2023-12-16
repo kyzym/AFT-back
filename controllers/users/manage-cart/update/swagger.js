@@ -13,7 +13,7 @@ export const updateUserCartItemSwagger = {
         tags: ['Users'],
         summary: 'Update user cart',
         description: 'Updates the user cart based on the provided items',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'updateUserCartItem',
         parameters: [
           {

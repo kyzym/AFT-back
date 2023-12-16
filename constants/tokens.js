@@ -14,13 +14,13 @@ function convertTimeToMilliseconds(timeString) {
 
   switch (unit) {
     case 's':
-      return value * 1000; // seconds to milliseconds
+      return value * 1000;
     case 'm':
-      return value * 60 * 1000; // minutes to milliseconds
+      return value * 60 * 1000;
     case 'h':
-      return value * 60 * 60 * 1000; // hours to milliseconds
+      return value * 60 * 60 * 1000;
     case 'd':
-      return value * 24 * 60 * 60 * 1000; // days to milliseconds
+      return value * 24 * 60 * 60 * 1000;
     default:
       throw new Error('Invalid time unit');
   }
@@ -37,11 +37,11 @@ const { ACCESS, REFRESH } = tokenType;
 
 export const tokenConfig = {
   [ACCESS]: {
-    expTime: '15m',
+    expTime: '1m',
     secretKey: JWT_ACCESS_TOKEN,
   },
   [REFRESH]: {
-    expTime: '7d',
+    expTime: '2m',
     secretKey: JWT_REFRESH_TOKEN,
   },
 };

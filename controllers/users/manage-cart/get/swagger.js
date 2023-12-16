@@ -13,7 +13,7 @@ export const getUserCartSwagger = {
         tags: ['Users'],
         summary: 'Get user cart',
         description: 'Get the user cart',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'getUserCart',
         parameters: [
           {

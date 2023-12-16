@@ -9,8 +9,9 @@ export const loginUserSwagger = {
     '/users/login': {
       post: {
         tags: ['Users'],
-        summary: 'User login',
-        description: 'Authenticate user and generate access token',
+        summary: 'User login and and set new token cookies',
+        description:
+          'Authenticate user and set new access/refresh token cookies',
         operationId: 'loginUser',
         requestBody: {
           required: true,

@@ -14,7 +14,7 @@ export const getFavoritesByTypeSwagger = {
         summary: 'Get favorite items',
         description:
           'Returns a list of user favorites based on the specified type',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'getFavoritesByType',
         parameters: [
           {

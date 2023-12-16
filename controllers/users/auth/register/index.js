@@ -31,7 +31,6 @@ const controller = async (req, res) => {
         success: true,
         message: 'User has been successfully registered',
         user: getSanitizedUser(user),
-        ...tokens,
       });
     });
   } finally {

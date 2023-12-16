@@ -29,7 +29,6 @@ const controller = async (req, res) => {
     success: true,
     message: 'User has successfully logged in',
     user: getSanitizedUser(user),
-    ...tokens,
   });
 };
 

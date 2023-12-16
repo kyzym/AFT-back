@@ -8,7 +8,7 @@ export const deleteUserSwagger = {
         tags: ['Users'],
         summary: 'Delete user by id',
         description: 'Deletes a user account and its associated roles',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'deleteUser',
         parameters: [
           {

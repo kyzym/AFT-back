@@ -1,6 +1,7 @@
 import { registerUserSwagger } from './auth/register/swagger.js';
 import { loginUserSwagger } from './auth/login/swagger.js';
 import { logoutUserSwagger } from './auth/logout/swagger.js';
+import { refreshTokenSwagger } from './auth/refresh/swagger.js';
 
 import { getCurrentUserSwagger } from './get-current/swagger.js';
 import { getOneUserSwagger } from './get-one/swagger.js';
@@ -25,6 +26,7 @@ export const usersSwagger = {
     ...registerUserSwagger.paths,
     ...loginUserSwagger.paths,
     ...logoutUserSwagger.paths,
+    ...refreshTokenSwagger.paths,
     ...getCurrentUserSwagger.paths,
     '/users/{userId}': {
       ...getOneUserSwagger.paths['/users/{userId}'],

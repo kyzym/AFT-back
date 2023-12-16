@@ -4,18 +4,19 @@ import {
   errorResponse,
 } from '#controllers/swagger.common.js';
 
-export const logoutUserSwagger = {
+export const refreshTokenSwagger = {
   paths: {
-    '/users/logout': {
+    '/users/refresh': {
       post: {
         tags: ['Users'],
-        summary: 'User logout',
-        description: 'Clear access and refresh token cookies',
-        security: [{ cookieAuth: [], refreshToken: [] }],
-        operationId: 'logoutUser',
+        summary: 'Generate a new access token and set new token cookies',
+        description:
+          'Update the access token using the refresh token and set new access/refresh token cookies',
+        operationId: 'refreshToken',
+        security: [{ refreshCookieAuth: [] }],
         responses: {
           200: {
-            description: 'Successful logout response',
+            description: 'Successful token refresh',
             content: {
               'application/json': {
                 schema: {
@@ -23,22 +24,23 @@ export const logoutUserSwagger = {
                   properties: {
                     success: {
                       type: 'boolean',
-                      example: true,
-                      description: 'Indicates if the logout was successful',
+                      description: 'Indicates if the operation was successful',
                     },
                     message: {
                       type: 'string',
-                      example: 'User has successfully logged out',
-                      description: 'Logout success message',
+                      description: 'Tokens successfully updated',
+                    },
+                    accessToken: {
+                      type: 'string',
+                      description: 'The new access token',
                     },
                   },
-                  required: ['success', 'message'],
                 },
               },
             },
           },
           401: {
-            ...errorResponse(errorName[401], 'Unauthorized logout attempt'),
+            ...errorResponse(errorName[401], 'Token failed'),
           },
           500: {
             ...errorResponse(errorName[500], errorMessage[500]),
