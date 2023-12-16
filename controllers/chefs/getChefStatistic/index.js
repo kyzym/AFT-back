@@ -11,7 +11,7 @@ export const getChefStatistic = async (req, res) => {
     {
       $addFields: {
         dateWithoutTime: {
-          $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+          $dateToString: { format: '%Y-%m-%d', date: '$updatedAt' },
         },
       },
     },

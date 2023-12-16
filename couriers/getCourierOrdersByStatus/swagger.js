@@ -3,7 +3,6 @@ import { orderStatus } from '../../../constants/orderStatus.js';
 import {
   createErrorResponse,
   createSuccessResponse,
-  //idSchema,
   serverError,
 } from '../swaggerCouriersComponents.js';
 
@@ -14,13 +13,6 @@ export const getCourierOrdersByStatusSwagger = {
       summary: "Get courier's orders by status",
       description: 'Gets orders for a courier with the specified ID and status',
       parameters: [
-        // {
-        //   name: 'courierId',
-        //   in: 'path',
-        //   required: true,
-        //   description: 'ID of the courier to get',
-        //   schema: idSchema,
-        // },
         {
           name: 'status',
           in: 'path',

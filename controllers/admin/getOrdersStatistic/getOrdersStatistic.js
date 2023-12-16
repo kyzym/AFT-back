@@ -6,7 +6,7 @@ export const getOrdersStatistic = async (req, res) => {
     {
       $addFields: {
         dateWithoutTime: {
-          $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+          $dateToString: { format: '%Y-%m-%d', date: '$updatedAt' },
         },
       },
     },
