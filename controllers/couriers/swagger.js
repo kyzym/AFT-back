@@ -1,6 +1,6 @@
 import { CourierSchema } from './swaggerCouriersComponents.js';
 
-import { getChefsSwagger } from './getCouriers/swagger.js';
+import { getCouriersSwagger } from './getCouriers/swagger.js';
 import { getCourierSwagger } from './getCourier/swagger.js';
 import { deleteCourierSwagger } from './deleteCourier/swagger.js';
 import { createCourierSwagger } from './createCourier/swagger.js';
@@ -10,10 +10,11 @@ import { updateCourierSwagger } from './updateCourier/swagger.js';
 import { updateCourierOrderSwagger } from './updateCourierOrderStatus/swagger.js';
 import { getCourierByAccountStatusSwagger } from './getCourierByAccountStatus/swagger.js';
 import { getOrdersByStatusSwagger } from './getOrdersByStatus/swagger.js';
+import { getCouriersStatisticSwagger } from './getCourierStatistic/swagger.js';
 
 const combinedCourierPaths = {
   '/couriers': {
-    ...getChefsSwagger['/api/chefs'],
+    ...getCouriersSwagger['/couriers'],
     ...createCourierSwagger['/couriers'],
   },
   '/couriers/{courierId}': {
@@ -37,6 +38,9 @@ const combinedCourierPaths = {
   },
   '/couriers/allorders/{status}': {
     ...getOrdersByStatusSwagger['/couriers/allorders/{status}'],
+  },
+  '/couriers/{courierId}/statistic': {
+    ...getCouriersStatisticSwagger['/couriers/{courierId}/statistic'],
   },
 };
 

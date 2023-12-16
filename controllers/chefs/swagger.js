@@ -10,6 +10,7 @@ import { getChefOrdersByStatusSwagger } from './getChefOrdersByStatus/swagger.js
 import { updateChefOrderStatusSwagger } from './updateChefOrderStatus/swagger.js';
 import { getOwnChefOrdersSwagger } from './getOwnChefOrders/swagger.js';
 import { updateChefOwnOrderStatusSwagger } from './updateChefOwnOrderStatus/swagger.js';
+import { getChefsStatisticSwagger } from './getChefStatistic/swagger.js';
 
 const combinedChefsPaths = {
   '/chefs': {
@@ -35,6 +36,9 @@ const combinedChefsPaths = {
   },
   '/chefs/orders/{orderId}': {
     ...updateChefOwnOrderStatusSwagger['/chefs/orders/{orderId}'],
+  },
+  '/chefs/{chefId}/statistic': {
+    ...getChefsStatisticSwagger['/chefs/{chefId}/statistic'],
   },
 };
 

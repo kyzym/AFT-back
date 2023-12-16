@@ -28,7 +28,7 @@ const BaseCourierSchema = {
       type: 'string',
       enum: vehicleType,
     },
-    isAvailable: { type: 'boolean' },
+    isAvailable: { type: 'string' },
   },
 };
 

@@ -1,4 +1,5 @@
 import { accountStatus } from '#constants/accountStatus.js';
+import { roles } from '#constants/roles.js';
 import {
   createErrorResponse,
   serverError,
@@ -22,6 +23,7 @@ export const getCourierByAccountStatusSwagger = {
           },
         },
       ],
+      security: [{ bearerAuth: [roles.COURIER, roles.ADMIN] }],
       responses: {
         404: createErrorResponse('Couriers not found'),
         500: serverError,

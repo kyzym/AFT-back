@@ -7,6 +7,7 @@ import { filesSwagger } from './files/swagger.js';
 import { reviewsSwagger } from './reviews/swagger.js';
 import { ingredientsSwagger } from './ingredients/swagger.js';
 import { notificationsSwagger } from './notifications/swagger.js';
+import { adminSwagger } from './admin/swagger.js';
 
 const { PORT, SERVER_URL } = process.env;
 
@@ -39,6 +40,7 @@ export const swaggerControllers = {
     ...couriersSwagger.paths,
     ...filesSwagger.paths,
     ...notificationsSwagger.paths,
+    ...adminSwagger.paths,
   },
   components: {
     securitySchemes: {
