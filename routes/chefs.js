@@ -10,6 +10,13 @@ import { roles } from '#constants/roles.js';
 const router = express.Router();
 
 router.get(
+  '/:chefId/statistic',
+  isValidId('chefId'),
+  verifyToken([roles.CHEF]),
+  ctrlWrapper(chefControllers.chefControllers.getChefStatistic)
+);
+
+router.get(
   '/',
   // verifyToken([roles.ADMIN, roles.USER, roles.CHEF]),
   ctrlWrapper(chefControllers.chefControllers.getChefs)
