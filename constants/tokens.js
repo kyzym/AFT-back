@@ -37,11 +37,11 @@ const { ACCESS, REFRESH } = tokenType;
 
 export const tokenConfig = {
   [ACCESS]: {
-    expTime: '1m',
+    expTime: '15m',
     secretKey: JWT_ACCESS_TOKEN,
   },
   [REFRESH]: {
-    expTime: '2m',
+    expTime: '7d',
     secretKey: JWT_REFRESH_TOKEN,
   },
 };

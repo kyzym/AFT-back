@@ -97,31 +97,3 @@ export const verifyToken = (requiredRoles) => {
     }
   };
 };
-
-// const getTokenFromHeaders = (req) => req.headers.authorization?.split(' ')[1];
-
-// const decodeJWT = (token) => {
-//   return new Promise((resolve, reject) => {
-//     jwt.verify(token, JWT_ACCESS_TOKEN, (err, id) => {
-//       if (err) {
-//         if (err.name === 'TokenExpiredError') {
-//           // Handle expired token error separately
-//           reject(new UnAuthorizedError('Token has expired'));
-//         } else {
-//           // Handle other verification errors
-//           reject(err);
-//         }
-//       } else {
-//         resolve(id);
-//       }
-//     });
-//   });
-// };
-
-// if (type === tokenType.ACCESS)
-//   return reject(new UnAuthorizedError(`Access token has expired`));
-// else if (type === tokenType.REFRESH)
-//   return reject(
-//     // new UnAuthorizedError(`Invalid ${type} token`)
-//     res.redirect('http://localhost:3000/sign-in')
-//   );
