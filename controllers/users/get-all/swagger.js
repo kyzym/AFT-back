@@ -14,7 +14,7 @@ export const getAllUsersSwagger = {
         tags: ['Users'],
         summary: 'Get all users',
         description: 'Returns a list of users',
-        security: [{ bearerAuth: [roles.ADMIN] }],
+        security: [{ cookieAuth: [roles.ADMIN], refreshToken: [] }],
         operationId: 'getAllUsers',
         parameters: [
           ...pagePaginationParameters,

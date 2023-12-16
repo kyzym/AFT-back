@@ -14,7 +14,7 @@ export const deleteFavoriteItemSwagger = {
         summary: 'Delete favorite item',
         description:
           "Remove a favorite dish or chef from the user's favorites list",
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'removeFavoriteItem',
         parameters: [
           {

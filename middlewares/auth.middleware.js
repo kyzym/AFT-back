@@ -1,9 +1,35 @@
-import jwt from 'jsonwebtoken';
-import { UnAuthorizedError, ForbiddenError } from '../helpers/errors.js';
-import User from '../models/user/index.js';
-import { roles } from '../constants/index.js';
+import { UnAuthorizedError, ForbiddenError } from '#helpers/errors.js';
+import User from '#models/user/index.js';
+import {
+  refresh_token_401_error,
+  roles,
+  tokenType,
+  tokens_failed_401_error,
+} from '#constants/index.js';
+import { decodeToken } from '#controllers/users/auth/helpers.js';
+import Token from '#models/token/tokenModel.js';
 
-const SECRET_KEY = process.env.SECRET_KEY;
+export const checkTokensValidity = async (accessToken, refreshToken) => {
+  if (!refreshToken) throw new UnAuthorizedError(tokens_failed_401_error);
+
+  if (!accessToken) throw new UnAuthorizedError(refresh_token_401_error);
+
+  const accessPayload = await decodeToken(accessToken, tokenType.ACCESS);
+
+  if (accessPayload.expired)
+    throw new UnAuthorizedError(refresh_token_401_error);
+
+  const userId = accessPayload.id;
+  const isActualTokens = await Token.findOne({
+    userId,
+    accessToken,
+    refreshToken,
+  });
+
+  if (!isActualTokens) throw new UnAuthorizedError(tokens_failed_401_error);
+
+  return accessPayload;
+};
 
 /**
  * Middleware for role-based JWT token verification.
@@ -20,17 +46,6 @@ const SECRET_KEY = process.env.SECRET_KEY;
  */
 
 export const verifyToken = (requiredRoles) => {
-  const getTokenFromHeaders = (req) => req.headers.authorization?.split(' ')[1];
-
-  const decodeJWT = (token) => {
-    return new Promise((resolve, reject) => {
-      jwt.verify(token, SECRET_KEY, (err, id) => {
-        if (err) return reject(err);
-        else return resolve(id);
-      });
-    });
-  };
-
   const checkUserRole = (userRoles, requiredRoles) => {
     return userRoles.some((userRole) => requiredRoles.includes(userRole.name));
   };
@@ -51,13 +66,16 @@ export const verifyToken = (requiredRoles) => {
 
   return async (req, res, next) => {
     try {
-      const token = getTokenFromHeaders(req);
+      const { accessToken, refreshToken } = req.cookies;
 
-      if (!token) throw new UnAuthorizedError('Token missing');
+      const accessPayload = await checkTokensValidity(
+        accessToken,
+        refreshToken
+      );
 
-      const { id } = await decodeJWT(token);
+      const { id: userId } = accessPayload;
 
-      const user = await User.findById(id).exec();
+      const user = await User.findById(userId).exec();
       if (!user)
         throw new UnAuthorizedError(
           'Invalid token: no user found from the token'

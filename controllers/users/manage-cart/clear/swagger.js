@@ -8,7 +8,7 @@ export const clearUserCartSwagger = {
         tags: ['Users'],
         summary: 'Clear user cart',
         description: 'Clears the cart of a user',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'clearUserCart',
         parameters: [
           {

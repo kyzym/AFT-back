@@ -6,6 +6,7 @@ import { couriersSwagger } from './couriers/swagger.js';
 import { filesSwagger } from './files/swagger.js';
 import { reviewsSwagger } from './reviews/swagger.js';
 import { ingredientsSwagger } from './ingredients/swagger.js';
+import { roles } from '#constants/index.js';
 import { notificationsSwagger } from './notifications/swagger.js';
 
 const { PORT, SERVER_URL } = process.env;
@@ -42,13 +43,18 @@ export const swaggerControllers = {
   },
   components: {
     securitySchemes: {
-      bearerAuth: {
-        type: 'http',
-        scheme: 'bearer',
-        name: 'Authorization',
-        description:
-          'Use the "Bearer" keyword followed by a space and then your JWT token.',
-        bearerFormat: 'JWT',
+      cookieAuth: {
+        type: 'apiKey',
+        in: 'cookie',
+        name: 'accessToken',
+        description: 'Access token stored in a secure cookie',
+        roles: [Object.values(roles)],
+      },
+      refreshToken: {
+        type: 'apiKey',
+        in: 'cookie',
+        name: 'refreshToken',
+        description: 'Refresh token for obtaining a new access token',
       },
     },
     schemas: {

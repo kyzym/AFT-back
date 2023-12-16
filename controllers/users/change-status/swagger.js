@@ -8,7 +8,7 @@ export const changeUserStatusSwagger = {
         tags: ['Users'],
         summary: 'Change user status',
         description: 'Updates the account status of a single user',
-        security: [{ bearerAuth: [roles.ADMIN] }],
+        security: [{ cookieAuth: [roles.ADMIN], refreshToken: [] }],
         operationId: 'changeUserStatus',
         parameters: [
           {
