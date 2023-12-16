@@ -1,6 +1,6 @@
 import { getAllOrders } from './getOrders/index.js';
-import { getOrdersStatistic } from './getOrdersStatistic/getOrdersStatistic.js';
-import { getUsersStatistic } from './getUsersStatistic/getUsersStatistic.js';
+import { getOrdersStatistic } from './getOrdersStatistic/index.js';
+import { getUsersStatistic } from './getUsersStatistic/index.js';
 export const adminControllers = {
   getAllOrders,
   getOrdersStatistic,

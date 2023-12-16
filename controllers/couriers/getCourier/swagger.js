@@ -1,3 +1,4 @@
+import { roles } from '#constants/roles.js';
 import {
   createErrorResponse,
   createSuccessResponse,
@@ -20,6 +21,7 @@ export const getCourierSwagger = {
           schema: idSchema,
         },
       ],
+      security: [{ bearerAuth: [roles.COURIER] }],
       responses: {
         200: createSuccessResponse('Courier retrieved successfully'),
         400: createErrorResponse('Format of this ID is not correct'),
