@@ -1,7 +1,11 @@
 import bcrypt from 'bcrypt';
 import { ForbiddenError, UnAuthorizedError } from '#helpers/errors.js';
 import User from '#models/user/userModel.js';
-import { generateToken, getSanitizedUser } from '../helpers.js';
+import {
+  generateAndSaveTokens,
+  getSanitizedUser,
+  setBothTokensCookie,
+} from '../helpers.js';
 import { accountStatus } from '#constants/accountStatus.js';
 import { ctrlWrapper } from '#middlewares/ctrlWrapper.js';
 
@@ -15,18 +19,17 @@ const controller = async (req, res) => {
     throw new UnAuthorizedError('Invalid email or password');
 
   if (user.accountStatus === accountStatus.BLOCKED)
-    throw new ForbiddenError(`User ${user.id} has a blocked account`);
+    throw new ForbiddenError('This account is blocked');
 
-  const token = await generateToken(user.id);
+  const tokens = await generateAndSaveTokens(user.id);
 
-  // Remove password and updatedAt from the user object
-  const sanitizedUser = getSanitizedUser(user);
+  setBothTokensCookie(res, tokens);
 
   return res.status(200).json({
     success: true,
     message: 'User has successfully logged in',
-    user: sanitizedUser,
-    token,
+    user: getSanitizedUser(user),
+    ...tokens,
   });
 };
 

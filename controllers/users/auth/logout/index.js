@@ -1,16 +1,25 @@
-import { roles } from '#constants/index.js';
+import { tokenCookie, tokenType } from '#constants/index.js';
 import { ctrlWrapper } from '#middlewares/ctrlWrapper.js';
+// import Token from '#models/token/tokenModel.js';
+// import { validateRefreshToken } from '../helpers.js';
 
 const controller = async (req, res) => {
-  const { USER } = roles;
-  const userId = req.roleIds[USER];
+  // const { refreshToken } = req.cookies;
 
-  // future logic to revoke the refresh token associated with the user
+  // await validateRefreshToken(refreshToken);
+
+  // await Token.deleteOne({ refreshToken });
+
+  res.clearCookie(tokenCookie[tokenType.ACCESS].name);
+  res.clearCookie(tokenCookie[tokenType.REFRESH].name);
 
   return res.status(200).json({
     success: true,
-    message: `User with ID ${userId} has successfully logged out`,
+    message: `User with ID 
+    
+    has successfully logged out`,
   });
 };
 
 export const logoutUser = ctrlWrapper(controller);
+// ${userId}

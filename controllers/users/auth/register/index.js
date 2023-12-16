@@ -1,7 +1,12 @@
 import { ConflictError } from '#helpers/errors.js';
 import { ctrlWrapper } from '#middlewares/ctrlWrapper.js';
 import User from '#models/user/userModel.js';
-import { generateToken, getSanitizedUser, hashPassword } from '../helpers.js';
+import {
+  generateAndSaveTokens,
+  getSanitizedUser,
+  hashPassword,
+  setBothTokensCookie,
+} from '../helpers.js';
 
 const controller = async (req, res) => {
   const userData = req.body;
@@ -18,15 +23,15 @@ const controller = async (req, res) => {
       const user = new User({ ...userData, password: hashedPassword });
       await user.save({ session });
 
-      const token = await generateToken(user.id);
+      const tokens = await generateAndSaveTokens(user.id);
 
-      const sanitizedUser = getSanitizedUser(user);
+      setBothTokensCookie(res, tokens);
 
       return res.status(201).json({
         success: true,
         message: 'User has been successfully registered',
-        user: sanitizedUser,
-        token,
+        user: getSanitizedUser(user),
+        ...tokens,
       });
     });
   } finally {

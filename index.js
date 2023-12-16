@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import chalk from 'chalk';
 import swaggerDoc from 'swagger-ui-express';
@@ -12,10 +13,16 @@ import { routes } from '#routes/index.js';
 
 const app = express();
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, CLIENT_URL } = process.env;
+
+const corsOptions = {
+  origin: `${CLIENT_URL}`,
+  credentials: true,
+};
 
 app.use(morgan('short'));
-app.use(cors());
+app.use(cookieParser());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
