@@ -1,33 +1,60 @@
 export const refresh_token_401_error = 'Access token has expired';
 export const tokens_failed_401_error = 'Tokens failed';
 
+function convertTimeToMilliseconds(timeString) {
+  const regex = /^(\d+)([smhd])$/;
+  const match = timeString.match(regex);
+
+  if (!match) {
+    throw new Error('Invalid time string format');
+  }
+
+  const value = parseInt(match[1], 10);
+  const unit = match[2];
+
+  switch (unit) {
+    case 's':
+      return value * 1000; // seconds to milliseconds
+    case 'm':
+      return value * 60 * 1000; // minutes to milliseconds
+    case 'h':
+      return value * 60 * 60 * 1000; // hours to milliseconds
+    case 'd':
+      return value * 24 * 60 * 60 * 1000; // days to milliseconds
+    default:
+      throw new Error('Invalid time unit');
+  }
+}
+
 const { JWT_ACCESS_TOKEN, JWT_REFRESH_TOKEN } = process.env;
 
-export const tokenConfig = {
-  access: {
-    expTime: '15m', // '30m'
+export const tokenType = Object.freeze({
+  ACCESS: 'accessToken',
+  REFRESH: 'refreshToken',
+});
 
+const { ACCESS, REFRESH } = tokenType;
+
+export const tokenConfig = {
+  [ACCESS]: {
+    expTime: '15m',
     secretKey: JWT_ACCESS_TOKEN,
   },
-  refresh: {
-    expTime: '7s',
-
+  [REFRESH]: {
+    expTime: '7d',
     secretKey: JWT_REFRESH_TOKEN,
   },
 };
 
-export const tokenType = {
-  ACCESS: 'access',
-  REFRESH: 'refresh',
-};
+const { accessToken, refreshToken } = tokenConfig;
 
 export const tokenCookie = {
-  access: {
-    name: 'accessToken',
-    maxAge: 15 * 60 * 1000,
+  [ACCESS]: {
+    name: ACCESS,
+    maxAge: convertTimeToMilliseconds(accessToken.expTime),
   },
-  refresh: {
-    name: 'refreshToken',
-    maxAge: 7 * 1000,
+  [REFRESH]: {
+    name: REFRESH,
+    maxAge: convertTimeToMilliseconds(refreshToken.expTime),
   },
 };

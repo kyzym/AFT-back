@@ -14,6 +14,8 @@ import { roles } from '#constants/roles.js';
 
 const usersRouter = Router();
 
+const { USER, ADMIN } = roles;
+
 // auth endpoints
 usersRouter.post(
   '/register',
@@ -25,39 +27,31 @@ usersRouter.post(
   validate(loginValidationSchema),
   userControllers.loginUser
 );
-usersRouter.post(
-  '/logout',
-  // verifyToken(['user']),
-  userControllers.logoutUser
-);
-usersRouter.post(
-  '/refresh',
-  // verifyToken(['user']),
-  userControllers.refreshToken
-);
+usersRouter.post('/logout', userControllers.logoutUser);
+usersRouter.post('/refresh', userControllers.refreshToken);
 
 // user account endpoints
 usersRouter.get(
   '/current-user',
-  verifyToken(['user']),
+  verifyToken([USER]),
   userControllers.getCurrentUser
 );
 usersRouter.get(
   '/:userId',
-  verifyToken(['user', 'admin']),
+  verifyToken([USER, ADMIN]),
   isValidId('userId'),
   userControllers.getOneUser
 );
 usersRouter.patch(
   '/:userId',
   validate(updateUserValidationSchema),
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.updateUser
 );
 usersRouter.delete(
   '/:userId',
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.deleteUser
 );
@@ -65,20 +59,20 @@ usersRouter.delete(
 // user favorite items endpoints
 usersRouter.get(
   '/:userId/favorite/:type',
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.getFavoritesByType
 );
 usersRouter.post(
   '/:userId/favorite/:type',
   validate(addFavoriteValidationSchema),
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.addFavoriteItem
 );
 usersRouter.delete(
   '/:userId/favorite/:type/:favoriteId',
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId', 'favoriteId'),
   userControllers.deleteFavoriteItem
 );
@@ -86,44 +80,44 @@ usersRouter.delete(
 // user cart endpoints
 usersRouter.get(
   '/:userId/cart',
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.getUserCart
 );
 usersRouter.post(
   '/:userId/cart',
   validate(cartValidationSchema),
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.addUserCartItem
 );
 usersRouter.patch(
   '/:userId/cart',
   validate(cartValidationSchema),
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.updateUserCartItem
 );
 usersRouter.delete(
   '/:userId/cart',
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId'),
   userControllers.clearUserCart
 );
 usersRouter.delete(
   '/:userId/cart/:dishId',
-  verifyToken(['user']),
+  verifyToken([USER]),
   isValidId('userId', 'dishId'),
   userControllers.deleteUserCartItem
 );
 
 // admin endpoints
-usersRouter.get('/', verifyToken(['admin']), userControllers.getAllUsers);
+usersRouter.get('/', verifyToken([ADMIN]), userControllers.getAllUsers);
 
 usersRouter.patch(
   '/:userId/change-status',
   validate(userStatusValidationSchema),
-  verifyToken(['admin']),
+  verifyToken([ADMIN]),
   isValidId('userId'),
   userControllers.changeUserStatus
 );

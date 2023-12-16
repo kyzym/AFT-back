@@ -78,10 +78,9 @@ export const validateRefreshToken = async (refreshToken) => {
 // COOKIES
 export const setTokenCookie = (res, tokenType, tokenValue) => {
   const { name, maxAge } = tokenCookie[tokenType];
-  const isRefreshToken = name === 'refreshToken';
 
   res.cookie(name, tokenValue, {
-    httpOnly: isRefreshToken,
+    httpOnly: true,
     sameSite: 'none',
     secure: true,
     maxAge,

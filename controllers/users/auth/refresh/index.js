@@ -6,17 +6,17 @@ import {
   decodeToken,
   generateAndSaveTokens,
   setBothTokensCookie,
-  // validateRefreshToken,
 } from '../helpers.js';
 
 const controller = async (req, res) => {
   const { refreshToken } = req.cookies;
 
+  if (!refreshToken) throw new UnAuthorizedError(tokens_failed_401_error);
+
   const refreshPayload = await decodeToken(refreshToken, tokenType.REFRESH);
 
-  if (refreshPayload.expired)
+  if (!refreshToken || refreshPayload.expired)
     throw new UnAuthorizedError(tokens_failed_401_error);
-  // res.redirect('http://localhost:3000');
 
   const tokenData = await Token.findOne({ refreshToken }).exec();
 

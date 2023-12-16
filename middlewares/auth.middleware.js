@@ -1,24 +1,23 @@
 import { UnAuthorizedError, ForbiddenError } from '#helpers/errors.js';
 import User from '#models/user/index.js';
 import {
-  // refresh_token_401_error,
+  refresh_token_401_error,
   roles,
   tokenType,
-  // tokens_failed_401_error,
+  tokens_failed_401_error,
 } from '#constants/index.js';
 import { decodeToken } from '#controllers/users/auth/helpers.js';
 import Token from '#models/token/tokenModel.js';
 
-export const checkTokensValidity = async (accessToken, refreshToken, res) => {
-  if (!accessToken || !refreshToken)
-    // throw new UnAuthorizedError(tokens_failed_401_error);
-    res.redirect(302, 'http://localhost:3000/sign-in');
+export const checkTokensValidity = async (accessToken, refreshToken) => {
+  if (!refreshToken) throw new UnAuthorizedError(tokens_failed_401_error);
+
+  if (!accessToken) throw new UnAuthorizedError(refresh_token_401_error);
 
   const accessPayload = await decodeToken(accessToken, tokenType.ACCESS);
 
   if (accessPayload.expired)
-    // throw new UnAuthorizedError(refresh_token_401_error);
-    res.redirect(302, 'http://localhost:3000/sign-in');
+    throw new UnAuthorizedError(refresh_token_401_error);
 
   const userId = accessPayload.id;
   const isActualTokens = await Token.findOne({
@@ -27,9 +26,7 @@ export const checkTokensValidity = async (accessToken, refreshToken, res) => {
     refreshToken,
   });
 
-  if (!isActualTokens)
-    // throw new UnAuthorizedError(tokens_failed_401_error);
-    res.redirect(302, 'http://localhost:3000/sign-in');
+  if (!isActualTokens) throw new UnAuthorizedError(tokens_failed_401_error);
 
   return accessPayload;
 };
@@ -73,8 +70,7 @@ export const verifyToken = (requiredRoles) => {
 
       const accessPayload = await checkTokensValidity(
         accessToken,
-        refreshToken,
-        res
+        refreshToken
       );
 
       const { id: userId } = accessPayload;

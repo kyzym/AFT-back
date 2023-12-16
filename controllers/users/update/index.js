@@ -3,11 +3,7 @@ import { roles } from '#constants/roles.js';
 import { ctrlWrapper } from '#middlewares/ctrlWrapper.js';
 import { hashPassword } from '../auth/helpers.js';
 import { findUserAndCheck } from '#controllers/users/helpers.js';
-import {
-  ConflictError,
-  UnAuthorizedError,
-  ValidationError,
-} from '#helpers/errors.js';
+import { ConflictError, ValidationError } from '#helpers/errors.js';
 import User from '#models/user/userModel.js';
 
 const controller = async (req, res) => {
@@ -29,7 +25,7 @@ const controller = async (req, res) => {
   let hashedPassword;
   if (newData.newPassword) {
     if (!(await bcrypt.compare(newData.currentPassword, user.password))) {
-      throw new UnAuthorizedError('Invalid current password');
+      throw new ValidationError('Invalid current password');
     }
 
     hashedPassword = await hashPassword(newData.newPassword);
