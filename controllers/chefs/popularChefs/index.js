@@ -59,27 +59,6 @@ export const getPopularChefs = async (req, res) => {
     chef.chefInfo.rating = ratings[index];
     return chef;
   });
-  // const popularChefs = await Order.aggregate([
-  //   {
-  //     $group: {
-  //       _id: '$chefId',
-  //       totalOrders: { $sum: 1 },
-  //     },
-  //   },
-  //   {
-  //     $project: {
-  //       _id: 0,
-  //       chefId: '$_id',
-  //       totalOrders: 1,
-  //     },
-  //   },
-  //   {
-  //     $sort: { totalOrders: -1 },
-  //   },
-  //   {
-  //     $limit: 10,
-  //   },
-  // ]);
 
   if (!popularChefs || popularChefs.length === 0) {
     throw new NotFoundError('Popular chefs not found');

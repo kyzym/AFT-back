@@ -1,10 +1,15 @@
-import { orderStatuses } from '#constants/orderStatus.js';
+import { orderStatus, orderStatuses } from '#constants/orderStatus.js';
+import {
+  createUserOrderStatusNotification,
+  notifyCouriers,
+} from '#controllers/notifications/index.js';
+
 import {
   ForbiddenError,
   NotFoundError,
   getOrderCodeByValue,
-} from '../../../helpers/index.js';
-import Order from '../../../models/order/Order.model.js';
+} from '#helpers/index.js';
+import Order from '#models/order/Order.model.js';
 
 export const updateChefOwnOrderStatus = async (req, res) => {
   const chefId = req.roleIds.chef;
@@ -38,6 +43,19 @@ export const updateChefOwnOrderStatus = async (req, res) => {
     { statusCode: getOrderCodeByValue(updateStatus) },
     { new: true }
   );
+
+  if (updateStatus === orderStatus.READY_TO_DELIVERY) {
+    await notifyCouriers(orderId, order.orderNumber, updateStatus);
+  }
+
+  if (newChefOrderStatus) {
+    await createUserOrderStatusNotification(
+      orderId,
+      order.orderNumber,
+      order.userId,
+      updateStatus
+    );
+  }
 
   res.status(200).json(newChefOrderStatus);
 };

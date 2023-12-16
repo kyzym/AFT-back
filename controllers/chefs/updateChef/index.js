@@ -4,17 +4,6 @@ import Chef from '../../../models/chef/Chef.model.js';
 export const updateChef = async (req, res) => {
   const { chefId } = req.params;
   const chefUpdates = req.body;
-
-  // if ('isAvailable' in chefUpdates) {
-  //   if (
-  //     chefUpdates.isAvailable === null ||
-  //     chefUpdates.isAvailable === undefined
-  //   ) {
-  //     throw new ForbiddenError(
-  //       "You are not allowed to change the 'isAvailable' field"
-  //     );
-  //   }
-  // }
   if ('accountStatus' in chefUpdates) {
     if (
       chefUpdates.accountStatus === null ||
