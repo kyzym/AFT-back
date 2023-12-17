@@ -117,20 +117,12 @@ const RegisterUserResponse = createResponseSchema({
       'address',
     ]),
   },
-  token: {
-    type: 'string',
-    description: 'JWT token for authentication',
-  },
 });
 
 const LoginUserResponse = createResponseSchema({
   user: {
     type: 'object',
     properties: _.omit(UserSchema.properties, ['password', 'updatedAt']),
-  },
-  token: {
-    type: 'string',
-    description: 'JWT token for authentication',
   },
 });
 

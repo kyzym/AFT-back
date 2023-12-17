@@ -11,7 +11,6 @@ export const createCourier = async (req, res) => {
       if (existingCourier) {
         throw new ConflictError('Role of courier already exists');
       }
-      // const newCourierData = new Courier({ ...req.body, userId: req.user.id });
       const newCourierData = {
         ...req.body,
         userId: userId,

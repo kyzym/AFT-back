@@ -1,12 +1,13 @@
-import { ctrlWrapper } from '../../../middlewares/index.js';
+import { ctrlWrapper } from '#middlewares/index.js';
 
-import { ValidationError } from '../../../helpers/errors.js';
+import { createChefNewOrderNotification } from '#controllers/notifications/index.js';
+import { ValidationError } from '#helpers/errors.js';
+import Order from '#models/order/Order.model.js';
 import {
   concatArraysById,
   findOrderItemsInDb,
   getItemsInfo,
 } from './helpers.js';
-import Order from '#models/order/Order.model.js';
 
 const controller = async (req, res) => {
   const {
@@ -45,6 +46,9 @@ const controller = async (req, res) => {
     additionalInfo,
     items: dishes,
   });
+
+  await createChefNewOrderNotification(chefId, order.orderNumber, order.id);
+
   const data = await order.save();
 
   return res.status(201).json({

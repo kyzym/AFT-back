@@ -8,7 +8,7 @@ export const getCurrentUserSwagger = {
         tags: ['Users'],
         summary: 'Get user by token',
         description: 'Returns information about the current user',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'getCurrentUser',
         responses: {
           200: {

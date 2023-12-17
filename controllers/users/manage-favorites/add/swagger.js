@@ -13,7 +13,7 @@ export const addFavoriteItemSwagger = {
         tags: ['Users'],
         summary: 'Add favorite item',
         description: "Add a favorite dish or chef to the user's favorites list",
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'addFavoriteItem',
         parameters: [
           {

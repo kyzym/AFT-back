@@ -9,7 +9,8 @@ export const getOneUserSwagger = {
         tags: ['Users'],
         summary: 'Get user by id',
         description: 'Returns information about a single user',
-        security: [{ bearerAuth: [roles.USER, roles.ADMIN] }],
+        security: [{ cookieAuth: [roles.USER, roles.ADMIN], refreshToken: [] }],
+        // security: [{ bearerAuth: [roles.USER, roles.ADMIN] }],
         operationId: 'getOneUser',
         parameters: [pageIdParameter('userId', 'ID of the user')],
         responses: {

@@ -9,7 +9,7 @@ export const addUserCartItemSwagger = {
         summary: 'Add item to user cart',
         description:
           'Adds an item to the user cart based on the provided details',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'addUserCartItem',
         parameters: [
           {

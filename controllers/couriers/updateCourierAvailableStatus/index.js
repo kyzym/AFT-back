@@ -5,7 +5,6 @@ export const updateCourierAvailableStatus = async (req, res) => {
   const courierId = req.params.courierId;
   const { accountStatus } = req.body;
 
-
   const updatedCourier = await Courier.findByIdAndUpdate(
     courierId,
     { accountStatus },

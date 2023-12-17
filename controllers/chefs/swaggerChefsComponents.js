@@ -23,7 +23,7 @@ const BaseChefSchema = {
       type: 'string',
       enum: accountStatus,
     },
-    isAvailable: { type: 'boolean' },
+    isAvailable: { type: 'string' },
   },
 };
 

@@ -8,7 +8,7 @@ export const deleteUserCartItemSwagger = {
         tags: ['Users'],
         summary: 'Delete item from user cart',
         description: "Remove an item from the user's cart",
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'deleteUserCartItem',
         parameters: [
           {

@@ -14,7 +14,7 @@ export const updateUserSwagger = {
         tags: ['Users'],
         summary: 'Update user by id',
         description: 'Updates information about a single user',
-        security: [{ bearerAuth: [roles.USER] }],
+        security: [{ cookieAuth: [roles.USER], refreshToken: [] }],
         operationId: 'updateUser',
         parameters: [
           {

@@ -1,4 +1,3 @@
-import { roles } from '#constants/index.js';
 import {
   errorMessage,
   errorName,
@@ -11,8 +10,8 @@ export const logoutUserSwagger = {
       post: {
         tags: ['Users'],
         summary: 'User logout',
-        // description: 'Revoke user refresh token for logout',
-        security: [{ bearerAuth: [roles.USER] }],
+        description: 'Clear access and refresh token cookies',
+        security: [{ cookieAuth: [], refreshToken: [] }],
         operationId: 'logoutUser',
         responses: {
           200: {
@@ -29,8 +28,7 @@ export const logoutUserSwagger = {
                     },
                     message: {
                       type: 'string',
-                      example:
-                        'User with ID 656243004ad81407d33dd40f has successfully logged out',
+                      example: 'User has successfully logged out',
                       description: 'Logout success message',
                     },
                   },

@@ -1,7 +1,7 @@
 import Order from '#models/order/Order.model.js';
 
 export const getAllOrders = async (req, res) => {
-  const orders = await Order.find()
+  let orders = await Order.find()
     .populate({
       path: 'chefId',
       select: 'userId address phoneNumber',
@@ -18,5 +18,19 @@ export const getAllOrders = async (req, res) => {
         select: 'firstName lastName',
       },
     });
-  return res.status(200).json(orders);
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const total = orders.length;
+  orders = orders.slice(startIndex, endIndex);
+
+  res.status(200).json({
+    orders,
+    pageInfo: {
+      total,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+    },
+  });
 };

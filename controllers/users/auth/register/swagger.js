@@ -11,8 +11,9 @@ export const registerUserSwagger = {
     '/users/register': {
       post: {
         tags: ['Users'],
-        summary: 'Register user',
-        description: 'Register a new user and generate access token',
+        summary: 'Register user and set new token cookies ',
+        description:
+          'Register a new user and set new access/refresh token cookies',
         operationId: 'registerUser',
         requestBody: {
           required: true,
