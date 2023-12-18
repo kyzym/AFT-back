@@ -1,11 +1,13 @@
 import Notification from '#models/notifications/Notifications.model.js';
 
+const { CLIENT_URL } = process.env;
+
 export const sseNotifications = async (req, res) => {
   res.set({
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
     Connection: 'keep-alive',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': CLIENT_URL,
     'Access-Control-Allow-Headers':
       'Origin, X-Requested-With, Content-Type, Accept',
   });
