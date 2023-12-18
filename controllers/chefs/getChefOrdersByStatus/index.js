@@ -8,6 +8,9 @@ export const getChefOrdersByStatus = async (req, res) => {
   const chefOrdersByStatus = await Order.find({
     chefId,
     statusCode: getOrderCodeByValue(status),
+  }).populate({
+    path: 'items.dishId',
+    select: 'name',
   });
   if (!chefOrdersByStatus) {
     throw new NotFoundError(`Orders for chef with status ${status} not found`);
