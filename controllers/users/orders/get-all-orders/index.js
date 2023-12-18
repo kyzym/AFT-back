@@ -58,7 +58,7 @@ const controller = async (req, res) => {
     data: {
       orders: selectOrderData(orders),
       ...pagination,
-      totalPrice: result.totalPrice,
+      totalPrice: result?.totalPrice || 0,
     },
   });
 };
