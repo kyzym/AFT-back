@@ -25,7 +25,7 @@ const controller = async (req, res) => {
   const tokens = await generateAndSaveTokens(tokenData.userId);
   setBothTokensCookie(res, tokens);
 
-  return res.status(201).json({
+  return res.status(200).json({
     success: true,
     message: 'Tokens successfully updated',
     accessToken: tokens.accessToken,
