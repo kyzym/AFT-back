@@ -20,6 +20,8 @@ const controller = async (req, res) => {
 
   const tokenData = await Token.findOne({ refreshToken }).exec();
 
+  if (!tokenData) throw new UnAuthorizedError(tokens_failed_401_error);
+
   const tokens = await generateAndSaveTokens(tokenData.userId);
   setBothTokensCookie(res, tokens);
 
