@@ -41,6 +41,7 @@ app.use(error);
 const start = async () => {
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+
     const server = app.listen(PORT, () => {
       console.log(
         chalk.cyan.italic(
