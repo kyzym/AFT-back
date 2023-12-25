@@ -1,4 +1,4 @@
-import { Review } from '../../../models/review/index.js';
+import { Review } from '#models/review/index.js';
 
 export const addReview = async (req, res) => {
   const { user: owner } = req.roleIds;

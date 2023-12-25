@@ -1,5 +1,5 @@
-import { NotFoundError, getOrderCodeByValue } from '../../../helpers/index.js';
-import Order from '../../../models/order/Order.model.js';
+import { NotFoundError, getOrderCodeByValue } from '#helpers/index.js';
+import Order from '#models/order/Order.model.js';
 
 export const getCourierOrdersByStatus = async (req, res) => {
   const { status } = req.params;

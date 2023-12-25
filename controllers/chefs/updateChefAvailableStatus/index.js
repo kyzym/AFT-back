@@ -1,5 +1,5 @@
-import { NotFoundError } from '../../../helpers/errors.js';
-import { Chef } from '../../../models/chef/index.js';
+import { NotFoundError } from '#helpers/errors.js';
+import { Chef } from '#models/chef/index.js';
 
 export const updateChefAvailableStatus = async (req, res) => {
   const { chefId } = req.params;

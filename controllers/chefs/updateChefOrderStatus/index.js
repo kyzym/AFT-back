@@ -3,8 +3,8 @@ import {
   ForbiddenError,
   NotFoundError,
   getOrderCodeByValue,
-} from '../../../helpers/index.js';
-import Order from '../../../models/order/Order.model.js';
+} from '#helpers/index.js';
+import Order from '#models/order/Order.model.js';
 
 export const updateChefOrderStatus = async (req, res) => {
   const { orderId } = req.params;

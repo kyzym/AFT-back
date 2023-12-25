@@ -1,4 +1,4 @@
-import { Dish } from '../../../models/index.js';
+import { Dish } from '#models/index.js';
 
 export const createDish = async (req, res) => {
   const chefId = req.roleIds.chef;

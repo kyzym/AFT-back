@@ -1,5 +1,5 @@
-import { NotFoundError } from '../../../helpers/index.js';
-import Order from '../../../models/order/Order.model.js';
+import { NotFoundError } from '#helpers/index.js';
+import Order from '#models/order/Order.model.js';
 
 export const getCourierOrders = async (req, res) => {
   const courierId = req.roleIds.courier;

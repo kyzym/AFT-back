@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Order from '../../../models/order/Order.model.js';
+import Order from '#models/order/Order.model.js';
 
 export const getCourierStatistic = async (req, res) => {
   const { courierId } = req.params;

@@ -1,4 +1,4 @@
-import { Dish } from '../../../models/index.js';
+import { Dish } from '#models/index.js';
 
 export const getRandomDish = async (_req, res) => {
   const sampleSize = 1;

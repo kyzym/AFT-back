@@ -1,5 +1,5 @@
 import Courier from '#models/courier/Courier.model.js';
-import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
+import { ForbiddenError, NotFoundError } from '#helpers/errors.js';
 
 export const updateCourier = async (req, res) => {
   const { courierId } = req.params;

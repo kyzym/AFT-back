@@ -1,5 +1,5 @@
-import { Dish } from '../../../models/index.js';
-import { NotFoundError } from '../../../helpers/errors.js';
+import { Dish } from '#models/index.js';
+import { NotFoundError } from '#helpers/errors.js';
 
 export const updateDishBlockedStatus = async (req, res) => {
   const { dishId } = req.params;

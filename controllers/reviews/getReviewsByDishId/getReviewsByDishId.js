@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Review } from '../../../models/review/index.js';
+import { Review } from '#models/review/index.js';
 
 const ObjectId = mongoose.Types.ObjectId;
 

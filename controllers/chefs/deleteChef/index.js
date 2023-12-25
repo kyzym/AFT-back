@@ -1,5 +1,5 @@
 import User from '#models/user/userModel.js';
-import Chef from '../../../models/chef/Chef.model.js';
+import Chef from '#models/chef/Chef.model.js';
 
 export const deleteChef = async (req, res) => {
   const chefId = req.params.chefId;

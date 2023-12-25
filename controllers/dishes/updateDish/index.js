@@ -1,5 +1,5 @@
-import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
-import { Dish } from '../../../models/index.js';
+import { ForbiddenError, NotFoundError } from '#helpers/errors.js';
+import { Dish } from '#models/index.js';
 
 export const updateDish = async (req, res) => {
   const { dishId } = req.params;

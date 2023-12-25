@@ -1,4 +1,4 @@
-import { Dish } from '../../../models/index.js';
+import { Dish } from '#models/index.js';
 
 export const getDishes = async (req, res) => {
   let query = Dish.find();

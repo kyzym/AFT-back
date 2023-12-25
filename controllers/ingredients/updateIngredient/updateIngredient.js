@@ -1,5 +1,5 @@
-import { NotFoundError } from '../../../helpers/errors.js';
-import { Ingredient } from '../../../models/ingredient/Ingredient.model.js';
+import { NotFoundError } from '#helpers/errors.js';
+import { Ingredient } from '#models/ingredient/Ingredient.model.js';
 
 export const updateIngredient = async (req, res) => {
   const { ingredientId } = req.params;

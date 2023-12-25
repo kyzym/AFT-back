@@ -1,9 +1,9 @@
 import config from '#config/config.js';
 import { calcAmountWithTax } from '#helpers/calcAmountWithTax.js';
 import { normalizeDecimal } from '#helpers/normalizeDecimal.js';
-import { compareObjectIds } from '../../../helpers/compareObjectIds.js';
-import { ValidationError } from '../../../helpers/errors.js';
-import Dish from '../../../models/dish/dishModel.js';
+import { compareObjectIds } from '#helpers/compareObjectIds.js';
+import { ValidationError } from '#helpers/errors.js';
+import Dish from '#models/dish/dishModel.js';
 
 export const findOrderItemsInDb = async (orderItems) => {
   const dbDishes = await Dish.find(

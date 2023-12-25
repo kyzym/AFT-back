@@ -1,5 +1,5 @@
-import { NotFoundError, ForbiddenError } from '../../../helpers/errors.js';
-import { Review } from '../../../models/review/index.js';
+import { NotFoundError, ForbiddenError } from '#helpers/errors.js';
+import { Review } from '#models/review/index.js';
 import mongoose from 'mongoose';
 
 export const deleteReviewById = async (req, res) => {

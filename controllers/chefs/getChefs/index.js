@@ -1,5 +1,5 @@
 import { getRating } from '#helpers/getRating.js';
-import Chef from '../../../models/chef/Chef.model.js';
+import Chef from '#models/chef/Chef.model.js';
 
 export const getChefs = async (req, res) => {
   let query = Chef.find().populate('userId', 'firstName lastName');

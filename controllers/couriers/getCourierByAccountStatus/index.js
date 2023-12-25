@@ -1,5 +1,5 @@
 import Courier from '#models/courier/Courier.model.js';
-import { NotFoundError } from '../../../helpers/index.js';
+import { NotFoundError } from '#helpers/index.js';
 
 export const getCourierByAccountStatus = async (req, res) => {
   const { accountStatus } = req.params;

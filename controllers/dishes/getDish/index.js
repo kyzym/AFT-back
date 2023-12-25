@@ -1,6 +1,6 @@
 import { Review } from '#models/review/Review.model.js';
-import { NotFoundError } from '../../../helpers/index.js';
-import { Dish } from '../../../models/index.js';
+import { NotFoundError } from '#helpers/index.js';
+import { Dish } from '#models/index.js';
 
 export const getDish = async (req, res) => {
   const dish = await Dish.findById(req.params.dishId)

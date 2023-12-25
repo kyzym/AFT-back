@@ -1,6 +1,6 @@
 import { ConflictError } from '#helpers/errors.js';
 import User from '#models/user/userModel.js';
-import Chef from '../../../models/chef/Chef.model.js';
+import Chef from '#models/chef/Chef.model.js';
 
 export const createChef = async (req, res) => {
   const session = await User.startSession();

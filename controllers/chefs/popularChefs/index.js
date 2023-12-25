@@ -1,6 +1,6 @@
 import { getRating } from '#helpers/getRating.js';
-import { NotFoundError } from '../../../helpers/index.js';
-import Order from '../../../models/order/Order.model.js';
+import { NotFoundError } from '#helpers/index.js';
+import Order from '#models/order/Order.model.js';
 
 export const getPopularChefs = async (req, res) => {
   const popularChefs = await Order.aggregate([

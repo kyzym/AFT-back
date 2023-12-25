@@ -1,4 +1,4 @@
-import { Dish } from '../../../models/index.js';
+import { Dish } from '#models/index.js';
 
 export const getPopularDishes = async (_req, res) => {
   //It's a mock logic

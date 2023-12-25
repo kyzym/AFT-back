@@ -1,5 +1,5 @@
 import User from '#models/user/userModel.js';
-import { NotFoundError } from '../../../helpers/index.js';
+import { NotFoundError } from '#helpers/index.js';
 
 export const getUsersStatistic = async (req, res) => {
   const usersStatistic = await User.aggregate([

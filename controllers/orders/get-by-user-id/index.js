@@ -1,4 +1,4 @@
-import { ctrlWrapper } from '../../../middlewares/index.js';
+import { ctrlWrapper } from '#middlewares/index.js';
 import { getOrderByRole } from '../helpers.js';
 
 const controller = async (req, res) => {

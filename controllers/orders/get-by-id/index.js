@@ -1,8 +1,8 @@
-import { orderStatus } from '../../../constants/orderStatus.js';
-import { compareObjectIds } from '../../../helpers/compareObjectIds.js';
-import { ForbiddenError, NotFoundError } from '../../../helpers/errors.js';
-import { ctrlWrapper } from '../../../middlewares/index.js';
-import Order from '../../../models/order/index.js';
+import { orderStatus } from '#constants/orderStatus.js';
+import { compareObjectIds } from '#helpers/compareObjectIds.js';
+import { ForbiddenError, NotFoundError } from '#helpers/errors.js';
+import { ctrlWrapper } from '#middlewares/index.js';
+import Order from '#models/order/index.js';
 
 const controller = async (req, res) => {
   const { orderId } = req.params;
